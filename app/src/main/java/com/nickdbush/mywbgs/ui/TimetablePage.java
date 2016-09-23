@@ -20,8 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TimetablePage extends Fragment {
-    private final String TITLE = "Timetable";
-
     @BindView(R.id.layout_pager)
     ViewPager viewPager;
 
@@ -34,7 +32,7 @@ public class TimetablePage extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(TITLE);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Timetable");
     }
 
     public static TimetablePage newInstance() {
@@ -54,7 +52,7 @@ public class TimetablePage extends Fragment {
         View view = inflater.inflate(R.layout.page_timetable, container, false);
         ButterKnife.bind(this, view);
 
-        timetablePagerAdapter = new TimetablePagerAdapter((FragmentManager) getChildFragmentManager());
+        timetablePagerAdapter = new TimetablePagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(timetablePagerAdapter);
 
         viewPager.setCurrentItem(Utils.getClosestSchoolDay());
@@ -71,7 +69,7 @@ public class TimetablePage extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            return TimetableCard.newInstance(position, false, Utils.DAYS[position]);
+            return TimetableCard.newInstance(position, Utils.DAYS[position]);
         }
 
         @Override

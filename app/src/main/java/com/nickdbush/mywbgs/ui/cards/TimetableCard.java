@@ -26,18 +26,16 @@ public class TimetableCard extends Fragment {
     @BindView(R.id.lbl_title) TextView lblTitle;
 
     private int day;
-    private boolean hideCompleted;
     private String title;
 
     public TimetableCard() {
 
     }
 
-    public static TimetableCard newInstance(int day, boolean hideCompleted, String title) {
+    public static TimetableCard newInstance(int day, String title) {
         TimetableCard fragment = new TimetableCard();
         Bundle args = new Bundle();
         args.putInt("day", day);
-        args.putBoolean("hideCompleted", hideCompleted);
         args.putString("title", title);
         fragment.setArguments(args);
         return fragment;
@@ -47,11 +45,9 @@ public class TimetableCard extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         day = 0;
-        hideCompleted = false;
         title = "Timetable";
         if (getArguments() != null) {
             day = getArguments().getInt("day", 0);
-            hideCompleted = getArguments().getBoolean("hideCompleted", false);
             title = getArguments().getString("title", "Timetable");
         }
     }

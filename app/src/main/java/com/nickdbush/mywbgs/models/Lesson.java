@@ -1,9 +1,6 @@
 package com.nickdbush.mywbgs.models;
 
-import org.joda.time.LocalTime;
-
 import io.realm.RealmObject;
-import io.realm.annotations.Required;
 
 public class Lesson extends RealmObject {
     private String subject;
@@ -31,8 +28,8 @@ public class Lesson extends RealmObject {
         return period;
     }
 
-    public Period getPeriod() {
-        return Period.PERIODS[period];
+    public Utils.Period getPeriod() {
+        return Utils.Period.PERIODS[period];
     }
 
     public void setPeriod(int period) {
