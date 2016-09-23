@@ -76,8 +76,6 @@ public class MainActivity extends AppCompatActivity
 
         navigateTo(selectedPosition);
         navigationView.getMenu().findItem(selectedPosition).setChecked(true);
-
-        // TimetableLoader.load();
     }
 
     @Override
