@@ -10,14 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nickdbush.mywbgs.R;
-import com.nickdbush.mywbgs.models.Lesson;
+import com.nickdbush.mywbgs.models.Homework;
+import com.nickdbush.mywbgs.models.Utils;
+
+import org.joda.time.LocalDate;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class TimetableCard extends Fragment {
+public class HomeworkCard extends Fragment {
 
     @BindView(R.id.layout_linear_list)
     LinearLayout linearLayout;
@@ -26,15 +29,14 @@ public class TimetableCard extends Fragment {
     private int day;
     private String title;
 
-    public TimetableCard() {
+    public HomeworkCard() {
 
     }
 
-    public static TimetableCard newInstance(int day, String title) {
-        TimetableCard fragment = new TimetableCard();
+    public static HomeworkCard newInstance() {
+        HomeworkCard fragment = new HomeworkCard();
         Bundle args = new Bundle();
-        args.putInt("day", day);
-        args.putString("title", title);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,12 +44,7 @@ public class TimetableCard extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        day = 0;
-        title = "Timetable";
-        if (getArguments() != null) {
-            day = getArguments().getInt("day", 0);
-            title = getArguments().getString("title", "Timetable");
-        }
+        title = "Homework";
     }
 
     @Override
@@ -57,15 +54,15 @@ public class TimetableCard extends Fragment {
         ButterKnife.bind(this, view);
         lblTitle.setText(title);
 
-        RealmResults<Lesson> results = Realm.getDefaultInstance().where(Lesson.class)
-                .equalTo("day", day)
+        RealmResults<Homework> results = Realm.getDefaultInstance().where(Homework.class)
+                .equalTo("dueDate", new LocalDate().toDate())
                 .findAll();
 
-        for (Lesson result : results) {
-            View item = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_timetable, null);
-            ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getSubject());
-            ((TextView) item.findViewById(R.id.lbl_time)).setText(result.getPeriod().getDurationString());
-            ((TextView) item.findViewById(R.id.lbl_room)).setText(result.getRoom());
+        for (Homework result : results) {
+            View item = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_homework, null);
+            ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getTitle());
+            ((TextView) item.findViewById(R.id.lbl_subject)).setText(result.getLesson().getSubject());
+            ((TextView) item.findViewById(R.id.lbl_period)).setText(result.getLesson().getPeriod().getPeriodName());
             linearLayout.addView(item);
         }
 

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Utils;
+import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 import com.nickdbush.mywbgs.ui.cards.TimetableCard;
 
 import butterknife.BindView;
@@ -50,6 +51,7 @@ public class TodayPage extends Fragment {
 
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.layout_cards, TimetableCard.newInstance(Utils.getClosestSchoolDay(), "Timetable"));
+        fragmentTransaction.add(R.id.layout_cards, HomeworkCard.newInstance());
         fragmentTransaction.commit();
 
         return view;

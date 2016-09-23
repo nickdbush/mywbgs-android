@@ -2,9 +2,12 @@ package com.nickdbush.mywbgs;
 
 import android.app.Application;
 
+import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.models.Lesson;
 
 import net.danlew.android.joda.JodaTimeAndroid;
+
+import org.joda.time.LocalDate;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -21,7 +24,7 @@ public class MyWBGS extends Application {
                 // Do migrations and shit here
                 .initialData(new TestData())
                 .build();
-        // Realm.deleteRealm(realmConfiguration);
+        Realm.deleteRealm(realmConfiguration);
         Realm.setDefaultConfiguration(realmConfiguration);
         // Calligraphy
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
@@ -32,9 +35,24 @@ public class MyWBGS extends Application {
     }
 
     private class TestData implements Realm.Transaction {
+        private Realm realm;
+
         @Override
         public void execute(Realm realm) {
-            realm.beginTransaction();
+            this.realm = realm;
+            createLessons();
+            createHomeworks();
+        }
+
+        private void createHomeworks() {
+            createHomework("Complete sheet on Moodle", "", new LocalDate().withDayOfWeek(1), 2);
+            createHomework("Finish learning French CA", "Writing test on Tuesday", new LocalDate().withDayOfWeek(2), 0);
+            createHomework("Write essay on Macbeth", "Is he a guilty sod?", new LocalDate().withDayOfWeek(3), 0);
+            createHomework("Complete diagram", "Diagram of nuclear reactor", new LocalDate().withDayOfWeek(4), 4);
+            createHomework("Do activities in book", "Page 21", new LocalDate().withDayOfWeek(5), 4);
+        }
+
+        private void createLessons() {
             createLesson("History", "EC2", 0, 0);
             createLesson("English", "E9", 0, 1);
             createLesson("Maths", "M4", 0, 2);
@@ -64,15 +82,23 @@ public class MyWBGS extends Application {
             createLesson("Maths", "M4", 4, 2);
             createLesson("Geography", "201", 4, 3);
             createLesson("English", "E9", 4, 4);
-            realm.commitTransaction();
         }
 
         private void createLesson(String subject, String room, int day, int period) {
-            Lesson lesson = Realm.getDefaultInstance().createObject(Lesson.class);
+            Lesson lesson = realm.createObject(Lesson.class);
             lesson.setSubject(subject);
             lesson.setRoom(room);
             lesson.setDay(day);
             lesson.setPeriod(period);
+        }
+
+        private void createHomework(String title, String description, LocalDate date, int period) {
+            Homework homework = realm.createObject(Homework.class);
+            homework.setTitle(title);
+            homework.setDescription(description);
+            homework.setDueDate(date);
+            homework.setPeriod(period);
+            homework.setCompleted(false);
         }
     }
 }

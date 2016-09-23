@@ -13,6 +13,7 @@ public class Homework extends RealmObject {
     private String description;
     private Date dueDate;
     private int period;
+    private boolean completed;
 
     public Homework() {
 
@@ -56,10 +57,23 @@ public class Homework extends RealmObject {
         this.period = period;
     }
 
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
     public Lesson getLesson() {
         return Realm.getDefaultInstance().where(Lesson.class)
-                .equalTo("day", getDueDate().getDayOfWeek())
+                .equalTo("day", getDueDate().getDayOfWeek() - 1)
                 .equalTo("period", getRawPeriod())
                 .findFirst();
+    }
+
+    public void setLesson(Lesson lesson) {
+        setDueDate(getDueDate().withDayOfWeek(lesson.getDay()));
+        setPeriod(lesson.getRawPeriod());
     }
 }
