@@ -1,0 +1,29 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:background="#ffffff"
+                android:elevation="2dp"
+                tools:context="com.nickdbush.mywbgs.ui.cards.TimetableCard">
+
+    <LinearLayout
+        android:id="@+id/layout_linear_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="?dividerHorizontal"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <TextView
+            android:id="@+id/lbl_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            tools:text="TIMETABLE"
+            android:textAppearance="@style/TextAppearance.AppTheme.Body2"/>
+
+    </LinearLayout>
+
+</FrameLayout>
