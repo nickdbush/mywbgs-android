@@ -20,7 +20,6 @@ public class Utils {
     }
 
     public static class Period {
-
         public static final Period[] PERIODS = {
                 new Period(new LocalTime(8, 55)),
                 new Period(new LocalTime(9, 55)),
@@ -29,6 +28,10 @@ public class Utils {
                 new Period(new LocalTime(14, 15)),
                 new Period(new LocalTime(15, 15))
         };
+
+        public static boolean isValid(int period) {
+            return (period < 0 || period > PERIODS.length);
+        }
 
         public final LocalTime START;
         public final LocalTime END;

@@ -33,7 +33,7 @@ public class Lesson extends RealmObject {
     }
 
     public void setPeriod(int period) {
-        if(period < 0 || period > 5)
+        if(Utils.Period.isValid(period))
             throw new IllegalArgumentException("Period expected to be between 0 and 5");
         this.period = period;
     }
