@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Utils;
+import com.nickdbush.mywbgs.ui.cards.CalendarCard;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 import com.nickdbush.mywbgs.ui.cards.TimetableCard;
 
@@ -60,6 +61,7 @@ public class TodayPage extends Fragment {
         // TODO: 24/09/2016 Check there is actually homework and a timetable
         fragmentTransaction.add(R.id.layout_cards, TimetableCard.newInstance(Utils.getClosestSchoolDay().getDayOfWeek() - 1, "Timetable"));
         fragmentTransaction.add(R.id.layout_cards, HomeworkCard.newInstance());
+        fragmentTransaction.add(R.id.layout_cards, CalendarCard.newInstance());
         fragmentTransaction.commit();
 
         return view;

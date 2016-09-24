@@ -2,6 +2,7 @@ package com.nickdbush.mywbgs;
 
 import android.app.Application;
 
+import com.nickdbush.mywbgs.models.Event;
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.models.Lesson;
 import com.nickdbush.mywbgs.models.Utils;
@@ -9,6 +10,8 @@ import com.nickdbush.mywbgs.models.Utils;
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import org.joda.time.LocalDate;
+
+import java.io.IOException;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -45,6 +48,11 @@ public class MyWBGS extends Application {
             this.realm = realm;
             createLessons();
             createHomeworks();
+            try {
+                realm.createAllFromJson(Event.class, getBaseContext().getAssets().open("calendar.json"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         private void createHomeworks() {
