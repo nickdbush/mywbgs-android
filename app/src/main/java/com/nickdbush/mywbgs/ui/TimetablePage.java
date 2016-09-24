@@ -14,8 +14,6 @@ import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Utils;
 import com.nickdbush.mywbgs.ui.cards.TimetableCard;
 
-import org.joda.time.DateTime;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

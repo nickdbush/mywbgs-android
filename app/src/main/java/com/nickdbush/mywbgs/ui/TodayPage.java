@@ -16,15 +16,14 @@ import com.nickdbush.mywbgs.ui.cards.CalendarCard;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 import com.nickdbush.mywbgs.ui.cards.TimetableCard;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TodayPage extends Fragment {
-    @BindView(R.id.layout_cards) LinearLayout cardLayout;
-    @BindView(R.id.lbl_date) TextView lblDate;
+    @BindView(R.id.layout_cards)
+    LinearLayout cardLayout;
+    @BindView(R.id.lbl_date)
+    TextView lblDate;
 
     public TodayPage() {
 

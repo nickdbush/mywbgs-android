@@ -1,6 +1,5 @@
 package com.nickdbush.mywbgs.models;
 
-import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
 import java.util.Date;
@@ -33,11 +32,11 @@ public class Event extends RealmObject {
         LocalDateTime start = getStart();
         LocalDateTime end = getEnd();
 
-        if(start.equals(end))
+        if (start.equals(end))
             time = start.toString("HH:mm");
-        else if(start.toLocalDate().equals(end.toLocalDate()))
+        else if (start.toLocalDate().equals(end.toLocalDate()))
             time = start.toString("HH:mm") + " - " + end.toString("HH:mm");
-        else if(end.equals(start.plusDays(1)))
+        else if (end.equals(start.plusDays(1)))
             time = "All day";
         else
             time = start.toString("dd MMMM") + " - " + end.toString("dd MMMM");
@@ -49,11 +48,11 @@ public class Event extends RealmObject {
         LocalDateTime start = getStart();
         LocalDateTime end = getEnd();
 
-        if(start.equals(end))
+        if (start.equals(end))
             return 0;
-        else if(start.toLocalDate().equals(end.toLocalDate()))
+        else if (start.toLocalDate().equals(end.toLocalDate()))
             return 0;
-        else if(end.equals(start.plusDays(1)))
+        else if (end.equals(start.plusDays(1)))
             return 1;
         else
             return 2;

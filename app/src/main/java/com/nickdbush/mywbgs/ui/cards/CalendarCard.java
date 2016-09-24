@@ -11,10 +11,7 @@ import android.widget.TextView;
 
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Event;
-import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.models.Utils;
-
-import org.joda.time.LocalDate;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,7 +55,6 @@ public class CalendarCard extends Fragment {
         RealmResults<Event> events = Realm.getDefaultInstance().where(Event.class)
                 .between("start", Utils.getClosestSchoolDay().toDate(), Utils.getClosestSchoolDay().plusDays(1).toDate())
                 .findAll();
-
 
         for (Event result : events) {
             View item = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_event, null);

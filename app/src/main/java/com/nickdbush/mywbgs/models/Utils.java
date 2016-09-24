@@ -1,6 +1,5 @@
 package com.nickdbush.mywbgs.models;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 

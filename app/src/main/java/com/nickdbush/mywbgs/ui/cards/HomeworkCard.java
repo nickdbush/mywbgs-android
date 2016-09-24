@@ -13,8 +13,6 @@ import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.models.Utils;
 
-import org.joda.time.LocalDate;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
