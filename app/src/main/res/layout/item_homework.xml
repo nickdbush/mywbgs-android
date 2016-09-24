@@ -6,32 +6,38 @@
                 android:minHeight="?android:listPreferredItemHeight"
                 android:padding="16dp">
 
-    <TextView
-        android:id="@+id/lbl_title"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="2dp"
-        android:textAppearance="@style/TextAppearance.AppTheme.Body1"
-        tools:text="Finish questions on sheet"/>
+        android:layout_centerInParent="true">
 
-    <TextView
-        android:id="@+id/lbl_subject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lbl_title"
-        android:textAppearance="@style/TextAppearance.AppTheme.Caption"
-        tools:text="Chemistry"/>
+        <TextView
+            android:id="@+id/lbl_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="2dp"
+            android:textAppearance="@style/TextAppearance.AppTheme.Body1"
+            tools:text="Finish questions on sheet"/>
 
-    <TextView
-        android:id="@+id/lbl_period"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:textAppearance="@style/TextAppearance.AppTheme.Body1"
-        tools:text="P.4"/>
+        <TextView
+            android:id="@+id/lbl_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lbl_title"
+            android:textAppearance="@style/TextAppearance.AppTheme.Caption"
+            tools:text="Chemistry"/>
+
+        <TextView
+            android:id="@+id/lbl_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textAppearance="@style/TextAppearance.AppTheme.Body1"
+            tools:text="P.4"/>
+    </RelativeLayout>
 
 </RelativeLayout>

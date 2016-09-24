@@ -50,10 +50,12 @@ public class TodayPage extends Fragment {
         ButterKnife.bind(this, view);
 
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        // TODO: 24/09/2016 Check there is actually homework and a timetable
         fragmentTransaction.add(R.id.layout_cards, TimetableCard.newInstance(Utils.getClosestSchoolDay(), "Timetable"));
         fragmentTransaction.add(R.id.layout_cards, HomeworkCard.newInstance());
         fragmentTransaction.commit();
 
         return view;
     }
+
 }

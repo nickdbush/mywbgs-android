@@ -14,6 +14,7 @@ import io.realm.RealmConfiguration;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class MyWBGS extends Application {
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,6 +36,7 @@ public class MyWBGS extends Application {
     }
 
     private class TestData implements Realm.Transaction {
+
         private Realm realm;
 
         @Override
@@ -100,5 +102,7 @@ public class MyWBGS extends Application {
             homework.setPeriod(period);
             homework.setCompleted(false);
         }
+
     }
+
 }

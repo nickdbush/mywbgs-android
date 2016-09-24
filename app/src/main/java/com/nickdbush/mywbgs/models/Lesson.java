@@ -3,6 +3,7 @@ package com.nickdbush.mywbgs.models;
 import io.realm.RealmObject;
 
 public class Lesson extends RealmObject {
+
     private String subject;
     private String room;
     private int period;
@@ -33,7 +34,7 @@ public class Lesson extends RealmObject {
     }
 
     public void setPeriod(int period) {
-        if(!Utils.Period.isValid(period))
+        if (!Utils.Period.isValid(period))
             throw new IllegalArgumentException("Period expected to be between 0 and 5");
         this.period = period;
     }
@@ -43,8 +44,9 @@ public class Lesson extends RealmObject {
     }
 
     public void setDay(int day) {
-        if(day < 0 || day > 4)
+        if (day < 0 || day > 4)
             throw new IllegalArgumentException("Day expected to be between 0 and 4");
         this.day = day;
     }
+
 }

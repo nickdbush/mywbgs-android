@@ -1,6 +1,5 @@
 package com.nickdbush.mywbgs.models;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import java.util.Date;
@@ -9,6 +8,7 @@ import io.realm.Realm;
 import io.realm.RealmObject;
 
 public class Homework extends RealmObject {
+
     private String title;
     private String description;
     private Date dueDate;
@@ -52,7 +52,7 @@ public class Homework extends RealmObject {
     }
 
     public void setPeriod(int period) {
-        if(!Utils.Period.isValid(period))
+        if (!Utils.Period.isValid(period))
             throw new IllegalArgumentException("Period expected to be between 0 and 5");
         this.period = period;
     }
@@ -76,4 +76,5 @@ public class Homework extends RealmObject {
         setDueDate(getDueDate().withDayOfWeek(lesson.getDay()));
         setPeriod(lesson.getRawPeriod());
     }
+
 }

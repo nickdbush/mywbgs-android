@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
 public class Utils {
+
     public static final String[] DAYS = {
             "Monday",
             "Tuesday",
@@ -14,7 +15,7 @@ public class Utils {
 
     public static int getClosestSchoolDay() {
         int currentDay = DateTime.now().getDayOfWeek() - 1;
-        if(currentDay > 5)
+        if (currentDay > 5)
             currentDay = 0;
         return currentDay;
     }
@@ -59,4 +60,5 @@ public class Utils {
             return "P" + (NUMBER + 1);
         }
     }
+
 }

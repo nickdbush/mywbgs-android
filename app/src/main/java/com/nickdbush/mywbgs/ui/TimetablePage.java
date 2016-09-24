@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TimetablePage extends Fragment {
+
     @BindView(R.id.layout_pager)
     ViewPager viewPager;
 
@@ -77,4 +78,5 @@ public class TimetablePage extends Fragment {
             return 5;
         }
     }
+
 }

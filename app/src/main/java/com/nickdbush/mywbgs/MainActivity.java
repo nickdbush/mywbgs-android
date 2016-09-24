@@ -136,4 +136,5 @@ public class MainActivity extends AppCompatActivity
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
     }
+
 }

@@ -24,9 +24,9 @@ public class HomeworkCard extends Fragment {
 
     @BindView(R.id.layout_linear_list)
     LinearLayout linearLayout;
-    @BindView(R.id.lbl_title) TextView lblTitle;
+    @BindView(R.id.lbl_title)
+    TextView lblTitle;
 
-    private int day;
     private String title;
 
     public HomeworkCard() {
