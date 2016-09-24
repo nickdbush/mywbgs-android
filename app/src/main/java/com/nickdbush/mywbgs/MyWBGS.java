@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.models.Lesson;
+import com.nickdbush.mywbgs.models.Utils;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -47,11 +48,11 @@ public class MyWBGS extends Application {
         }
 
         private void createHomeworks() {
-            createHomework("Complete sheet on Moodle", "", new LocalDate().withDayOfWeek(1), 2);
-            createHomework("Finish learning French CA", "Writing test on Tuesday", new LocalDate().withDayOfWeek(2), 0);
-            createHomework("Write essay on Macbeth", "Is he a guilty sod?", new LocalDate().withDayOfWeek(3), 0);
-            createHomework("Complete diagram", "Diagram of nuclear reactor", new LocalDate().withDayOfWeek(4), 4);
-            createHomework("Do activities in book", "Page 21", new LocalDate().withDayOfWeek(5), 4);
+            createHomework("Complete sheet on Moodle", "", Utils.getClosestSchoolDay().withDayOfWeek(1), 2);
+            createHomework("Finish learning French CA", "Writing test on Tuesday", Utils.getClosestSchoolDay().withDayOfWeek(2), 0);
+            createHomework("Write essay on Macbeth", "Is he a guilty sod?", Utils.getClosestSchoolDay().withDayOfWeek(3), 0);
+            createHomework("Complete diagram", "Diagram of nuclear reactor", Utils.getClosestSchoolDay().withDayOfWeek(4), 4);
+            createHomework("Do activities in book", "Page 21", Utils.getClosestSchoolDay().withDayOfWeek(5), 4);
         }
 
         private void createLessons() {

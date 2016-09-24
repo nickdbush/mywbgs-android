@@ -8,17 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Utils;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 import com.nickdbush.mywbgs.ui.cards.TimetableCard;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TodayPage extends Fragment {
     @BindView(R.id.layout_cards) LinearLayout cardLayout;
+    @BindView(R.id.lbl_date) TextView lblDate;
 
     public TodayPage() {
 
@@ -49,9 +54,11 @@ public class TodayPage extends Fragment {
         View view = inflater.inflate(R.layout.page_today, container, false);
         ButterKnife.bind(this, view);
 
+        lblDate.setText(Utils.getClosestSchoolDay().toString("EEEE d MMMM"));
+
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         // TODO: 24/09/2016 Check there is actually homework and a timetable
-        fragmentTransaction.add(R.id.layout_cards, TimetableCard.newInstance(Utils.getClosestSchoolDay(), "Timetable"));
+        fragmentTransaction.add(R.id.layout_cards, TimetableCard.newInstance(Utils.getClosestSchoolDay().getDayOfWeek() - 1, "Timetable"));
         fragmentTransaction.add(R.id.layout_cards, HomeworkCard.newInstance());
         fragmentTransaction.commit();
 

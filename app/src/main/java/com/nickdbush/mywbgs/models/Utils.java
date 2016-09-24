@@ -1,6 +1,7 @@
 package com.nickdbush.mywbgs.models;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
 public class Utils {
@@ -13,10 +14,10 @@ public class Utils {
             "Friday"
     };
 
-    public static int getClosestSchoolDay() {
-        int currentDay = DateTime.now().getDayOfWeek() - 1;
-        if (currentDay > 5)
-            currentDay = 0;
+    public static LocalDate getClosestSchoolDay() {
+        LocalDate currentDay = LocalDate.now();
+        if (currentDay.getDayOfWeek() > 5)
+            currentDay = currentDay.withDayOfWeek(1).weekOfWeekyear().addToCopy(1);
         return currentDay;
     }
 

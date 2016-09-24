@@ -55,7 +55,7 @@ public class HomeworkCard extends Fragment {
         lblTitle.setText(title);
 
         RealmResults<Homework> results = Realm.getDefaultInstance().where(Homework.class)
-                .equalTo("dueDate", new LocalDate().toDate())
+                .equalTo("dueDate", Utils.getClosestSchoolDay().toDate())
                 .findAll();
 
         for (Homework result : results) {

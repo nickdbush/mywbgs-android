@@ -10,12 +10,29 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/layout_cards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:paddingBottom="16dp">
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppTheme.Caption"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                tools:text="Monday 16th February"
+                android:id="@+id/lbl_date"/>
+
+            <LinearLayout
+                android:id="@+id/layout_cards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
+
+        </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
