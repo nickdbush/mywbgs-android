@@ -54,7 +54,7 @@ public class TimetablePage extends Fragment {
         timetablePagerAdapter = new TimetablePagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(timetablePagerAdapter);
 
-        viewPager.setCurrentItem(Utils.getClosestSchoolDay().getDayOfWeek() - 1);
+        viewPager.setCurrentItem(Utils.getCurrentSchoolDay().getDayOfWeek() - 1);
 
         return view;
     }

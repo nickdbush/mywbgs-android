@@ -54,11 +54,11 @@ public class TodayPage extends Fragment {
         View view = inflater.inflate(R.layout.page_today, container, false);
         ButterKnife.bind(this, view);
 
-        lblDate.setText(Utils.getClosestSchoolDay().toString("EEEE d MMMM"));
+        lblDate.setText(Utils.getCurrentSchoolDay().toString("EEEE d MMMM"));
 
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         // TODO: 24/09/2016 Check there is actually homework and a timetable
-        fragmentTransaction.add(R.id.layout_cards, TimetableCard.newInstance(Utils.getClosestSchoolDay().getDayOfWeek() - 1, "Timetable"));
+        fragmentTransaction.add(R.id.layout_cards, TimetableCard.newInstance(Utils.getCurrentSchoolDay().getDayOfWeek() - 1, "Timetable"));
         fragmentTransaction.add(R.id.layout_cards, HomeworkCard.newInstance());
         fragmentTransaction.add(R.id.layout_cards, CalendarCard.newInstance());
         fragmentTransaction.commit();

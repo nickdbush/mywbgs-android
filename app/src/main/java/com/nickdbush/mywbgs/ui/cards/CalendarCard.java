@@ -53,7 +53,7 @@ public class CalendarCard extends Fragment {
         lblTitle.setText(title);
 
         RealmResults<Event> events = Realm.getDefaultInstance().where(Event.class)
-                .between("start", Utils.getClosestSchoolDay().toDate(), Utils.getClosestSchoolDay().plusDays(1).toDate())
+                .between("start", Utils.getCurrentSchoolDay().toDate(), Utils.getCurrentSchoolDay().plusDays(1).toDate())
                 .findAll();
 
         for (Event result : events) {

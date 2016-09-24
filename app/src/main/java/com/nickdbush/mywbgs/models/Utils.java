@@ -5,6 +5,8 @@ import org.joda.time.LocalTime;
 
 public class Utils {
 
+    public static int debugDayOffset = 0;
+
     public static final String[] DAYS = {
             "Monday",
             "Tuesday",
@@ -13,8 +15,13 @@ public class Utils {
             "Friday"
     };
 
-    public static LocalDate getClosestSchoolDay() {
-        LocalDate currentDay = LocalDate.now();
+    // TODO: 24/09/2016 Do logic of when this school day becomes the next
+    public static LocalDate getCurrentSchoolDay() {
+        return LocalDate.now().plusDays(debugDayOffset);
+    }
+
+    public static LocalDate getNextSchoolDay() {
+        LocalDate currentDay = LocalDate.now().plusDays(debugDayOffset);
         if (currentDay.getDayOfWeek() > 5)
             currentDay = currentDay.withDayOfWeek(1).weekOfWeekyear().addToCopy(1);
         return currentDay;

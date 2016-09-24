@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.nickdbush.mywbgs.models.Utils;
 import com.nickdbush.mywbgs.ui.TimetablePage;
 import com.nickdbush.mywbgs.ui.TodayPage;
 
@@ -98,6 +99,14 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.action_settings) {
             // TODO: 23/09/2016 Launch settings
+            return true;
+        } else if (id == R.id.action_nextday) {
+            Utils.debugDayOffset ++;
+            navigateTo(selectedPosition);
+            return true;
+        } else if (id == R.id.action_previousday) {
+            Utils.debugDayOffset --;
+            navigateTo(selectedPosition);
             return true;
         }
 
