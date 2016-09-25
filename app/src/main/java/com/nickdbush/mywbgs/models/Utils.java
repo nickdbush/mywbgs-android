@@ -5,8 +5,6 @@ import org.joda.time.LocalTime;
 
 public class Utils {
 
-    public static int debugDayOffset = 0;
-
     public static final String[] DAYS = {
             "Monday",
             "Tuesday",
@@ -14,6 +12,7 @@ public class Utils {
             "Thursday",
             "Friday"
     };
+    public static int debugDayOffset = 0;
 
     // TODO: 24/09/2016 Do logic of when this school day becomes the next
     public static LocalDate getCurrentSchoolDay() {
@@ -36,15 +35,9 @@ public class Utils {
                 new Period(4, new LocalTime(14, 15)),
                 new Period(5, new LocalTime(15, 15))
         };
-
-        public static boolean isValid(int period) {
-            return !(period < 0 || period >= PERIODS.length);
-        }
-
         public final LocalTime START;
         public final LocalTime END;
         public final int NUMBER;
-
         public Period(int number, LocalTime end) {
             this(number, end, new LocalTime(end).plusHours(1));
         }
@@ -53,6 +46,10 @@ public class Utils {
             this.START = start;
             this.END = end;
             this.NUMBER = number;
+        }
+
+        public static boolean isValid(int period) {
+            return !(period < 0 || period >= PERIODS.length);
         }
 
         public boolean hasElapsed(int minutesPadding) {

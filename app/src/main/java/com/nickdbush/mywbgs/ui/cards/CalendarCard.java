@@ -17,11 +17,8 @@ import com.nickdbush.mywbgs.models.Utils;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,9 +70,9 @@ public class CalendarCard extends Fragment {
         Arrays.sort(orderedEvents, new Comparator<Event>() {
             @Override
             public int compare(Event o1, Event o2) {
-                if(o1.getPriority() < o2.getPriority())
+                if (o1.getPriority() < o2.getPriority())
                     return -1;
-                if(o1.getPriority() > o2.getPriority())
+                if (o1.getPriority() > o2.getPriority())
                     return 1;
                 return 0;
             }

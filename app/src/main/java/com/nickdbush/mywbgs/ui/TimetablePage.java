@@ -28,16 +28,16 @@ public class TimetablePage extends Fragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Timetable");
-    }
-
     public static TimetablePage newInstance() {
         TimetablePage fragment = new TimetablePage();
         Bundle args = new Bundle();
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Timetable");
     }
 
     @Override

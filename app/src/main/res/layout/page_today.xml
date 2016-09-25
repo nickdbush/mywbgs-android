@@ -15,14 +15,14 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/lbl_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppTheme.Caption"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                tools:text="Monday 16th February"
-                android:id="@+id/lbl_date"/>
+                android:layout_marginTop="16dp"
+                android:textAppearance="@style/TextAppearance.AppTheme.Caption"
+                tools:text="Monday 16th February"/>
 
             <LinearLayout
                 android:id="@+id/layout_cards"

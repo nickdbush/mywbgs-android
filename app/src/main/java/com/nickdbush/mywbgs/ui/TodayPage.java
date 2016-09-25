@@ -29,18 +29,18 @@ public class TodayPage extends Fragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Today");
-    }
-
     public static TodayPage newInstance() {
         TodayPage fragment = new TodayPage();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Today");
     }
 
     @Override

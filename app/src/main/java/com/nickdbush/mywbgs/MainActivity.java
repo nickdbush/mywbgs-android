@@ -101,11 +101,11 @@ public class MainActivity extends AppCompatActivity
             // TODO: 23/09/2016 Launch settings
             return true;
         } else if (id == R.id.action_nextday) {
-            Utils.debugDayOffset ++;
+            Utils.debugDayOffset++;
             navigateTo(selectedPosition);
             return true;
         } else if (id == R.id.action_previousday) {
-            Utils.debugDayOffset --;
+            Utils.debugDayOffset--;
             navigateTo(selectedPosition);
             return true;
         }

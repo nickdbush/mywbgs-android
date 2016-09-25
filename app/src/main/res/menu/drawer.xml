@@ -5,19 +5,19 @@
         <item
             android:id="@+id/nav_today"
             android:icon="@drawable/ic_agenda"
-            android:title="Today" />
+            android:title="Today"/>
         <item
             android:id="@+id/nav_homework"
             android:icon="@drawable/ic_file"
-            android:title="Homework" />
+            android:title="Homework"/>
         <item
             android:id="@+id/nav_calendar"
             android:icon="@drawable/ic_event"
-            android:title="Calendar" />
+            android:title="Calendar"/>
         <item
             android:id="@+id/nav_timetable"
             android:icon="@drawable/ic_timetable"
-            android:title="Timetable" />
+            android:title="Timetable"/>
     </group>
 
 </menu>
