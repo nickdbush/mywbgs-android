@@ -78,12 +78,7 @@ public class CalendarCard extends Fragment {
             }
         });
 
-        Log.d("MyWBGS", "CURRENT_START: " + current.toString());
-        Log.d("MyWBGS", "CURRENT_END: " + current.plusDays(1).toString());
-
         for (Event result : orderedEvents) {
-            Log.d("MyWBGS", "START: " + result.getStart().toString());
-            Log.d("MyWBGS", "END: " + result.getEnd().toString());
             View item = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_event, null);
             ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getTitle());
             ((TextView) item.findViewById(R.id.lbl_time)).setText(result.getDurationString());
