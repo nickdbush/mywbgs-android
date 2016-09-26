@@ -62,6 +62,7 @@ public class HomeworkCard extends Fragment {
             View item = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_homework, null);
             ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getTitle());
             ((TextView) item.findViewById(R.id.lbl_subject)).setText(result.getLesson().getSubject().NAME);
+            ((TextView) item.findViewById(R.id.lbl_subject)).setTextColor(result.getLesson().getSubject().COLOR);
             CheckBox chkCompleted = (CheckBox) item.findViewById(R.id.chk_completed);
             chkCompleted.setChecked(result.isCompleted());
             chkCompleted.setOnCheckedChangeListener(new OnHomeworkCheckedListener(result));

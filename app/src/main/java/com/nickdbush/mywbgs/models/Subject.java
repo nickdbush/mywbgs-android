@@ -1,41 +1,80 @@
 package com.nickdbush.mywbgs.models;
 
+import android.graphics.Color;
+
 public class Subject {
 
+    private static int colour_index;
+    private static String[] colours = {
+            "#e00000",
+            "#c7a932",
+            "#28a168",
+            "#3892e0",
+            "#e000b4",
+            "#d40000",
+            "#c9d435",
+            "#32c7a9",
+            "#0055d4",
+            "#c73281",
+            "#ba542f",
+            "#74ad00",
+            "#32bdc7",
+            "#0017ad",
+            "#ad0045",
+            "#e05a00",
+            "#3ce000",
+            "#2889a1",
+            "#7100d4",
+            "#e0003c",
+            "#ba6300",
+            "#00a115",
+            "#359fd4",
+            "#7828a1",
+            "#a10015",
+            "#e09600",
+            "#38e07b",
+            "#0063ba",
+            "#d100e0"
+    };
+    public static int getNextColour() {
+        colour_index = (colour_index + 1) % colours.length;
+        return Color.parseColor(colours[colour_index]);
+    }
+
     public static final Subject[] SUBJECTS = {
-            new Subject("Physics", 0xffff0000),
-            new Subject("Chemistry", 0xffe57a00),
-            new Subject("Biology", 0xff5ccc33),
-            new Subject("PRE", 0xff00ccff),
-            new Subject("Psychology", 0xffb63df2),
-            new Subject("PSHE", 0xffbf0000),
-            new Subject("PE", 0xfff2b63d),
-            new Subject("Music", 0xff00ff66),
-            new Subject("French", 0xff00a2f2),
-            new Subject("German", 0xffff40f2),
-            new Subject("Spanish", 0xffff4040),
-            new Subject("Mathematics", 0xfffff240),
-            new Subject("Futher Mathematics", 0xff40ffa6),
-            new Subject("History", 0xff0066bf),
-            new Subject("Politics", 0xffbf308f),
-            new Subject("Geography", 0xffd96236),
-            new Subject("Economics", 0xffbfb630),
-            new Subject("English", 0xff30bf8f),
-            new Subject("Deign Technology", 0xff0061f2),
-            new Subject("Classics", 0xffff408c),
-            new Subject("Latin", 0xfff26100),
-            new Subject("Computing", 0xffb8e600),
-            new Subject("ICT", 0xff00f2e2),
-            new Subject("Art", 0xff4330bf),
-            new Subject("History of art", 0xffbf3043),
-            new Subject("Free Period", 0xffcc7033),
-            new Subject("Spanish", 0xff66ff00),
-            new Subject("Games", 0xff00becc),
+            new Subject("Physics"),
+            new Subject("Chemistry"),
+            new Subject("Biology"),
+            new Subject("PRE"),
+            new Subject("Psychology"),
+            new Subject("PSHE"),
+            new Subject("PE"),
+            new Subject("Music"),
+            new Subject("French"),
+            new Subject("German"),
+            new Subject("Spanish"),
+            new Subject("Mathematics"),
+            new Subject("Futher Mathematics"),
+            new Subject("History"),
+            new Subject("Politics"),
+            new Subject("Geography"),
+            new Subject("Economics"),
+            new Subject("English"),
+            new Subject("Deign Technology"),
+            new Subject("Classics"),
+            new Subject("Latin"),
+            new Subject("Computing"),
+            new Subject("ICT"),
+            new Subject("Art"),
+            new Subject("History of art"),
+            new Subject("Free Period"),
+            new Subject("Spanish"),
+            new Subject("Games")
     };
 
     public static int getIdByName(String name) {
-        for(int i = 0; i < SUBJECTS.length; i++) {
-            if(SUBJECTS[i].NAME.equalsIgnoreCase(name))
+        for (int i = 0; i < SUBJECTS.length; i++) {
+            if (SUBJECTS[i].NAME.equalsIgnoreCase(name))
                 return i;
         }
         return -1;
@@ -44,14 +83,14 @@ public class Subject {
     public final String NAME;
     public final int COLOR;
 
-    public Subject(String name, int color) {
+    public Subject(String name) {
         this.NAME = name;
-        this.COLOR = color;
+        this.COLOR = getNextColour();
     }
 
     public int getId() {
-        for(int i = 0; i < SUBJECTS.length; i++) {
-            if(SUBJECTS[i].NAME.equalsIgnoreCase(NAME))
+        for (int i = 0; i < SUBJECTS.length; i++) {
+            if (SUBJECTS[i].NAME.equalsIgnoreCase(NAME))
                 return i;
         }
         return -1;
