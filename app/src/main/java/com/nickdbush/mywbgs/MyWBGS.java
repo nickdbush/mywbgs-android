@@ -30,7 +30,7 @@ public class MyWBGS extends Application {
                 // Do migrations and shit here
                 .initialData(new TestData())
                 .build();
-        Realm.deleteRealm(realmConfiguration);
+        // Realm.deleteRealm(realmConfiguration);
         Realm.setDefaultConfiguration(realmConfiguration);
         // Calligraphy
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()

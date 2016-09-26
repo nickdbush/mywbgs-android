@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -60,11 +62,31 @@ public class HomeworkCard extends Fragment {
             View item = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_homework, null);
             ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getTitle());
             ((TextView) item.findViewById(R.id.lbl_subject)).setText(result.getLesson().getSubject().NAME);
-            ((TextView) item.findViewById(R.id.lbl_period)).setText(result.getLesson().getPeriod().getPeriodName());
+            CheckBox chkCompleted = (CheckBox) item.findViewById(R.id.chk_completed);
+            chkCompleted.setChecked(result.isCompleted());
+            chkCompleted.setOnCheckedChangeListener(new OnHomeworkCheckedListener(result));
             linearLayout.addView(item);
         }
 
         return view;
+    }
+
+    private class OnHomeworkCheckedListener implements CompoundButton.OnCheckedChangeListener {
+        private Homework homework;
+
+        public OnHomeworkCheckedListener(Homework homework) {
+            this.homework = homework;
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+            Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    homework.setCompleted(isChecked);
+                }
+            });
+        }
     }
 
 }
