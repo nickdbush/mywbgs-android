@@ -64,7 +64,8 @@ public class TimetableCard extends Fragment {
 
         for (Lesson result : results) {
             View item = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_timetable, null);
-            ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getSubject());
+            item.findViewById(R.id.view_colour).setBackgroundColor(result.getSubject().COLOR);
+            ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getSubject().NAME);
             ((TextView) item.findViewById(R.id.lbl_time)).setText(result.getPeriod().getDurationString());
             ((TextView) item.findViewById(R.id.lbl_room)).setText(result.getRoom());
             linearLayout.addView(item);

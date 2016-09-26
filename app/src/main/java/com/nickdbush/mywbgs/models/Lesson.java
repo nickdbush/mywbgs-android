@@ -4,17 +4,21 @@ import io.realm.RealmObject;
 
 public class Lesson extends RealmObject {
 
-    private String subject;
+    private int subject;
     private String room;
     private int period;
     private int day;
 
-    public String getSubject() {
-        return subject;
+    public Subject getSubject() {
+        return Subject.SUBJECTS[subject];
     }
 
-    public void setSubject(String subject) {
+    public void setSubject(int subject) {
         this.subject = subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject.getId();
     }
 
     public String getRoom() {
