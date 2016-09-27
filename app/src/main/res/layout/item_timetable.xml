@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:minHeight="?android:listPreferredItemHeight"
               android:orientation="horizontal"
-                android:minHeight="?android:listPreferredItemHeight"
-                >
+    >
 
     <View
         android:id="@+id/view_colour"
-        android:layout_width="6dp"
+        android:layout_width="4dp"
         android:layout_height="fill_parent"
-        android:background="#FFC107"/>
+        android:background="@android:color/transparent"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
-        android:paddingLeft="10dp"
+        android:paddingLeft="12dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp">
 

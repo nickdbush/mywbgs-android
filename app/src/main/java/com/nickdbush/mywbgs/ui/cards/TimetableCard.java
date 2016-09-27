@@ -3,6 +3,7 @@ package com.nickdbush.mywbgs.ui.cards;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,13 +63,22 @@ public class TimetableCard extends Fragment {
                 .equalTo("day", day)
                 .findAll();
 
-        for (Lesson result : results) {
+        int nextPeriod = 0;
+        for (int i = 0; i < results.size(); i++) {
+            Lesson result = results.get(i);
             View item = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_timetable, null);
-            item.findViewById(R.id.view_colour).setBackgroundColor(result.getSubject().COLOR);
             ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getSubject().NAME);
-            ((TextView) item.findViewById(R.id.lbl_title)).setTextColor(result.getSubject().COLOR);
+            // ((TextView) item.findViewById(R.id.lbl_title)).setTextColor(result.getSubject().COLOR);
             ((TextView) item.findViewById(R.id.lbl_time)).setText(result.getPeriod().getDurationString());
             ((TextView) item.findViewById(R.id.lbl_room)).setText(result.getRoom());
+            if (result.isPassed()) {
+                nextPeriod++;
+            } else if (nextPeriod == i) {
+                item.findViewById(R.id.view_colour).setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+                ((TextView) item.findViewById(R.id.lbl_title)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+                ((TextView) item.findViewById(R.id.lbl_room)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+                ((TextView) item.findViewById(R.id.lbl_time)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            }
             linearLayout.addView(item);
         }
 

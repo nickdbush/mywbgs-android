@@ -38,6 +38,7 @@ public class Utils {
         public final LocalTime START;
         public final LocalTime END;
         public final int NUMBER;
+
         public Period(int number, LocalTime end) {
             this(number, end, new LocalTime(end).plusHours(1));
         }
