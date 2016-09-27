@@ -59,7 +59,7 @@ public class Lesson extends RealmObject {
     }
 
     public boolean isPassed() {
-        if (Utils.getCurrentSchoolDay().getDayOfWeek() - 1 != day)
+        if (Utils.getCurrentDay().getDayOfWeek() - 1 != day)
             return false;
         if (new LocalTime(10, 25).plusMinutes(MINUTES_PADDING).isAfter(getPeriod().END))
             return true;

@@ -58,7 +58,7 @@ public class CalendarCard extends Fragment {
         ButterKnife.bind(this, view);
         lblTitle.setText(title);
 
-        LocalDateTime current = Utils.getCurrentSchoolDay().toLocalDateTime(new LocalTime(0, 0, 0));
+        LocalDateTime current = Utils.getCurrentDay().toLocalDateTime(new LocalTime(0, 0, 0));
 
         RealmResults<Event> events = Realm.getDefaultInstance().where(Event.class)
                 .lessThan("start", current.plusDays(1).toDate())

@@ -15,7 +15,7 @@ public class Utils {
     public static int debugDayOffset = 0;
 
     // TODO: 24/09/2016 Do logic of when this school day becomes the next
-    public static LocalDate getCurrentSchoolDay() {
+    public static LocalDate getCurrentDay() {
         return LocalDate.now().plusDays(debugDayOffset);
     }
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Lesson;
+import com.nickdbush.mywbgs.models.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,13 +72,16 @@ public class TimetableCard extends Fragment {
             // ((TextView) item.findViewById(R.id.lbl_title)).setTextColor(result.getSubject().COLOR);
             ((TextView) item.findViewById(R.id.lbl_time)).setText(result.getPeriod().getDurationString());
             ((TextView) item.findViewById(R.id.lbl_room)).setText(result.getRoom());
-            if (result.isPassed()) {
-                nextPeriod++;
-            } else if (nextPeriod == i) {
-                item.findViewById(R.id.view_colour).setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-                ((TextView) item.findViewById(R.id.lbl_title)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-                ((TextView) item.findViewById(R.id.lbl_room)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-                ((TextView) item.findViewById(R.id.lbl_time)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            // Only highlight next period if today's timetable
+            if(Utils.getCurrentDay().getDayOfWeek() - 1 == day) {
+                if (result.isPassed()) {
+                    nextPeriod++;
+                } else if (nextPeriod == i) {
+                    item.findViewById(R.id.view_colour).setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+                    ((TextView) item.findViewById(R.id.lbl_title)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+                    ((TextView) item.findViewById(R.id.lbl_room)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+                    ((TextView) item.findViewById(R.id.lbl_time)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+                }
             }
             linearLayout.addView(item);
         }
