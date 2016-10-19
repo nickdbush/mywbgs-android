@@ -1,6 +1,6 @@
 package com.nickdbush.mywbgs.models;
 
-import org.joda.time.LocalTime;
+import org.joda.time.LocalDateTime;
 
 import io.realm.RealmObject;
 
@@ -59,9 +59,11 @@ public class Lesson extends RealmObject {
     }
 
     public boolean isPassed() {
-        if (Utils.getCurrentDay().getDayOfWeek() - 1 != day)
+        // Does this increment the day as well? If not, that's the cause of our bug!
+        LocalDateTime dateToCheck = new LocalDateTime().plusMinutes(MINUTES_PADDING);
+        if (dateToCheck.getDayOfWeek() - 1 != day)
             return false;
-        if (new LocalTime(10, 25).plusMinutes(MINUTES_PADDING).isAfter(getPeriod().END))
+        if (dateToCheck.toLocalTime().isAfter(getPeriod().END))
             return true;
         return false;
     }
