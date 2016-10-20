@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Homework;
-import com.nickdbush.mywbgs.models.Utils;
+
+import org.joda.time.LocalDate;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,15 +29,16 @@ public class HomeworkCard extends Fragment {
     TextView lblTitle;
 
     private String title;
+    private LocalDate date;
 
     public HomeworkCard() {
 
     }
 
-    public static HomeworkCard newInstance() {
+    public static HomeworkCard newInstance(LocalDate date) {
         HomeworkCard fragment = new HomeworkCard();
         Bundle args = new Bundle();
-
+        args.putSerializable("date", date);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,6 +47,7 @@ public class HomeworkCard extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         title = "Homework";
+        date = (LocalDate) getArguments().getSerializable("date");
     }
 
     @Override
@@ -55,7 +58,7 @@ public class HomeworkCard extends Fragment {
         lblTitle.setText(title);
 
         RealmResults<Homework> results = Realm.getDefaultInstance().where(Homework.class)
-                .equalTo("dueDate", Utils.getCurrentDay().toDate())
+                .equalTo("dueDate", date.toDate())
                 .findAll();
 
         for (Homework result : results) {

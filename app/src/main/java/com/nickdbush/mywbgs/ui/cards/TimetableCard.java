@@ -14,6 +14,8 @@ import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Lesson;
 import com.nickdbush.mywbgs.models.Utils;
 
+import org.joda.time.LocalDate;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
@@ -26,18 +28,17 @@ public class TimetableCard extends Fragment {
     @BindView(R.id.lbl_title)
     TextView lblTitle;
 
-    private int day;
+    private LocalDate date;
     private String title;
 
     public TimetableCard() {
 
     }
 
-    public static TimetableCard newInstance(int day, String title) {
+    public static TimetableCard newInstance(LocalDate date) {
         TimetableCard fragment = new TimetableCard();
         Bundle args = new Bundle();
-        args.putInt("day", day);
-        args.putString("title", title);
+        args.putSerializable("date", date);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,12 +46,8 @@ public class TimetableCard extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        day = 0;
         title = "Timetable";
-        if (getArguments() != null) {
-            day = getArguments().getInt("day", 0);
-            title = getArguments().getString("title", "Timetable");
-        }
+        date = (LocalDate) getArguments().getSerializable("date");
     }
 
     @Override
@@ -61,7 +58,7 @@ public class TimetableCard extends Fragment {
         lblTitle.setText(title);
 
         RealmResults<Lesson> results = Realm.getDefaultInstance().where(Lesson.class)
-                .equalTo("day", day)
+                .equalTo("day", date.getDayOfWeek() - 1)
                 .findAll();
 
         int nextPeriod = 0;
@@ -73,7 +70,7 @@ public class TimetableCard extends Fragment {
             ((TextView) item.findViewById(R.id.lbl_time)).setText(result.getPeriod().getDurationString());
             ((TextView) item.findViewById(R.id.lbl_room)).setText(result.getRoom());
             // Only highlight next period if today's timetable
-            if(Utils.getCurrentDay().getDayOfWeek() - 1 == day) {
+            if (Utils.getCurrentDay().equals(date)) {
                 if (result.isPassed()) {
                     nextPeriod++;
                 } else if (nextPeriod == i) {

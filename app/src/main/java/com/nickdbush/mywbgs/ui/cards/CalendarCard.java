@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Event;
-import com.nickdbush.mywbgs.models.Utils;
 
+import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
@@ -32,15 +32,16 @@ public class CalendarCard extends Fragment {
     TextView lblTitle;
 
     private String title;
+    private LocalDate date;
 
     public CalendarCard() {
 
     }
 
-    public static CalendarCard newInstance() {
+    public static CalendarCard newInstance(LocalDate date) {
         CalendarCard fragment = new CalendarCard();
         Bundle args = new Bundle();
-
+        args.putSerializable("date", date);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,6 +50,7 @@ public class CalendarCard extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         title = "Calendar";
+        date = (LocalDate) getArguments().getSerializable("date");
     }
 
     @Override
@@ -58,7 +60,7 @@ public class CalendarCard extends Fragment {
         ButterKnife.bind(this, view);
         lblTitle.setText(title);
 
-        LocalDateTime current = Utils.getCurrentDay().toLocalDateTime(new LocalTime(0, 0, 0));
+        LocalDateTime current = date.toLocalDateTime(new LocalTime(0, 0, 0));
 
         RealmResults<Event> events = Realm.getDefaultInstance().where(Event.class)
                 .lessThan("start", current.plusDays(1).toDate())
