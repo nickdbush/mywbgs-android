@@ -6,9 +6,11 @@ import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Homework extends RealmObject {
-
+    @PrimaryKey
+    private int id;
     private String title;
     private String description;
     private Date dueDate;
@@ -17,6 +19,10 @@ public class Homework extends RealmObject {
 
     public Homework() {
 
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

@@ -3,16 +3,23 @@ package com.nickdbush.mywbgs.models;
 import org.joda.time.LocalDateTime;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Lesson extends RealmObject {
 
     // Minutes of padding used when calculating if a lesson has passed
     private static final int MINUTES_PADDING = 50;
 
+    @PrimaryKey
+    private int id;
     private int subject;
     private String room;
     private int period;
     private int day;
+
+    public int getId() {
+        return id;
+    }
 
     public Subject getSubject() {
         return Subject.SUBJECTS[subject];

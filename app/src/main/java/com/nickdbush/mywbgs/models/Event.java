@@ -5,14 +5,21 @@ import org.joda.time.LocalDateTime;
 import java.util.Date;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Event extends RealmObject {
+    @PrimaryKey
+    private int id;
     private String title;
     private Date start;
     private Date end;
 
     public Event() {
 
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
