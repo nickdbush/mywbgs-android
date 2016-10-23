@@ -10,21 +10,27 @@ public class Lesson extends RealmObject {
     // Minutes of padding used when calculating if a lesson has passed
     private static final int MINUTES_PADDING = 50;
 
-    private static long nextId = -1;
+    private static long nextId = 0;
 
     @PrimaryKey
-    private long id;
+    private long id = 0;
     private int subject;
     private String room;
     private int period;
     private int day;
 
     public Lesson() {
-        if (nextId == -1) {
-            Number highestId = Realm.getDefaultInstance().where(Lesson.class).max("id");
-            nextId = (highestId != null) ? highestId.longValue() : 0;
+
+    }
+
+    public void generateId() {
+        if (id == 0) {
+            if (nextId == 0) {
+                Number highestId = Realm.getDefaultInstance().where(Lesson.class).max("id");
+                nextId = (highestId == null || highestId.longValue() == 0) ? 1 : highestId.longValue() + 1;
+            }
+            id = nextId++;
         }
-        id = nextId++;
     }
 
     public long getId() {

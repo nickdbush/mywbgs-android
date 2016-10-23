@@ -27,11 +27,13 @@ public class MyWBGS extends Application {
         JodaTimeAndroid.init(this);
         // Realm
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
-                // Do migrations and shit here
-                .initialData(new TestData())
                 .build();
-        // Realm.deleteRealm(realmConfiguration);
         Realm.setDefaultConfiguration(realmConfiguration);
+        // Enable if need to recreate database
+        Realm.deleteRealm(realmConfiguration);
+        TestData testData = new TestData();
+        testData.execute(Realm.getInstance(realmConfiguration));
+
         // Calligraphy
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("Montserrat-Regular.ttf")
@@ -47,12 +49,15 @@ public class MyWBGS extends Application {
         @Override
         public void execute(Realm realm) {
             this.realm = realm;
+            realm.beginTransaction();
             createLessons();
             createHomeworks();
             try {
                 realm.createAllFromJson(Event.class, getBaseContext().getAssets().open("calendar.json"));
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                realm.commitTransaction();
             }
         }
 
@@ -98,6 +103,7 @@ public class MyWBGS extends Application {
 
         private void createLesson(String subject, String room, int day, int period) {
             Lesson lesson = realm.createObject(Lesson.class);
+            lesson.generateId();
             lesson.setSubject(Subject.getIdByName(subject));
             lesson.setRoom(room);
             lesson.setDay(day);
@@ -106,13 +112,13 @@ public class MyWBGS extends Application {
 
         private void createHomework(String title, String description, LocalDate date, int period) {
             Homework homework = realm.createObject(Homework.class);
+            homework.generateId();
             homework.setTitle(title);
             homework.setDescription(description);
             homework.setDueDate(date);
             homework.setPeriod(period);
             homework.setCompleted(false);
         }
-
     }
 
 }
