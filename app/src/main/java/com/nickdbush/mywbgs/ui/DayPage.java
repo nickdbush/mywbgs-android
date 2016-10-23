@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nickdbush.mywbgs.R;
-import com.nickdbush.mywbgs.models.Utils;
 import com.nickdbush.mywbgs.ui.cards.CalendarCard;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 import com.nickdbush.mywbgs.ui.cards.TimetableCard;
@@ -57,10 +55,6 @@ public class DayPage extends Fragment {
 
         lblDate.setText(date.toString("EEEE d MMMM yyyy"));
 
-        if (Utils.getCurrentDay().equals(date)) {
-            lblDate.setText("Today");
-            lblDate.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-        }
         Fragment[] cards = {
                 TimetableCard.newInstance(date),
                 HomeworkCard.newInstance(date),
