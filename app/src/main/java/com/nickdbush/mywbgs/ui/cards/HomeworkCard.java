@@ -1,6 +1,7 @@
 package com.nickdbush.mywbgs.ui.cards;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nickdbush.mywbgs.HomeworkActivity;
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Homework;
 
@@ -71,6 +73,14 @@ public class HomeworkCard extends Fragment {
             chkCompleted.setOnCheckedChangeListener(new OnHomeworkCheckedListener(result));
             linearLayout.addView(item);
         }
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), HomeworkActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

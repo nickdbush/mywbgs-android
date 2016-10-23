@@ -55,19 +55,14 @@ public class DayPage extends Fragment {
 
         lblDate.setText(date.toString("EEEE d MMMM yyyy"));
 
-        Fragment[] cards = {
-                TimetableCard.newInstance(date),
-                HomeworkCard.newInstance(date),
-                CalendarCard.newInstance(date)
-        };
+        TimetableCard timetableCard = TimetableCard.newInstance(date);
+        HomeworkCard homeworkCard = HomeworkCard.newInstance(date);
+        CalendarCard calendarCard = CalendarCard.newInstance(date);
 
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        if (cards.length > 0) {
-            ft.replace(R.id.layout_cards, cards[0]);
-            for (int i = 1; i < cards.length; i++) {
-                ft.add(R.id.layout_cards, cards[i]);
-            }
-        }
+        ft.replace(R.id.layout_cards, timetableCard, "timetable");
+        ft.add(R.id.layout_cards, homeworkCard, "homework");
+        ft.add(R.id.layout_cards, calendarCard, "calendar");
         ft.commitNow();
 
         return view;
