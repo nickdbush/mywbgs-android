@@ -2,22 +2,32 @@ package com.nickdbush.mywbgs.models;
 
 import org.joda.time.LocalDateTime;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class Lesson extends RealmObject {
-
     // Minutes of padding used when calculating if a lesson has passed
     private static final int MINUTES_PADDING = 50;
 
+    private static long nextId = -1;
+
     @PrimaryKey
-    private int id;
+    private long id;
     private int subject;
     private String room;
     private int period;
     private int day;
 
-    public int getId() {
+    public Lesson() {
+        if (nextId == -1) {
+            Number highestId = Realm.getDefaultInstance().where(Lesson.class).max("id");
+            nextId = (highestId != null) ? highestId.longValue() : 0;
+        }
+        id = nextId++;
+    }
+
+    public long getId() {
         return id;
     }
 

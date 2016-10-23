@@ -9,8 +9,10 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class Homework extends RealmObject {
+    private static long nextId = -1;
+
     @PrimaryKey
-    private int id;
+    private long id;
     private String title;
     private String description;
     private Date dueDate;
@@ -18,10 +20,14 @@ public class Homework extends RealmObject {
     private boolean completed;
 
     public Homework() {
-
+        if (nextId == -1) {
+            Number highestId = Realm.getDefaultInstance().where(Homework.class).max("id");
+            nextId = (highestId != null) ? highestId.longValue() : 0;
+        }
+        id = nextId++;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

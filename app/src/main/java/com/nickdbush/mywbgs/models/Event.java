@@ -4,21 +4,28 @@ import org.joda.time.LocalDateTime;
 
 import java.util.Date;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class Event extends RealmObject {
+    private static long nextId = -1;
+
     @PrimaryKey
-    private int id;
+    private long id;
     private String title;
     private Date start;
     private Date end;
 
     public Event() {
-
+        if (nextId == -1) {
+            Number highestId = Realm.getDefaultInstance().where(Event.class).max("id");
+            nextId = (highestId != null) ? highestId.longValue() : 0;
+        }
+        id = nextId++;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
