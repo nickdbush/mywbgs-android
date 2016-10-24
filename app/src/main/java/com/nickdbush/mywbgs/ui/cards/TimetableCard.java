@@ -1,6 +1,7 @@
 package com.nickdbush.mywbgs.ui.cards;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -57,6 +58,11 @@ public class TimetableCard extends Fragment {
         ButterKnife.bind(this, view);
         lblTitle.setText(title);
 
+        // Rounded corners!
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            view.setClipToOutline(true);
+        }
+
         RealmResults<Lesson> results = Realm.getDefaultInstance().where(Lesson.class)
                 .equalTo("day", date.getDayOfWeek() - 1)
                 .findAll();
@@ -74,6 +80,10 @@ public class TimetableCard extends Fragment {
                 if (result.isPassed()) {
                     nextPeriod++;
                 } else if (nextPeriod == i) {
+                    // item.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+                    // ((TextView) item.findViewById(R.id.lbl_title)).setTextColor(Color.WHITE);
+                    // ((TextView) item.findViewById(R.id.lbl_room)).setTextColor(Color.WHITE);
+                    // ((TextView) item.findViewById(R.id.lbl_time)).setTextColor(Color.WHITE);
                     item.findViewById(R.id.view_colour).setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
                     ((TextView) item.findViewById(R.id.lbl_title)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
                     ((TextView) item.findViewById(R.id.lbl_room)).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
