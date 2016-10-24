@@ -89,10 +89,4 @@ public class Homework extends RealmObject {
                 .equalTo("period", getRawPeriod())
                 .findFirst();
     }
-
-    public void setLesson(Lesson lesson) {
-        setDueDate(getDueDate().withDayOfWeek(lesson.getDay()));
-        setPeriod(lesson.getRawPeriod());
-    }
-
 }
