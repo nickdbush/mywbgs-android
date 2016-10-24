@@ -1,6 +1,7 @@
 package com.nickdbush.mywbgs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -66,9 +67,13 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             // TODO: 23/09/2016 Launch settings
             return true;
+        } else if (id == R.id.action_homework) {
+            Intent intent = new Intent(getBaseContext(), HomeworkActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
 
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     @Override

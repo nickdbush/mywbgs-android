@@ -3,9 +3,14 @@ package com.nickdbush.mywbgs.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -21,17 +26,42 @@ import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class HomeworkList extends Fragment {
 
     @BindView(R.id.layout_list)
     ListView listHomework;
 
-    private HomeworkAdapter homeworkAdapter;
+    private OnHomeworkClickedListener onHomeworkClickedListener;
 
     public HomeworkList() {
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        try {
+            onHomeworkClickedListener = (OnHomeworkClickedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + "must implement OnHomeworkClickedListener");
+        }
+        super.onAttach(context);
+    }
+
+    public static HomeworkList newInstance() {
+        HomeworkList fragment = new HomeworkList();
+        Bundle args = new Bundle();
+
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_homework_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return false;
     }
 
     @Override
@@ -43,8 +73,19 @@ public class HomeworkList extends Fragment {
         RealmResults<Homework> homework = Realm.getDefaultInstance().where(Homework.class)
                 .findAll();
 
-        homeworkAdapter = new HomeworkAdapter(homework);
+        final HomeworkAdapter homeworkAdapter = new HomeworkAdapter(homework, onHomeworkClickedListener);
         listHomework.setAdapter(homeworkAdapter);
+
+        listHomework.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d(getClass().getSimpleName(), String.valueOf(i));
+                onHomeworkClickedListener.onHomeworkClicked(homeworkAdapter.getItem(i));
+            }
+        });
+
+        // Enable the options menu
+        setHasOptionsMenu(true);
 
         return view;
     }
@@ -52,9 +93,11 @@ public class HomeworkList extends Fragment {
     private class HomeworkAdapter extends BaseAdapter {
 
         private RealmResults<Homework> homeworks;
+        private OnHomeworkClickedListener onHomeworkClickedListener;
 
-        public HomeworkAdapter(RealmResults<Homework> homeworks) {
+        public HomeworkAdapter(RealmResults<Homework> homeworks, OnHomeworkClickedListener onHomeworkClickedListener) {
             this.homeworks = homeworks;
+            this.onHomeworkClickedListener = onHomeworkClickedListener;
         }
 
         @Override
@@ -78,7 +121,14 @@ public class HomeworkList extends Fragment {
                 view = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_homework, parent, false);
             }
 
+
             final Homework homework = homeworks.get(position);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onHomeworkClickedListener.onHomeworkClicked(homework);
+                }
+            });
             ((TextView) view.findViewById(R.id.lbl_title)).setText(homework.getTitle());
             ((TextView) view.findViewById(R.id.lbl_subject)).setText(homework.getLesson().getSubject().NAME + " - " + Utils.getDayOfWeekAsString(homework.getDueDate()));
 
@@ -105,5 +155,10 @@ public class HomeworkList extends Fragment {
                 realm.commitTransaction();
             }
         }
+    }
+
+    // TODO: 24/10/2016 Extend OnClickListener
+    public interface OnHomeworkClickedListener {
+        void onHomeworkClicked(Homework homework);
     }
 }
