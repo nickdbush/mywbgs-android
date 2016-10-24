@@ -71,7 +71,8 @@ public class HomeworkList extends Fragment {
         ButterKnife.bind(this, view);
 
         RealmResults<Homework> homework = Realm.getDefaultInstance().where(Homework.class)
-                .findAll();
+                .findAll()
+                .sort("dueDate");
 
         final HomeworkAdapter homeworkAdapter = new HomeworkAdapter(homework, onHomeworkClickedListener);
         listHomework.setAdapter(homeworkAdapter);
