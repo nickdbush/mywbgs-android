@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import org.joda.time.LocalDate;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
 public class HomeworkCard extends Fragment {
@@ -68,9 +70,21 @@ public class HomeworkCard extends Fragment {
             ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getTitle());
             ((TextView) item.findViewById(R.id.lbl_subject)).setText(result.getLesson().getSubject().NAME);
             // ((TextView) item.findViewById(R.id.lbl_subject)).setTextColor(result.getLesson().getSubject().COLOR);
-            CheckBox chkCompleted = (CheckBox) item.findViewById(R.id.chk_completed);
+
+            final CheckBox chkCompleted = (CheckBox) item.findViewById(R.id.chk_completed);
             chkCompleted.setChecked(result.isCompleted());
-            chkCompleted.setOnCheckedChangeListener(new OnHomeworkCheckedListener(result));
+            final OnCheckedChangeListener onCheckedChangeListener = new OnHomeworkCheckedListener(result);
+            chkCompleted.setOnCheckedChangeListener(onCheckedChangeListener);
+
+            result.addChangeListener(new RealmChangeListener<Homework>() {
+                @Override
+                public void onChange(Homework homework) {
+                    chkCompleted.setOnCheckedChangeListener(null);
+                    chkCompleted.setChecked(homework.isCompleted());
+                    chkCompleted.setOnCheckedChangeListener(onCheckedChangeListener);
+                }
+            });
+
             linearLayout.addView(item);
         }
 
@@ -85,7 +99,7 @@ public class HomeworkCard extends Fragment {
         return view;
     }
 
-    private class OnHomeworkCheckedListener implements CompoundButton.OnCheckedChangeListener {
+    private class OnHomeworkCheckedListener implements OnCheckedChangeListener {
         private Homework homework;
 
         public OnHomeworkCheckedListener(Homework homework) {
@@ -93,13 +107,11 @@ public class HomeworkCard extends Fragment {
         }
 
         @Override
-        public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
-            Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    homework.setCompleted(isChecked);
-                }
-            });
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            Realm realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+            homework.setCompleted(isChecked);
+            realm.commitTransaction();
         }
     }
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -76,15 +77,31 @@ public class HomeworkList extends Fragment {
                 view = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_homework, parent, false);
             }
 
-            Homework homework = homeworks.get(position);
+            final Homework homework = homeworks.get(position);
             ((TextView) view.findViewById(R.id.lbl_title)).setText(homework.getTitle());
             ((TextView) view.findViewById(R.id.lbl_subject)).setText(homework.getLesson().getSubject().NAME);
             // ((TextView) item.findViewById(R.id.lbl_subject)).setTextColor(result.getLesson().getSubject().COLOR);
             CheckBox chkCompleted = (CheckBox) view.findViewById(R.id.chk_completed);
             chkCompleted.setChecked(homework.isCompleted());
-//            chkCompleted.setOnCheckedChangeListener(new OnHomeworkCheckedListener(result));
+            chkCompleted.setOnCheckedChangeListener(new OnHomeworkCheckedListener(homework));
 
             return view;
+        }
+
+        private class OnHomeworkCheckedListener implements CompoundButton.OnCheckedChangeListener {
+            private Homework homework;
+
+            public OnHomeworkCheckedListener(Homework homework) {
+                this.homework = homework;
+            }
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                homework.setCompleted(isChecked);
+                realm.commitTransaction();
+            }
         }
     }
 }

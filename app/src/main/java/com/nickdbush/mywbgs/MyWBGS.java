@@ -30,9 +30,9 @@ public class MyWBGS extends Application {
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
         // Enable if need to recreate database
-        Realm.deleteRealm(realmConfiguration);
-        TestData testData = new TestData();
-        testData.execute(Realm.getInstance(realmConfiguration));
+        // Realm.deleteRealm(realmConfiguration);
+        // TestData testData = new TestData();
+        // testData.execute(Realm.getInstance(realmConfiguration));
 
         // Calligraphy
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
