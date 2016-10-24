@@ -56,7 +56,7 @@ public class DayPage extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.page_day, container, false);
+        View view = inflater.inflate(R.layout.fragment_day, container, false);
         ButterKnife.bind(this, view);
         lblDate.setText(date.toString("EEEE d MMMM yyyy"));
         generateCards();
