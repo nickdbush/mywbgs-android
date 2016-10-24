@@ -67,6 +67,14 @@ public class MyWBGS extends Application {
             createHomework("Write essay on Macbeth", "Is he a guilty sod?", Utils.getNextSchoolDay().withDayOfWeek(3), 0);
             createHomework("Complete diagram", "Diagram of nuclear reactor", Utils.getNextSchoolDay().withDayOfWeek(4), 4);
             createHomework("Do activities in book", "Page 21", Utils.getNextSchoolDay().withDayOfWeek(5), 4);
+
+            createHomework("Complete sheet on Moodle", "", Utils.getNextSchoolDay().plusWeeks(1).withDayOfWeek(1), 2);
+            createHomework("Finish learning French CA", "Writing test on Tuesday", Utils.getNextSchoolDay().plusWeeks(1).withDayOfWeek(2), 0);
+            createHomework("Write essay on Macbeth", "Is he a guilty sod?", Utils.getNextSchoolDay().plusWeeks(1).withDayOfWeek(3), 0);
+            createHomework("Complete diagram", "Diagram of nuclear reactor", Utils.getNextSchoolDay().plusWeeks(1).withDayOfWeek(4), 4);
+            createHomework("Do activities in book", "Page 21", Utils.getNextSchoolDay().plusWeeks(1).withDayOfWeek(5), 4);
+
+            createHomework("Complete sheet on Moodle", "", Utils.getNextSchoolDay().plusWeeks(2).withDayOfWeek(1), 2);
         }
 
         private void createLessons() {

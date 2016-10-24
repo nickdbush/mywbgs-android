@@ -22,7 +22,6 @@ import org.joda.time.LocalDate;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
 public class HomeworkCard extends Fragment {
@@ -72,18 +71,10 @@ public class HomeworkCard extends Fragment {
             // ((TextView) item.findViewById(R.id.lbl_subject)).setTextColor(result.getLesson().getSubject().COLOR);
 
             final CheckBox chkCompleted = (CheckBox) item.findViewById(R.id.chk_completed);
+            chkCompleted.setOnCheckedChangeListener(null);
             chkCompleted.setChecked(result.isCompleted());
             final OnCheckedChangeListener onCheckedChangeListener = new OnHomeworkCheckedListener(result);
             chkCompleted.setOnCheckedChangeListener(onCheckedChangeListener);
-
-            result.addChangeListener(new RealmChangeListener<Homework>() {
-                @Override
-                public void onChange(Homework homework) {
-                    chkCompleted.setOnCheckedChangeListener(null);
-                    chkCompleted.setChecked(homework.isCompleted());
-                    chkCompleted.setOnCheckedChangeListener(onCheckedChangeListener);
-                }
-            });
 
             linearLayout.addView(item);
         }
@@ -92,6 +83,7 @@ public class HomeworkCard extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), HomeworkActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });

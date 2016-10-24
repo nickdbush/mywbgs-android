@@ -47,14 +47,23 @@ public class DayPage extends Fragment {
         date = (LocalDate) getArguments().getSerializable("date");
     }
 
+    @Override
+    public void onResume() {
+        generateCards();
+        super.onResume();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.page_day, container, false);
         ButterKnife.bind(this, view);
-
         lblDate.setText(date.toString("EEEE d MMMM yyyy"));
+        generateCards();
+        return view;
+    }
 
+    private void generateCards() {
         TimetableCard timetableCard = TimetableCard.newInstance(date);
         HomeworkCard homeworkCard = HomeworkCard.newInstance(date);
         CalendarCard calendarCard = CalendarCard.newInstance(date);
@@ -64,7 +73,5 @@ public class DayPage extends Fragment {
         ft.add(R.id.layout_cards, homeworkCard, "homework");
         ft.add(R.id.layout_cards, calendarCard, "calendar");
         ft.commitNow();
-
-        return view;
     }
 }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Homework;
+import com.nickdbush.mywbgs.models.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,9 +80,10 @@ public class HomeworkList extends Fragment {
 
             final Homework homework = homeworks.get(position);
             ((TextView) view.findViewById(R.id.lbl_title)).setText(homework.getTitle());
-            ((TextView) view.findViewById(R.id.lbl_subject)).setText(homework.getLesson().getSubject().NAME);
-            // ((TextView) item.findViewById(R.id.lbl_subject)).setTextColor(result.getLesson().getSubject().COLOR);
+            ((TextView) view.findViewById(R.id.lbl_subject)).setText(homework.getLesson().getSubject().NAME + " - " + Utils.getDayOfWeekAsString(homework.getDueDate()));
+
             CheckBox chkCompleted = (CheckBox) view.findViewById(R.id.chk_completed);
+            chkCompleted.setOnCheckedChangeListener(null);
             chkCompleted.setChecked(homework.isCompleted());
             chkCompleted.setOnCheckedChangeListener(new OnHomeworkCheckedListener(homework));
 

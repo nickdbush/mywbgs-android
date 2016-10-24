@@ -1,5 +1,6 @@
 package com.nickdbush.mywbgs.models;
 
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -10,7 +11,9 @@ public class Utils {
             "Tuesday",
             "Wednesday",
             "Thursday",
-            "Friday"
+            "Friday",
+            "Saturday",
+            "Sunday"
     };
     public static int debugDayOffset = 0;
 
@@ -24,6 +27,22 @@ public class Utils {
         if (currentDay.getDayOfWeek() > 5)
             currentDay = currentDay.withDayOfWeek(1).weekOfWeekyear().addToCopy(1);
         return currentDay;
+    }
+
+    public static String getDayOfWeekAsString(LocalDate date) {
+        int difference = Days.daysBetween(new LocalDate(), date).getDays();
+        if (difference == 0) {
+            return "Today";
+        } else if (difference == 1) {
+            return "Tomorrow";
+        } else if (difference < 7) {
+            return DAYS[date.getDayOfWeek() - 1];
+        } else if (difference < 14) {
+            return "Next " + DAYS[date.getDayOfWeek() - 1];
+        } else {
+            return date.toString("EEEE d MMMM");
+        }
+
     }
 
     public static class Period {
