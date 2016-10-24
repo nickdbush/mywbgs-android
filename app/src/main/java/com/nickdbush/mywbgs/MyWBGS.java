@@ -7,6 +7,7 @@ import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.models.Lesson;
 import com.nickdbush.mywbgs.models.Subject;
 import com.nickdbush.mywbgs.models.Utils;
+import com.squareup.leakcanary.LeakCanary;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -23,6 +24,12 @@ public class MyWBGS extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // Leak Canary
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
+
         // JodaTime
         JodaTimeAndroid.init(this);
         // Realm

@@ -129,11 +129,11 @@ public class HomeworkEdit extends Fragment {
             txtTitle.setText(homework.getTitle());
             txtDescription.setText(homework.getDescription());
             selectedDate = homework.getDueDate();
-            updateSelectedDate();
         } else {
+            // TODO: 24/10/2016 Test this! 
             selectedDate = Utils.getNextSchoolDay();
-            updateSelectedDate();
         }
+        updateSelectedDate();
 
         RealmResults<Lesson> lessons = Realm.getDefaultInstance().where(Lesson.class)
                 .equalTo("day", selectedDate.getDayOfWeek() - 1)
