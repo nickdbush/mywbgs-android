@@ -1,10 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.nickdbush.mywbgs.HomeworkActivity">
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.nickdbush.mywbgs.HomeworkActivity">
     <item
         android:id="@+id/action_add"
-        android:title="Add"
         android:icon="@drawable/ic_add_light"
+        android:title="Add"
         app:showAsAction="ifRoom"/>
 </menu>

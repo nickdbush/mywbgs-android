@@ -41,12 +41,12 @@ public class Lesson extends RealmObject {
         return Subject.SUBJECTS[subject];
     }
 
-    public void setSubject(int subject) {
-        this.subject = subject;
-    }
-
     public void setSubject(Subject subject) {
         this.subject = subject.getId();
+    }
+
+    public void setSubject(int subject) {
+        this.subject = subject;
     }
 
     public String getRoom() {

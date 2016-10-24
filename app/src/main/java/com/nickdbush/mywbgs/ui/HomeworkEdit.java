@@ -130,7 +130,7 @@ public class HomeworkEdit extends Fragment {
             txtDescription.setText(homework.getDescription());
             selectedDate = homework.getDueDate();
         } else {
-            // TODO: 24/10/2016 Test this! 
+            // TODO: 24/10/2016 Test this!
             selectedDate = Utils.getNextSchoolDay();
         }
         updateSelectedDate();
@@ -191,8 +191,8 @@ public class HomeworkEdit extends Fragment {
 
     private class LessonAdapter extends BaseAdapter {
 
-        private Context context;
         public List<Lesson> lessons;
+        private Context context;
 
         public LessonAdapter(Context context, List<Lesson> lessons) {
             this.context = context;
