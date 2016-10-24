@@ -36,6 +36,14 @@ public class HomeworkList extends Fragment {
     public HomeworkList() {
     }
 
+    public static HomeworkList newInstance() {
+        HomeworkList fragment = new HomeworkList();
+        Bundle args = new Bundle();
+
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onAttach(Context context) {
         try {
@@ -44,14 +52,6 @@ public class HomeworkList extends Fragment {
             throw new ClassCastException(context.toString() + "must implement OnHomeworkClickedListener");
         }
         super.onAttach(context);
-    }
-
-    public static HomeworkList newInstance() {
-        HomeworkList fragment = new HomeworkList();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -88,6 +88,11 @@ public class HomeworkList extends Fragment {
         setHasOptionsMenu(true);
 
         return view;
+    }
+
+    // TODO: 24/10/2016 Extend OnClickListener
+    public interface OnHomeworkClickedListener {
+        void onHomeworkClicked(Homework homework);
     }
 
     private class HomeworkAdapter extends BaseAdapter {
@@ -155,10 +160,5 @@ public class HomeworkList extends Fragment {
                 realm.commitTransaction();
             }
         }
-    }
-
-    // TODO: 24/10/2016 Extend OnClickListener
-    public interface OnHomeworkClickedListener {
-        void onHomeworkClicked(Homework homework);
     }
 }

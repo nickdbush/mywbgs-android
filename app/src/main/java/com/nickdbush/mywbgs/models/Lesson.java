@@ -41,12 +41,12 @@ public class Lesson extends RealmObject {
         return Subject.SUBJECTS[subject];
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject.getId();
-    }
-
     public void setSubject(int subject) {
         this.subject = subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject.getId();
     }
 
     public String getRoom() {
@@ -86,9 +86,7 @@ public class Lesson extends RealmObject {
         LocalDateTime dateToCheck = new LocalDateTime().plusMinutes(MINUTES_PADDING);
         if (dateToCheck.getDayOfWeek() - 1 != day)
             return false;
-        if (dateToCheck.toLocalTime().isAfter(getPeriod().END))
-            return true;
-        return false;
+        return dateToCheck.toLocalTime().isAfter(getPeriod().END);
     }
 
 }

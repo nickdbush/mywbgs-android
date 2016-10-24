@@ -32,6 +32,15 @@ public class HomeworkEdit extends Fragment {
     public HomeworkEdit() {
     }
 
+    public static HomeworkEdit newInstance(Homework homework) {
+        HomeworkEdit fragment = new HomeworkEdit();
+        Bundle args = new Bundle();
+        if (homework != null) args.putLong("homeworkId", homework.getId());
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     @Override
     public void onAttach(Context context) {
         try {
@@ -40,15 +49,6 @@ public class HomeworkEdit extends Fragment {
             throw new ClassCastException(context.toString() + "must implement OnSaveListener");
         }
         super.onAttach(context);
-    }
-
-    public static HomeworkEdit newInstance(Homework homework) {
-        HomeworkEdit fragment = new HomeworkEdit();
-        Bundle args = new Bundle();
-        if (homework != null) args.putLong("homeworkId", homework.getId());
-        fragment.setArguments(args);
-
-        return fragment;
     }
 
     @Override
