@@ -12,8 +12,12 @@ import android.util.Log;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
+import com.google.firebase.crash.FirebaseCrash;
+import com.nickdbush.mywbgs.models.Event;
 import com.nickdbush.mywbgs.models.Lesson;
 import com.nickdbush.mywbgs.ui.TimetableEdit;
+
+import java.io.IOException;
 
 import io.realm.Realm;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -64,6 +68,12 @@ public class IntroActivity extends AppIntro {
             for (Lesson lesson : lessonArray) {
                 realm.copyToRealm(lesson);
             }
+        }
+        try {
+            realm.createAllFromJson(Event.class, getAssets().open("calendar.json"));
+        } catch (IOException e) {
+            if (!BuildConfig.DEBUG) FirebaseCrash.report(e);
+            else e.printStackTrace();
         }
         realm.commitTransaction();
 
