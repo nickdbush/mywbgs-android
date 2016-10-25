@@ -89,7 +89,9 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
                 if (fragment != null) ft.remove(fragment);
             }
         }
+        ft.commitNow();
 
+        ft = getChildFragmentManager().beginTransaction();
         for (Homework homework : results) {
             if (!cards.containsKey(homework.getDueDate())) {
                 String date = Utils.getHelpfulDate(homework.getDueDate());
