@@ -161,6 +161,7 @@ public class HomeworkEdit extends Fragment {
                         updateSpinnerAdapter();
                     }
                 }, selectedDate.getYear(), selectedDate.getMonthOfYear() - 1, selectedDate.getDayOfMonth());
+                datePickerDialog.setTitle("Set due date");
                 datePickerDialog.getDatePicker().setMinDate(new LocalDate().toDate().getTime());
                 datePickerDialog.show();
             }
