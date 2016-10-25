@@ -33,25 +33,41 @@ public class HomeworkCard extends Card {
     private String title;
     private LocalDate date;
 
+    private OnHomeworkClickedListener onHomeworkClickedListener;
+
     public HomeworkCard() {
 
     }
 
-    public static HomeworkCard newInstance(LocalDate date) {
+    public static HomeworkCard newInstance(LocalDate date, boolean homeworkClickable) {
         HomeworkCard fragment = new HomeworkCard();
         Bundle args = new Bundle();
         args.putSerializable("date", date);
+        args.putBoolean("homeworkClickable", homeworkClickable);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static HomeworkCard newInstance(LocalDate date, String title) {
+    public static HomeworkCard newInstance(LocalDate date, String title, boolean homeworkClickable) {
         HomeworkCard fragment = new HomeworkCard();
         Bundle args = new Bundle();
         args.putSerializable("date", date);
         args.putString("title", title);
+        args.putBoolean("homeworkClickable", homeworkClickable);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        if (getArguments().getBoolean("homeworkClickable", false)) {
+            try {
+                onHomeworkClickedListener = (OnHomeworkClickedListener) context;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(context.toString() + " must implement OnHomeworkClickedListener");
+            }
+        }
+        super.onAttach(context);
     }
 
     @Override
@@ -72,7 +88,7 @@ public class HomeworkCard extends Card {
                 .equalTo("dueDate", date.toDate())
                 .findAll();
 
-        for (Homework result : results) {
+        for (final Homework result : results) {
             View item = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_homework, null);
             ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getTitle());
             ((TextView) item.findViewById(R.id.lbl_subject)).setText(result.getLesson().getSubject());
@@ -83,6 +99,15 @@ public class HomeworkCard extends Card {
             chkCompleted.setChecked(result.isCompleted());
             final OnCheckedChangeListener onCheckedChangeListener = new OnHomeworkCheckedListener(result);
             chkCompleted.setOnCheckedChangeListener(onCheckedChangeListener);
+
+            if (getArguments().getBoolean("homeworkClickable", false)) {
+                item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onHomeworkClickedListener.onHomeworkClicked(result);
+                    }
+                });
+            }
 
             linearLayout.addView(item);
         }
@@ -95,6 +120,10 @@ public class HomeworkCard extends Card {
         }
 
         return view;
+    }
+
+    public interface OnHomeworkClickedListener {
+        void onHomeworkClicked(Homework homework);
     }
 
     private class OnHomeworkCheckedListener implements OnCheckedChangeListener {

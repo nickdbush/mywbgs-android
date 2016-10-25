@@ -22,6 +22,7 @@ import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 import org.joda.time.LocalDate;
 
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +36,7 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
     @BindView(R.id.layout_empty)
     RelativeLayout emptyLayout;
 
-    private OnHomeworkClickedListener onHomeworkClickedListener;
+    private HomeworkCard.OnHomeworkClickedListener onHomeworkClickedListener;
 
     public HomeworkList() {
     }
@@ -43,7 +44,6 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
     public static HomeworkList newInstance() {
         HomeworkList fragment = new HomeworkList();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,7 +51,7 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
     @Override
     public void onAttach(Context context) {
         try {
-            onHomeworkClickedListener = (OnHomeworkClickedListener) context;
+            onHomeworkClickedListener = (HomeworkCard.OnHomeworkClickedListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "must implement OnHomeworkClickedListener");
         }
@@ -83,11 +83,18 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
                 .sort("dueDate");
 
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        if (fragments != null && fragments.size() > 0) {
+            for (Fragment fragment : fragments) {
+                if (fragment != null) ft.remove(fragment);
+            }
+        }
+
         for (Homework homework : results) {
             if (!cards.containsKey(homework.getDueDate())) {
                 String date = Utils.getHelpfulDate(homework.getDueDate());
                 if (homework.getDueDate().isBefore(new LocalDate())) date += " (overdue)";
-                HomeworkCard homeworkCard = HomeworkCard.newInstance(homework.getDueDate(), date);
+                HomeworkCard homeworkCard = HomeworkCard.newInstance(homework.getDueDate(), date, true);
                 cards.put(homework.getDueDate(), homeworkCard);
                 ft.add(R.id.layout_cards, homeworkCard, homework.getDueDate().toString());
             }
@@ -108,10 +115,5 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
     @Override
     public void onClick(Card card) {
 
-    }
-
-    // TODO: 24/10/2016 Extend OnClickListener
-    public interface OnHomeworkClickedListener {
-        void onHomeworkClicked(Homework homework);
     }
 }

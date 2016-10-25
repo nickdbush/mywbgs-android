@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.nickdbush.mywbgs.HomeworkActivity;
 import com.nickdbush.mywbgs.R;
+import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.ui.cards.CalendarCard;
 import com.nickdbush.mywbgs.ui.cards.Card;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
@@ -23,7 +24,7 @@ import org.joda.time.LocalDate;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DayPage extends Fragment implements Card.OnCardClickedListener {
+public class DayPage extends Fragment implements Card.OnCardClickedListener, HomeworkCard.OnHomeworkClickedListener {
 
     @BindView(R.id.lbl_date)
     TextView lblDate;
@@ -68,7 +69,7 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener {
 
     private void generateCards() {
         TimetableCard timetableCard = TimetableCard.newInstance(date);
-        HomeworkCard homeworkCard = HomeworkCard.newInstance(date);
+        HomeworkCard homeworkCard = HomeworkCard.newInstance(date, false);
         CalendarCard calendarCard = CalendarCard.newInstance(date);
 
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
@@ -84,5 +85,10 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener {
             Intent intent = new Intent(getContext(), HomeworkActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onHomeworkClicked(Homework homework) {
+
     }
 }

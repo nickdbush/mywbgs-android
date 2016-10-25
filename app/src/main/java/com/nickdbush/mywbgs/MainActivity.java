@@ -13,7 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.ui.DayPage;
+import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 
 import org.joda.time.LocalDate;
 
@@ -21,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHomeworkClickedListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -98,6 +100,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         // Icepick.saveInstanceState(this, outState);
+    }
+
+    @Override
+    public void onHomeworkClicked(Homework homework) {
+
     }
 
     private class DayAdapter extends FragmentPagerAdapter {

@@ -16,10 +16,12 @@ public class MyWBGS extends Application {
     public void onCreate() {
         super.onCreate();
         // Leak Canary
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
+        if (BuildConfig.DEBUG) {
+            if (LeakCanary.isInAnalyzerProcess(this)) {
+                return;
+            }
+            LeakCanary.install(this);
         }
-        LeakCanary.install(this);
 
         // JodaTime
         JodaTimeAndroid.init(this);

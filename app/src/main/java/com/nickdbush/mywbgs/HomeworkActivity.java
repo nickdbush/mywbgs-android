@@ -11,10 +11,11 @@ import android.view.MenuItem;
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.ui.HomeworkEdit;
 import com.nickdbush.mywbgs.ui.HomeworkList;
+import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class HomeworkActivity extends AppCompatActivity implements HomeworkEdit.OnSaveListener, HomeworkList.OnHomeworkClickedListener {
+public class HomeworkActivity extends AppCompatActivity implements HomeworkEdit.OnSaveListener, HomeworkCard.OnHomeworkClickedListener {
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -29,6 +30,7 @@ public class HomeworkActivity extends AppCompatActivity implements HomeworkEdit.
         setSupportActionBar(toolbar);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        getSupportFragmentManager().popBackStackImmediate("homework_edit", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ft.replace(R.id.screen, HomeworkList.newInstance(), "homework_list");
         ft.commit();
     }
