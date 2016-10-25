@@ -3,24 +3,24 @@ package com.nickdbush.mywbgs.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.models.Utils;
+import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
+
+import org.joda.time.LocalDate;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +29,8 @@ import io.realm.RealmResults;
 
 public class HomeworkList extends Fragment {
 
-    @BindView(R.id.layout_list)
-    ListView listHomework;
+    @BindView(R.id.layout_cards)
+    LinearLayout cardList;
     @BindView(R.id.layout_empty)
     RelativeLayout emptyLayout;
 
@@ -73,24 +73,27 @@ public class HomeworkList extends Fragment {
         View view = inflater.inflate(R.layout.fragment_homework, container, false);
         ButterKnife.bind(this, view);
 
-        RealmResults<Homework> homework = Realm.getDefaultInstance().where(Homework.class)
+        HashMap<LocalDate, HomeworkCard> cards = new HashMap<LocalDate, HomeworkCard>();
+
+        RealmResults<Homework> results = Realm.getDefaultInstance().where(Homework.class)
+                // TODO: 25/10/2016 Filtering
+                .equalTo("completed", false)
                 .findAll()
                 .sort("dueDate");
 
-        final HomeworkAdapter homeworkAdapter = new HomeworkAdapter(homework, onHomeworkClickedListener);
-        listHomework.setAdapter(homeworkAdapter);
-
-        listHomework.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d(getClass().getSimpleName(), String.valueOf(i));
-                onHomeworkClickedListener.onHomeworkClicked(homeworkAdapter.getItem(i));
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        for (Homework homework : results) {
+            if (!cards.containsKey(homework.getDueDate())) {
+                HomeworkCard homeworkCard = HomeworkCard.newInstance(homework.getDueDate(), Utils.getHelpfulDate(homework.getDueDate()));
+                cards.put(homework.getDueDate(), homeworkCard);
+                ft.add(R.id.layout_cards, homeworkCard, homework.getDueDate().toString());
             }
-        });
+        }
+        ft.commit();
 
-        if (homework.size() == 0) {
+        if (results.size() == 0) {
             emptyLayout.setVisibility(View.VISIBLE);
-            listHomework.setVisibility(View.GONE);
+            cardList.setVisibility(View.GONE);
         }
 
         // Enable the options menu
@@ -102,72 +105,5 @@ public class HomeworkList extends Fragment {
     // TODO: 24/10/2016 Extend OnClickListener
     public interface OnHomeworkClickedListener {
         void onHomeworkClicked(Homework homework);
-    }
-
-    private class HomeworkAdapter extends BaseAdapter {
-
-        private RealmResults<Homework> homeworks;
-        private OnHomeworkClickedListener onHomeworkClickedListener;
-
-        public HomeworkAdapter(RealmResults<Homework> homeworks, OnHomeworkClickedListener onHomeworkClickedListener) {
-            this.homeworks = homeworks;
-            this.onHomeworkClickedListener = onHomeworkClickedListener;
-        }
-
-        @Override
-        public int getCount() {
-            return homeworks.size();
-        }
-
-        @Override
-        public Homework getItem(int position) {
-            return homeworks.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return homeworks.get(position).getId();
-        }
-
-        @Override
-        public View getView(int position, View view, ViewGroup parent) {
-            if (view == null) {
-                view = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_homework, parent, false);
-            }
-
-
-            final Homework homework = homeworks.get(position);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onHomeworkClickedListener.onHomeworkClicked(homework);
-                }
-            });
-            ((TextView) view.findViewById(R.id.lbl_title)).setText(homework.getTitle());
-            ((TextView) view.findViewById(R.id.lbl_subject)).setText(homework.getLesson().getSubject().NAME + " - " + Utils.getDayOfWeekAsString(homework.getDueDate()));
-
-            CheckBox chkCompleted = (CheckBox) view.findViewById(R.id.chk_completed);
-            chkCompleted.setOnCheckedChangeListener(null);
-            chkCompleted.setChecked(homework.isCompleted());
-            chkCompleted.setOnCheckedChangeListener(new OnHomeworkCheckedListener(homework));
-
-            return view;
-        }
-
-        private class OnHomeworkCheckedListener implements CompoundButton.OnCheckedChangeListener {
-            private Homework homework;
-
-            public OnHomeworkCheckedListener(Homework homework) {
-                this.homework = homework;
-            }
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-                homework.setCompleted(isChecked);
-                realm.commitTransaction();
-            }
-        }
     }
 }

@@ -29,20 +29,18 @@ public class Utils {
         return currentDay;
     }
 
-    public static String getDayOfWeekAsString(LocalDate date) {
-        int difference = Days.daysBetween(new LocalDate(), date).getDays();
+    public static String getHelpfulDate(LocalDate date) {
+        LocalDate today = new LocalDate();
+        int difference = Days.daysBetween(today, date).getDays();
         if (difference == 0) {
             return "Today";
         } else if (difference == 1) {
             return "Tomorrow";
-        } else if (difference < 7) {
-            return DAYS[date.getDayOfWeek() - 1];
-        } else if (difference < 14) {
-            return "Next " + DAYS[date.getDayOfWeek() - 1];
+        } else if (difference == -1) {
+            return "Yesterday";
         } else {
             return date.toString("EEEE d MMMM");
         }
-
     }
 
     public static class Period {

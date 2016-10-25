@@ -4,6 +4,9 @@
               android:id="@+id/content_homework"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:paddingTop="16dp"
+              android:paddingBottom="16dp"
+              android:background="#eeeeee"
               android:orientation="vertical"
               tools:context="com.nickdbush.mywbgs.ui.HomeworkList">
 
@@ -26,9 +29,13 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/layout_list"
+    <LinearLayout
+        android:id="@+id/layout_cards"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical">
+
+    </LinearLayout>
 
 </LinearLayout>

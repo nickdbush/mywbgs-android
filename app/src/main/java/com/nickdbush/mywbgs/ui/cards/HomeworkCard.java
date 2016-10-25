@@ -48,10 +48,19 @@ public class HomeworkCard extends Fragment {
         return fragment;
     }
 
+    public static HomeworkCard newInstance(LocalDate date, String title) {
+        HomeworkCard fragment = new HomeworkCard();
+        Bundle args = new Bundle();
+        args.putSerializable("date", date);
+        args.putString("title", title);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        title = "Homework";
+        title = getArguments().getString("title", "Homework");
         date = (LocalDate) getArguments().getSerializable("date");
     }
 
