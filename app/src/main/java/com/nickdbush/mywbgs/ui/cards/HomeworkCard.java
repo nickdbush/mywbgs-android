@@ -1,9 +1,7 @@
 package com.nickdbush.mywbgs.ui.cards;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +11,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.nickdbush.mywbgs.HomeworkActivity;
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Homework;
 
@@ -24,7 +21,7 @@ import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class HomeworkCard extends Fragment {
+public class HomeworkCard extends Card {
 
     @BindView(R.id.layout_linear_list)
     LinearLayout linearLayout;
@@ -90,14 +87,7 @@ public class HomeworkCard extends Fragment {
             linearLayout.addView(item);
         }
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), HomeworkActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
+        view.setOnClickListener(new OnClickedListener(this));
 
         if (results.size() == 0) {
             lblEmpty.setText("No homework due for today");
@@ -122,5 +112,4 @@ public class HomeworkCard extends Fragment {
             realm.commitTransaction();
         }
     }
-
 }

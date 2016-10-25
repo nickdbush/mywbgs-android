@@ -3,7 +3,6 @@ package com.nickdbush.mywbgs.ui.cards;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,7 @@ import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class TimetableCard extends Fragment {
+public class TimetableCard extends Card {
 
     @BindView(R.id.layout_linear_list)
     LinearLayout linearLayout;

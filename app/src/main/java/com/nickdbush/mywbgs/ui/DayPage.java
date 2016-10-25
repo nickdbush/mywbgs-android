@@ -1,5 +1,6 @@
 package com.nickdbush.mywbgs.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nickdbush.mywbgs.HomeworkActivity;
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.ui.cards.CalendarCard;
+import com.nickdbush.mywbgs.ui.cards.Card;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 import com.nickdbush.mywbgs.ui.cards.TimetableCard;
 
@@ -20,7 +23,7 @@ import org.joda.time.LocalDate;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DayPage extends Fragment {
+public class DayPage extends Fragment implements Card.OnCardClickedListener {
 
     @BindView(R.id.lbl_date)
     TextView lblDate;
@@ -73,5 +76,13 @@ public class DayPage extends Fragment {
         ft.add(R.id.layout_cards, homeworkCard, "homework");
         ft.add(R.id.layout_cards, calendarCard, "calendar");
         ft.commitNow();
+    }
+
+    @Override
+    public void onClick(Card card) {
+        if (card instanceof HomeworkCard) {
+            Intent intent = new Intent(getContext(), HomeworkActivity.class);
+            startActivity(intent);
+        }
     }
 }

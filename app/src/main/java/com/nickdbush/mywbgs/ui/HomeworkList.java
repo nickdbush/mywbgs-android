@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.models.Utils;
+import com.nickdbush.mywbgs.ui.cards.Card;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 
 import org.joda.time.LocalDate;
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class HomeworkList extends Fragment {
+public class HomeworkList extends Fragment implements Card.OnCardClickedListener {
 
     @BindView(R.id.layout_cards)
     LinearLayout cardList;
@@ -100,6 +101,11 @@ public class HomeworkList extends Fragment {
         setHasOptionsMenu(true);
 
         return view;
+    }
+
+    @Override
+    public void onClick(Card card) {
+
     }
 
     // TODO: 24/10/2016 Extend OnClickListener

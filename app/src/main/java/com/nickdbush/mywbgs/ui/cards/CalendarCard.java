@@ -2,7 +2,6 @@ package com.nickdbush.mywbgs.ui.cards;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class CalendarCard extends Fragment {
+public class CalendarCard extends Card {
 
     @BindView(R.id.layout_linear_list)
     LinearLayout linearLayout;
