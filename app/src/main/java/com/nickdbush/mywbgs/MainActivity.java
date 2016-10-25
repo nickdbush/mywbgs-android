@@ -1,5 +1,6 @@
 package com.nickdbush.mywbgs;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,18 +13,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.ui.DayPage;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHomeworkClickedListener {
+public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHomeworkClickedListener, DatePickerDialog.OnDateSetListener {
+
+    // How many days you can go back
+    public final static int DAYS_BACK = 1 * 7;
+    public final static int DAYS_FORWARDS = 5 * 7;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -48,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
 
         dayAdapter = new DayAdapter(getSupportFragmentManager());
         pager.setAdapter(dayAdapter);
-        pager.setCurrentItem(DayAdapter.OFFSET);
+        pager.setCurrentItem(DAYS_BACK);
 
         sharedPreferences = getSharedPreferences("com.nickdbush.mywbgs", MODE_PRIVATE);
     }
@@ -107,10 +114,12 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
 
     }
 
-    private class DayAdapter extends FragmentPagerAdapter {
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        pager.setCurrentItem(Days.daysBetween(new LocalDate().minusDays(DAYS_BACK), new LocalDate(i, i1 + 1, i2)).getDays());
+    }
 
-        // How many days you can go back
-        public final static int OFFSET = 5;
+    private class DayAdapter extends FragmentPagerAdapter {
 
         public DayAdapter(FragmentManager fm) {
             super(fm);
@@ -118,12 +127,12 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
 
         @Override
         public Fragment getItem(int position) {
-            return DayPage.newInstance(new LocalDate().plusDays(position - OFFSET));
+            return DayPage.newInstance(new LocalDate().plusDays(position - DAYS_BACK));
         }
 
         @Override
         public int getCount() {
-            return (7 * 7) + OFFSET;
+            return DAYS_FORWARDS + 1 + DAYS_BACK;
         }
     }
 }

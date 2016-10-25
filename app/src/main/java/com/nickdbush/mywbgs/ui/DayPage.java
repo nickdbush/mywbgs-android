@@ -1,5 +1,7 @@
 package com.nickdbush.mywbgs.ui;
 
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nickdbush.mywbgs.HomeworkActivity;
+import com.nickdbush.mywbgs.MainActivity;
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.ui.cards.CalendarCard;
@@ -32,6 +35,7 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
     LinearLayout layoutCards;
 
     private LocalDate date;
+    private DatePickerDialog.OnDateSetListener onDateSetListener;
 
     public DayPage() {
     }
@@ -52,6 +56,16 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
     }
 
     @Override
+    public void onAttach(Context context) {
+        try {
+            onDateSetListener = (DatePickerDialog.OnDateSetListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + "must implement OnDateSetListener");
+        }
+        super.onAttach(context);
+    }
+
+    @Override
     public void onResume() {
         generateCards();
         super.onResume();
@@ -63,6 +77,17 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
         View view = inflater.inflate(R.layout.fragment_day, container, false);
         ButterKnife.bind(this, view);
         lblDate.setText(date.toString("EEEE d MMMM yyyy"));
+        lblDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), onDateSetListener, date.getYear(), date.getMonthOfYear() - 1, date.getDayOfMonth());
+                dialog.setTitle("Go to date");
+                dialog.getDatePicker().setMinDate(new LocalDate().minusDays(MainActivity.DAYS_BACK).toDate().getTime());
+                dialog.getDatePicker().setMaxDate(new LocalDate().plusDays(MainActivity.DAYS_FORWARDS).toDate().getTime());
+                dialog.show();
+            }
+        });
+
         generateCards();
         return view;
     }
