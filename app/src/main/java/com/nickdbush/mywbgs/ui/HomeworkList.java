@@ -15,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nickdbush.mywbgs.R;
@@ -30,6 +31,8 @@ public class HomeworkList extends Fragment {
 
     @BindView(R.id.layout_list)
     ListView listHomework;
+    @BindView(R.id.layout_empty)
+    RelativeLayout emptyLayout;
 
     private OnHomeworkClickedListener onHomeworkClickedListener;
 
@@ -84,6 +87,11 @@ public class HomeworkList extends Fragment {
                 onHomeworkClickedListener.onHomeworkClicked(homeworkAdapter.getItem(i));
             }
         });
+
+        if (homework.size() == 0) {
+            emptyLayout.setVisibility(View.VISIBLE);
+            listHomework.setVisibility(View.GONE);
+        }
 
         // Enable the options menu
         setHasOptionsMenu(true);

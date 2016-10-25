@@ -30,6 +30,8 @@ public class CalendarCard extends Fragment {
     LinearLayout linearLayout;
     @BindView(R.id.lbl_title)
     TextView lblTitle;
+    @BindView(R.id.lbl_empty)
+    TextView lblEmpty;
 
     private String title;
     private LocalDate date;
@@ -84,6 +86,11 @@ public class CalendarCard extends Fragment {
             ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getTitle());
             ((TextView) item.findViewById(R.id.lbl_time)).setText(result.getDurationString());
             linearLayout.addView(item);
+        }
+
+        if (events.size() == 0) {
+            lblEmpty.setText("Nothing on today");
+            lblEmpty.setVisibility(View.VISIBLE);
         }
 
         return view;

@@ -7,6 +7,25 @@
               android:orientation="vertical"
               tools:context="com.nickdbush.mywbgs.ui.HomeworkList">
 
+    <RelativeLayout
+        android:id="@+id/layout_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/lbl_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="No homework"
+            android:textAppearance="@style/TextAppearance.AppTheme.Caption"/>
+
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/layout_list"
         android:layout_width="match_parent"

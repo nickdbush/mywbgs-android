@@ -28,6 +28,8 @@ public class TimetableCard extends Fragment {
     LinearLayout linearLayout;
     @BindView(R.id.lbl_title)
     TextView lblTitle;
+    @BindView(R.id.lbl_empty)
+    TextView lblEmpty;
 
     private LocalDate date;
     private String title;
@@ -91,6 +93,11 @@ public class TimetableCard extends Fragment {
                 }
             }
             linearLayout.addView(item);
+        }
+
+        if (results.size() == 0) {
+            lblEmpty.setText("No lessons today");
+            lblEmpty.setVisibility(View.VISIBLE);
         }
 
         return view;

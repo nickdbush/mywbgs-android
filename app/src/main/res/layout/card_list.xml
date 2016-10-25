@@ -26,6 +26,14 @@
             android:textAppearance="@style/TextAppearance.AppTheme.Body2"
             tools:text="TITLE"/>
 
+        <TextView
+            android:id="@+id/lbl_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textAppearance="@style/TextAppearance.AppTheme.Body1"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
 </FrameLayout>

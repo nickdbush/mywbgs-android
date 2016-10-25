@@ -27,6 +27,10 @@
         <item name="fontPath">Montserrat-Regular.ttf</item>
     </style>
 
+    <style name="TextAppearance.AppTheme.Headline" parent="TextAppearance.AppCompat.Headline">
+        <item name="fontPath">Montserrat-Regular.ttf</item>
+    </style>
+
     <style name="TextAppearance.AppTheme.Body2" parent="TextAppearance.AppCompat.Body2">
         <item name="fontPath">Montserrat-Bold.ttf</item>
     </style>

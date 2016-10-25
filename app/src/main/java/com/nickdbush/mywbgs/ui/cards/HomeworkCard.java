@@ -30,6 +30,8 @@ public class HomeworkCard extends Fragment {
     LinearLayout linearLayout;
     @BindView(R.id.lbl_title)
     TextView lblTitle;
+    @BindView(R.id.lbl_empty)
+    TextView lblEmpty;
 
     private String title;
     private LocalDate date;
@@ -87,6 +89,11 @@ public class HomeworkCard extends Fragment {
                 startActivity(intent);
             }
         });
+
+        if (results.size() == 0) {
+            lblEmpty.setText("No homework due for today");
+            lblEmpty.setVisibility(View.VISIBLE);
+        }
 
         return view;
     }
