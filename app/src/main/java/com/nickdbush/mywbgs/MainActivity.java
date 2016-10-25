@@ -2,6 +2,7 @@ package com.nickdbush.mywbgs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager pager;
 
     private DayAdapter dayAdapter;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -45,13 +47,28 @@ public class MainActivity extends AppCompatActivity {
         dayAdapter = new DayAdapter(getSupportFragmentManager());
         pager.setAdapter(dayAdapter);
         pager.setCurrentItem(DayAdapter.OFFSET);
+
+        sharedPreferences = getSharedPreferences("com.nickdbush.mywbgs", MODE_PRIVATE);
     }
 
     @Override
     protected void onResume() {
-        // Recreate all the cards!
-        dayAdapter.notifyDataSetChanged();
+        if (shouldShowIntro()) {
+            // Intent intent = new Intent(getBaseContext(), IntroActivity.class);
+            // startActivity(intent);
+            // finish();
+        }
         super.onResume();
+    }
+
+    private boolean shouldShowIntro() {
+        return sharedPreferences.getBoolean("nodata", true);
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        dayAdapter.notifyDataSetChanged();
+        super.onResumeFragments();
     }
 
     @Override
