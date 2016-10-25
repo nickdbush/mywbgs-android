@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#ffffff"
+              android:orientation="vertical"
+              android:padding="16dp">
+
+    <TextView
+        android:id="@+id/lbl_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text="Monday"
+        android:textAppearance="@style/TextAppearance.AppTheme.Headline"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--Period 1-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txtl_subject_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_subject_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Period 1"
+                    android:inputType="textCapWords|text"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/txt_room_1"
+                    android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txtl_room_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_room_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Room"
+                    android:inputType="textCapCharacters|text"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/txt_subject_2"
+                    android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <!--/Period 1-->
+
+        <!--Period 2-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txtl_subject_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_subject_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Period 2"
+                    android:inputType="textCapWords|text"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/txt_room_2"
+                    android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txtl_room_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_room_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Room"
+                    android:inputType="textCapCharacters|text"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/txt_subject_3"
+                    android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <!--/Period 2-->
+
+        <!--Period 3-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txtl_subject_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_subject_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Period 3"
+                    android:inputType="textCapWords|text"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/txt_room_3"
+                    android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txtl_room_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_room_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Room"
+                    android:inputType="textCapCharacters|text"
+                    android:maxLines="3"
+                    android:nextFocusDown="@+id/txt_subject_4"
+                    android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <!--/Period 3-->
+
+        <!--Period 4-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txtl_subject_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_subject_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Period 4"
+                    android:inputType="textCapWords|text"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/txt_room_4"
+                    android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txtl_room_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_room_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Room"
+                    android:inputType="textCapCharacters|text"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/txt_subject_5"
+                    android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <!--/Period 4-->
+
+        <!--Period 5-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txtl_subject_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_subject_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Period 5"
+                    android:inputType="textCapWords|text"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/txt_room_5"
+                    android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txtl_room_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_room_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Room"
+                    android:inputType="textCapCharacters|text"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <!--/Period 5-->
+
+        <!--Period 6-->
+        <LinearLayout
+            android:id="@+id/layout_period_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txtl_subject_6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_subject_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Period 6"
+                    android:inputType="textCapWords|text"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/txt_room_6"
+                    android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txtl_room_6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_room_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Room"
+                    android:inputType="textCapCharacters|text"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <!--/Period 6-->
+
+    </LinearLayout>
+</LinearLayout>

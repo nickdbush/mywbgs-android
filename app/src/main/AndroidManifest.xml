@@ -23,6 +23,10 @@
             android:name=".HomeworkActivity"
             android:label="@string/title_activity_homework"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".IntroActivity"
+            android:label="@string/title_activity_intro"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

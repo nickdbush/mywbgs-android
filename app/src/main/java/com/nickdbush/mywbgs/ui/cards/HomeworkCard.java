@@ -75,7 +75,7 @@ public class HomeworkCard extends Card {
         for (Homework result : results) {
             View item = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_homework, null);
             ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getTitle());
-            ((TextView) item.findViewById(R.id.lbl_subject)).setText(result.getLesson().getSubject().NAME);
+            ((TextView) item.findViewById(R.id.lbl_subject)).setText(result.getLesson().getSubject());
             // ((TextView) item.findViewById(R.id.lbl_subject)).setTextColor(result.getLesson().getSubject().COLOR);
 
             final CheckBox chkCompleted = (CheckBox) item.findViewById(R.id.chk_completed);

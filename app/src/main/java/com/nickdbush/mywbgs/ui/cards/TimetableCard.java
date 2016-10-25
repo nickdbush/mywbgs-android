@@ -72,7 +72,7 @@ public class TimetableCard extends Card {
         for (int i = 0; i < results.size(); i++) {
             Lesson result = results.get(i);
             View item = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_timetable, null);
-            ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getSubject().NAME);
+            ((TextView) item.findViewById(R.id.lbl_title)).setText(result.getSubject());
             // ((TextView) item.findViewById(R.id.lbl_title)).setTextColor(result.getSubject().COLOR);
             ((TextView) item.findViewById(R.id.lbl_time)).setText(result.getPeriod().getDurationString());
             ((TextView) item.findViewById(R.id.lbl_room)).setText(result.getRoom());

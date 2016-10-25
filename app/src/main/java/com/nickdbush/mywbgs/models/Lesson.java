@@ -14,7 +14,7 @@ public class Lesson extends RealmObject {
 
     @PrimaryKey
     private long id = 0;
-    private int subject;
+    private String subject;
     private String room;
     private int period;
     private int day;
@@ -37,15 +37,11 @@ public class Lesson extends RealmObject {
         return id;
     }
 
-    public Subject getSubject() {
-        return Subject.SUBJECTS[subject];
+    public String getSubject() {
+        return subject;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject.getId();
-    }
-
-    public void setSubject(int subject) {
+    public void setSubject(String subject) {
         this.subject = subject;
     }
 

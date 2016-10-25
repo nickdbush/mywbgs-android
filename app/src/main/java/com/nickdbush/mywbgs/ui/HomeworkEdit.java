@@ -221,7 +221,7 @@ public class HomeworkEdit extends Fragment {
             if (convertView == null) {
                 convertView = ((LayoutInflater) (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))).inflate(R.layout.item_spinner, viewGroup, false);
             }
-            ((TextView) (convertView.findViewById(R.id.lbl_text))).setText(getItem(i).getSubject().NAME);
+            ((TextView) (convertView.findViewById(R.id.lbl_text))).setText(getItem(i).getSubject());
             return convertView;
         }
     }

@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         if (shouldShowIntro()) {
-            // Intent intent = new Intent(getBaseContext(), IntroActivity.class);
-            // startActivity(intent);
-            // finish();
+            Intent intent = new Intent(getBaseContext(), IntroActivity.class);
+            startActivity(intent);
+            finish();
         }
         super.onResume();
     }
