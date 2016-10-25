@@ -85,7 +85,9 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         for (Homework homework : results) {
             if (!cards.containsKey(homework.getDueDate())) {
-                HomeworkCard homeworkCard = HomeworkCard.newInstance(homework.getDueDate(), Utils.getHelpfulDate(homework.getDueDate()));
+                String date = Utils.getHelpfulDate(homework.getDueDate());
+                if (homework.getDueDate().isBefore(new LocalDate())) date += " (overdue)";
+                HomeworkCard homeworkCard = HomeworkCard.newInstance(homework.getDueDate(), date);
                 cards.put(homework.getDueDate(), homeworkCard);
                 ft.add(R.id.layout_cards, homeworkCard, homework.getDueDate().toString());
             }
