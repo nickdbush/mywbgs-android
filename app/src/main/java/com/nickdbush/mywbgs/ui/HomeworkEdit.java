@@ -81,8 +81,10 @@ public class HomeworkEdit extends Fragment {
         Realm realm = Realm.getDefaultInstance();
         if (item.getItemId() == R.id.action_save) {
             realm.beginTransaction();
-            if (homework == null)
+            if (homework == null) {
                 homework = Realm.getDefaultInstance().createObject(Homework.class);
+                homework.generateId();
+            }
             homework.setTitle(txtTitle.getText().toString().trim());
             homework.setDescription(txtDescription.getText().toString().trim());
             homework.setDueDate(selectedDate);
