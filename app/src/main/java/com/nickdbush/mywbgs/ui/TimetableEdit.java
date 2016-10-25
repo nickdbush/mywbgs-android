@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.ISlidePolicy;
 import com.nickdbush.mywbgs.R;
@@ -130,6 +129,6 @@ public class TimetableEdit extends Fragment implements ISlidePolicy {
 
     @Override
     public void onUserIllegallyRequestedNextPage() {
-        Toast.makeText(getContext(), "Invalid action", Toast.LENGTH_SHORT).show();
+
     }
 }

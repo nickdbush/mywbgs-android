@@ -81,10 +81,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            // TODO: 23/09/2016 Launch settings
-            return true;
-        } else if (id == R.id.action_homework) {
+        // if (id == R.id.action_settings) {
+        //     // TODO: 23/09/2016 Launch settings
+        //     return true;
+        // } else
+        if (id == R.id.action_homework) {
             Intent intent = new Intent(getBaseContext(), HomeworkActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
