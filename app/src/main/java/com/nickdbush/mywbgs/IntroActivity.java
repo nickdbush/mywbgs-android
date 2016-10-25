@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.github.paolorotolo.appintro.AppIntro;
@@ -36,6 +37,7 @@ public class IntroActivity extends AppIntro {
         setBarColor(Color.parseColor("#555555"));
         skipButtonEnabled = false;
         addSlide(AppIntroFragment.newInstance("This is alpha software", "Things will probably break.\nYou have been warned!", R.drawable.bug, Color.parseColor("#555555")));
+        addSlide(AppIntroFragment.newInstance("MyWBGS", "All of Watford Boys in one place", R.mipmap.ic_launcher, ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark)));
         addSlide(TimetableEdit.newInstance(0));
         addSlide(TimetableEdit.newInstance(1));
         addSlide(TimetableEdit.newInstance(2));
