@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -30,11 +31,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import icepick.Icepick;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class HomeworkEdit extends Fragment {
 
+    // TODO: 26/10/2016 Save instance state 
+    
     @BindView(R.id.txt_title)
     EditText txtTitle;
     @BindView(R.id.txt_description)
@@ -69,6 +73,18 @@ public class HomeworkEdit extends Fragment {
             throw new ClassCastException(context.toString() + "must implement OnSaveListener");
         }
         super.onAttach(context);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
     }
 
     @Override

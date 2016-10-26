@@ -24,6 +24,8 @@ import org.joda.time.LocalDate;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import icepick.Icepick;
+import icepick.State;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHomeworkClickedListener, DatePickerDialog.OnDateSetListener {
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
     // How many days you can go back
     public final static int DAYS_BACK = 1 * 7;
     public final static int DAYS_FORWARDS = 5 * 7;
+
+    @State
+    int currentPage = DAYS_BACK;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -49,13 +54,13 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Icepick.restoreInstanceState(this, savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
         dayAdapter = new DayAdapter(getSupportFragmentManager());
         pager.setAdapter(dayAdapter);
-        pager.setCurrentItem(DAYS_BACK);
+        pager.setCurrentItem(currentPage);
 
         sharedPreferences = getSharedPreferences("com.nickdbush.mywbgs", MODE_PRIVATE);
     }
@@ -106,7 +111,8 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        // Icepick.saveInstanceState(this, outState);
+        currentPage = pager.getCurrentItem();
+        Icepick.saveInstanceState(this, outState);
     }
 
     @Override

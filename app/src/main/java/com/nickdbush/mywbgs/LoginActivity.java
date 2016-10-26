@@ -3,6 +3,8 @@ package com.nickdbush.mywbgs;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -20,15 +22,22 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import icepick.Icepick;
+import icepick.State;
 import io.realm.Realm;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoginActivity extends AppCompatActivity {
 
+    @State
+    String username;
+    @State
+    String password;
+
     @BindView(R.id.txtl_username)
     TextInputLayout txtlUsername;
     @BindView(R.id.txtl_password)
-    TextInputLayout txtPassword;
+    TextInputLayout txtlPassword;
     @BindView(R.id.btn_login)
     Button btnLogin;
 
@@ -40,22 +49,32 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        if (username != null) txtlUsername.getEditText().setText(username);
+        if (password != null) txtlPassword.getEditText().setText(password);
     }
 
     public void login(View view) {
         String username = txtlUsername.getEditText().getText().toString().trim();
-        String password = txtPassword.getEditText().getText().toString();
+        String password = txtlPassword.getEditText().getText().toString();
 
         // TODO: 26/10/2016 Validation!
 
         GetHomeworkTask getHomeworkTask = new GetHomeworkTask(new GetHomeworkTask.OnHomeworkReturned() {
             @Override
             public void onHomeworkReturned(List<Lesson> lessons) {
-                if (lessons == null) {
-                    Toast.makeText(getBaseContext(), "Incorrect username or password (or some other error)", Toast.LENGTH_LONG).show();
+                if (lessons == null || lessons.size() == 0) {
+                    ConnectivityManager cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                    boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+                    if (!isConnected)
+                        Toast.makeText(getBaseContext(), "No connection", Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getBaseContext(), "Incorrect username or password", Toast.LENGTH_LONG).show();
                     btnLogin.setEnabled(true);
+                    return;
                 }
                 Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
@@ -86,4 +105,11 @@ public class LoginActivity extends AppCompatActivity {
         getHomeworkTask.execute(bundle);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        username = txtlUsername.getEditText().toString();
+        password = txtlPassword.getEditText().toString();
+        Icepick.saveInstanceState(this, outState);
+    }
 }
