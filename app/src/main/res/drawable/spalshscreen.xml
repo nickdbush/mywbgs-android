@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="64dp">
     <item android:drawable="@color/colorPrimaryDark"/>
 
-    <item
-        android:drawable="@drawable/icon"
-        android:gravity="center"/>
+    <item android:gravity="center">
+        <bitmap android:src="@drawable/logo"/>
+    </item>
 </layer-list>
