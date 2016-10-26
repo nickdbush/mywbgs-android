@@ -38,7 +38,7 @@ import io.realm.RealmResults;
 public class HomeworkEdit extends Fragment {
 
     // TODO: 26/10/2016 Save instance state 
-    
+
     @BindView(R.id.txt_title)
     EditText txtTitle;
     @BindView(R.id.txt_description)

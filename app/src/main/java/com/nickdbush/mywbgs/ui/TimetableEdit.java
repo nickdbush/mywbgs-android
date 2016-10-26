@@ -50,7 +50,7 @@ public class TimetableEdit extends Fragment {
 
     }
 
-    public static TimetableEdit newInstance(int day) { 
+    public static TimetableEdit newInstance(int day) {
         TimetableEdit fragment = new TimetableEdit();
         Bundle args = new Bundle();
         args.putInt("day", day);
