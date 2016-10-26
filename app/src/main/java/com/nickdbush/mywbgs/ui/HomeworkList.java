@@ -71,7 +71,7 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_homework, container, false);
+        View view = inflater.inflate(R.layout.fragment_homework_list, container, false);
         ButterKnife.bind(this, view);
 
         HashMap<LocalDate, HomeworkCard> cards = new HashMap<LocalDate, HomeworkCard>();
