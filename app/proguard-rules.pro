@@ -23,3 +23,4 @@
     @icepick.* <fields>;
 }
 -keepnames class * { @icepick.State *;}
+-dontwarn okio.**
