@@ -13,16 +13,10 @@ public class MyWBGS extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // Leak Canary
-        // if (BuildConfig.DEBUG) {
-        //     if (LeakCanary.isInAnalyzerProcess(this)) {
-        //         return;
-        //     }
-        //     LeakCanary.install(this);
-        // }
 
         // JodaTime
         JodaTimeAndroid.init(this);
+
         // Realm
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
                 .build();
