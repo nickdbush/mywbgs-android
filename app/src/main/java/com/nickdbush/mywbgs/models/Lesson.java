@@ -46,7 +46,7 @@ public class Lesson extends RealmObject {
     }
 
     public String getRoom() {
-        return room;
+        return Utils.formatRoom(room);
     }
 
     public void setRoom(String room) {

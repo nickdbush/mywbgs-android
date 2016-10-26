@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.nickdbush.mywbgs.models.Lesson;
+import com.nickdbush.mywbgs.models.Utils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -115,26 +116,12 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, List<Lesson>> {
                 lesson.setDay(rowi - 1);
                 lesson.setPeriod(celli++);
                 lesson.setSubject(subject);
-                lesson.setRoom(processRoom(cell.select(".tt_group_room .tt_room").get(0).html()));
+                lesson.setRoom(Utils.formatRoom(cell.select(".tt_group_room .tt_room").get(0).html()));
                 lessons.add(lesson);
             }
         }
 
         return lessons;
-    }
-
-    private String processRoom(String unprocessed) {
-        if (unprocessed == null || unprocessed.trim().length() == 0) return unprocessed;
-
-        String room = unprocessed.toLowerCase().trim();
-        if (room.equals("new field")) room = "nf";
-        room = room.replace("biology ", "b");
-        room = room.replace("chemistry ", "c");
-        room = room.replace("physics ", "p");
-        room = room.replace("economics ", "ec");
-        room = room.replace("maths room ", "m");
-        room = room.replace("room ", "");
-        return room.toUpperCase().trim();
     }
 
     @Override

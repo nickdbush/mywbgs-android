@@ -43,6 +43,24 @@ public class Utils {
         }
     }
 
+    public static String formatRoom(String unprocessed) {
+        if (unprocessed == null || unprocessed.trim().length() == 0) return unprocessed;
+
+        String room = unprocessed.toLowerCase().trim();
+        if (room.equals("new field")) room = "nf";
+        if (room.equals("sports hall")) room = "sh";
+        room = room.replace("english ", "e");
+        room = room.replace("biology ", "b");
+        room = room.replace("chemistry ", "c");
+        room = room.replace("physics ", "p");
+        room = room.replace("economics ", "ec");
+        room = room.replace("maths room ", "m");
+        room = room.replace("technology ", "t");
+        room = room.replace("art ", "a");
+        room = room.replace("room ", "");
+        return room.toUpperCase().trim();
+    }
+
     public static class Period {
         public static final Period[] PERIODS = {
                 new Period(0, new LocalTime(8, 55)),
