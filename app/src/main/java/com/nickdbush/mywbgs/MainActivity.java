@@ -1,6 +1,5 @@
 package com.nickdbush.mywbgs;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.DatePicker;
 
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.ui.DayPage;
@@ -28,7 +26,7 @@ import icepick.Icepick;
 import icepick.State;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHomeworkClickedListener, DatePickerDialog.OnDateSetListener {
+public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHomeworkClickedListener, DayPage.DayPageListeners {
 
     // How many days you can go back
     public final static int DAYS_BACK = 1 * 7;
@@ -121,8 +119,18 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
     }
 
     @Override
-    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        pager.setCurrentItem(Days.daysBetween(new LocalDate().minusDays(DAYS_BACK), new LocalDate(i, i1 + 1, i2)).getDays());
+    public void next() {
+        pager.setCurrentItem(pager.getCurrentItem() + 1);
+    }
+
+    @Override
+    public void back() {
+        pager.setCurrentItem(pager.getCurrentItem() - 1);
+    }
+
+    @Override
+    public void dateChanged(LocalDate date) {
+        pager.setCurrentItem(Days.daysBetween(new LocalDate().minusDays(DAYS_BACK), date).getDays());
     }
 
     private class DayAdapter extends FragmentPagerAdapter {

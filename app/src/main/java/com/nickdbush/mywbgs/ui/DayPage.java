@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,9 +35,13 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
     TextView lblDate;
     @BindView(R.id.layout_cards)
     LinearLayout layoutCards;
+    @BindView(R.id.img_back)
+    ImageView imgBack;
+    @BindView(R.id.img_next)
+    ImageView imgNext;
 
     private LocalDate date;
-    private DatePickerDialog.OnDateSetListener onDateSetListener;
+    private DayPageListeners dayPageListeners;
 
     public DayPage() {
     }
@@ -58,9 +64,9 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
     @Override
     public void onAttach(Context context) {
         try {
-            onDateSetListener = (DatePickerDialog.OnDateSetListener) context;
+            dayPageListeners = (DayPageListeners) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "must implement OnDateSetListener");
+            throw new ClassCastException(context.toString() + " must implement DayPageListeners");
         }
         super.onAttach(context);
     }
@@ -76,11 +82,28 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_day, container, false);
         ButterKnife.bind(this, view);
-        lblDate.setText(date.toString("EEEE d MMMM yyyy"));
+
+        imgNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dayPageListeners.next();
+            }
+        });
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dayPageListeners.back();
+            }
+        });
         lblDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog dialog = new DatePickerDialog(getContext(), onDateSetListener, date.getYear(), date.getMonthOfYear() - 1, date.getDayOfMonth());
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        dayPageListeners.dateChanged(new LocalDate(i, i1 + 1, i2));
+                    }
+                }, date.getYear(), date.getMonthOfYear() - 1, date.getDayOfMonth());
                 dialog.setTitle("Go to date");
                 dialog.getDatePicker().setMinDate(new LocalDate().minusDays(MainActivity.DAYS_BACK).toDate().getTime());
                 dialog.getDatePicker().setMaxDate(new LocalDate().plusDays(MainActivity.DAYS_FORWARDS).toDate().getTime());
@@ -88,6 +111,7 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
             }
         });
 
+        lblDate.setText(date.toString("EEEE d MMMM yyyy"));
         generateCards();
         return view;
     }
@@ -119,5 +143,13 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
     @Override
     public void onHomeworkClicked(Homework homework) {
 
+    }
+
+    public interface DayPageListeners {
+        void next();
+
+        void back();
+
+        void dateChanged(LocalDate date);
     }
 }

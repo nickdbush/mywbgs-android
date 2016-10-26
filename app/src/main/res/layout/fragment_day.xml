@@ -30,7 +30,7 @@
                 tools:text="Monday 16th February"/>
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/img_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -39,7 +39,7 @@
                 app:srcCompat="@drawable/ic_chevron"/>
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/img_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
