@@ -29,6 +29,7 @@ android {
 
 repositories {
     maven { url "https://clojars.org/repo/" }
+    maven { url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo' }
 }
 
 dependencies {
@@ -40,12 +41,14 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
     compile 'com.android.support:support-v4:25.0.0'
     compile 'net.danlew:android.joda:2.9.4.1'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
+//    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
     provided 'frankiesardo:icepick-processor:3.2.0'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
-    compile 'com.github.paolorotolo:appintro:4.1.0'
-    compile 'com.google.firebase:firebase-core:9.8.0'
-    compile 'com.google.firebase:firebase-crash:9.8.0'
+//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
+//    compile 'com.google.firebase:firebase-core:9.8.0'
+//    compile 'com.google.firebase:firebase-crash:9.8.0'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okio:okio:1.11.0'
+    compile 'org.jsoup:jsoup:1.10.1'
 }

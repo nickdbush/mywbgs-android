@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.nickdbush.mywbgs">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".MyWBGS"
         android:allowBackup="true"
@@ -29,8 +31,8 @@
             android:label="@string/title_activity_homework"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".IntroActivity"
-            android:label="@string/title_activity_intro"
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

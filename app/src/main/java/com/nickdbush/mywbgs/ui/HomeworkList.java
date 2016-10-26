@@ -91,17 +91,17 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
         }
         ft.commitNow();
 
-        ft = getChildFragmentManager().beginTransaction();
         for (Homework homework : results) {
             if (!cards.containsKey(homework.getDueDate())) {
                 String date = Utils.getHelpfulDate(homework.getDueDate());
                 if (homework.getDueDate().isBefore(new LocalDate())) date += " (overdue)";
                 HomeworkCard homeworkCard = HomeworkCard.newInstance(homework.getDueDate(), date, true);
                 cards.put(homework.getDueDate(), homeworkCard);
+                ft = getChildFragmentManager().beginTransaction();
                 ft.add(R.id.layout_cards, homeworkCard, homework.getDueDate().toString());
+                ft.commit();
             }
         }
-        ft.commit();
 
         if (results.size() == 0) {
             emptyLayout.setVisibility(View.VISIBLE);

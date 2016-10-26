@@ -2,8 +2,6 @@ package com.nickdbush.mywbgs;
 
 import android.app.Application;
 
-import com.squareup.leakcanary.LeakCanary;
-
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import io.realm.Realm;
@@ -16,12 +14,12 @@ public class MyWBGS extends Application {
     public void onCreate() {
         super.onCreate();
         // Leak Canary
-        if (BuildConfig.DEBUG) {
-            if (LeakCanary.isInAnalyzerProcess(this)) {
-                return;
-            }
-            LeakCanary.install(this);
-        }
+        // if (BuildConfig.DEBUG) {
+        //     if (LeakCanary.isInAnalyzerProcess(this)) {
+        //         return;
+        //     }
+        //     LeakCanary.install(this);
+        // }
 
         // JodaTime
         JodaTimeAndroid.init(this);

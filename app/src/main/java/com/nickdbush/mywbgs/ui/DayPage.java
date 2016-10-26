@@ -99,9 +99,13 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
 
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.replace(R.id.layout_cards, timetableCard, "timetable");
+        ft.commit();
+        ft = getChildFragmentManager().beginTransaction();
         ft.add(R.id.layout_cards, homeworkCard, "homework");
+        ft.commit();
+        ft = getChildFragmentManager().beginTransaction();
         ft.add(R.id.layout_cards, calendarCard, "calendar");
-        ft.commitNow();
+        ft.commit();
     }
 
     @Override

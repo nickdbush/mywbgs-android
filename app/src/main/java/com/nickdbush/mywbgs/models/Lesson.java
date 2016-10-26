@@ -85,4 +85,8 @@ public class Lesson extends RealmObject {
         return dateToCheck.toLocalTime().isAfter(getPeriod().END);
     }
 
+    @Override
+    public String toString() {
+        return getDay() + ":" + getRawPeriod() + " - " + getSubject() + " in " + getRoom();
+    }
 }

@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
     @Override
     protected void onResume() {
         if (shouldShowIntro()) {
-            Intent intent = new Intent(getBaseContext(), IntroActivity.class);
+            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         }

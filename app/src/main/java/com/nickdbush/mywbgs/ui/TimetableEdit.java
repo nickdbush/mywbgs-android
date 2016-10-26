@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.paolorotolo.appintro.ISlidePolicy;
 import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Lesson;
 import com.nickdbush.mywbgs.models.Utils;
@@ -23,7 +22,7 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 
-public class TimetableEdit extends Fragment implements ISlidePolicy {
+public class TimetableEdit extends Fragment {
     @BindViews({
             R.id.txtl_subject_1,
             R.id.txtl_subject_2,
@@ -51,7 +50,7 @@ public class TimetableEdit extends Fragment implements ISlidePolicy {
 
     }
 
-    public static TimetableEdit newInstance(int day) {
+    public static TimetableEdit newInstance(int day) { 
         TimetableEdit fragment = new TimetableEdit();
         Bundle args = new Bundle();
         args.putInt("day", day);
@@ -67,7 +66,8 @@ public class TimetableEdit extends Fragment implements ISlidePolicy {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_timetable, container, false);
+        // TODO: 26/10/2016 Load data into view
+        View view = inflater.inflate(R.layout.fragment_timetable_edit, container, false);
         ButterKnife.bind(this, view);
         int day = getArguments().getInt("day", 0);
         lblDay.setText(Utils.DAYS[day]);
@@ -120,15 +120,5 @@ public class TimetableEdit extends Fragment implements ISlidePolicy {
         }
 
         return lessons;
-    }
-
-    @Override
-    public boolean isPolicyRespected() {
-        return isValid();
-    }
-
-    @Override
-    public void onUserIllegallyRequestedNextPage() {
-
     }
 }

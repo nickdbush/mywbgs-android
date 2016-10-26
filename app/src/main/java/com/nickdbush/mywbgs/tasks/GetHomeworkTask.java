@@ -2,7 +2,6 @@ package com.nickdbush.mywbgs.tasks;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.nickdbush.mywbgs.models.Lesson;
 
@@ -117,7 +116,7 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, List<Lesson>> {
                 lesson.setPeriod(celli++);
                 lesson.setSubject(subject);
                 lesson.setRoom(processRoom(cell.select(".tt_group_room .tt_room").get(0).html()));
-                Log.d(getClass().getSimpleName(), lesson.toString());
+                lessons.add(lesson);
             }
         }
 
