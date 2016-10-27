@@ -49,7 +49,7 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
     public static DayPage newInstance(LocalDate date) {
         DayPage fragment = new DayPage();
         Bundle args = new Bundle();
-        args.putSerializable("date", date);
+        args.putSerializable("stateDate", date);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,7 +58,7 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        date = (LocalDate) getArguments().getSerializable("date");
+        date = (LocalDate) getArguments().getSerializable("stateDate");
     }
 
     @Override
@@ -104,7 +104,7 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
                         dayPageListeners.dateChanged(new LocalDate(i, i1 + 1, i2));
                     }
                 }, date.getYear(), date.getMonthOfYear() - 1, date.getDayOfMonth());
-                dialog.setTitle("Go to date");
+                dialog.setTitle("Go to stateDate");
                 dialog.getDatePicker().setMinDate(new LocalDate().minusDays(MainActivity.DAYS_BACK).toDate().getTime());
                 dialog.getDatePicker().setMaxDate(new LocalDate().plusDays(MainActivity.DAYS_FORWARDS).toDate().getTime());
                 dialog.show();

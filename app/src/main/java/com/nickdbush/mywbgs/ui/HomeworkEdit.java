@@ -27,17 +27,26 @@ import com.nickdbush.mywbgs.models.Utils;
 
 import org.joda.time.LocalDate;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import icepick.Icepick;
+import icepick.State;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class HomeworkEdit extends Fragment {
 
-    // TODO: 26/10/2016 Save instance state 
+    @State
+    String stateTitle;
+    @State
+    String stateDescription;
+    @State
+    Date stateDate;
+    @State
+    int statePeriod;
 
     @BindView(R.id.txt_title)
     EditText txtTitle;
@@ -79,11 +88,19 @@ public class HomeworkEdit extends Fragment {
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         Icepick.restoreInstanceState(this, savedInstanceState);
+        txtTitle.setText(stateTitle);
+        txtDescription.setText(stateDescription);
+        selectedDate = new LocalDate(stateDate);
+        spinnerSubject.setSelection(statePeriod);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        stateTitle = txtTitle.getText().toString();
+        stateDescription = txtDescription.getText().toString();
+        stateDate = selectedDate.toDate();
+        statePeriod = lessonAdapter.getItem(spinnerSubject.getSelectedItemPosition()).getRawPeriod();
         Icepick.saveInstanceState(this, outState);
     }
 
@@ -169,7 +186,7 @@ public class HomeworkEdit extends Fragment {
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         LocalDate newDate = new LocalDate(year, month + 1, day);
                         if (newDate.getDayOfWeek() == 6 || newDate.getDayOfWeek() == 7) {
-                            Snackbar.make(lblDate, "Selected date must not be on the weekend", Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(lblDate, "Selected stateDate must not be on the weekend", Snackbar.LENGTH_LONG).show();
                             return;
                         }
                         selectedDate = newDate;
@@ -177,7 +194,7 @@ public class HomeworkEdit extends Fragment {
                         updateSpinnerAdapter();
                     }
                 }, selectedDate.getYear(), selectedDate.getMonthOfYear() - 1, selectedDate.getDayOfMonth());
-                datePickerDialog.setTitle("Set due date");
+                datePickerDialog.setTitle("Set due stateDate");
                 datePickerDialog.getDatePicker().setMinDate(new LocalDate().toDate().getTime());
                 datePickerDialog.show();
             }
