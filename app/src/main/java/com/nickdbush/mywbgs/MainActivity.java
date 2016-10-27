@@ -1,7 +1,5 @@
 package com.nickdbush.mywbgs;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,15 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.nickdbush.mywbgs.components.HomeworkNotificationReceiver;
+import com.nickdbush.mywbgs.components.HomeworkNotificationManager;
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.ui.DayPage;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 
-import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,10 +30,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHomeworkClickedListener, DayPage.DayPageListeners {
 
     // How many days you can go back
-    public final static int DAYS_BACK = 1 * 7;
-    public final static int DAYS_FORWARDS = 5 * 7;
-    public final static int HOMEWORK_ALARM = 1;
-    public final static DateTime NOTIFICATION_TIME = new LocalDate().toDateTime(new LocalTime(15, 20));
+    public final static int DAYS_BACK = 2 * 7;
+    public final static int DAYS_FORWARDS = 10 * 7;
 
     @State
     int currentPage = DAYS_BACK;
@@ -80,11 +74,7 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
 
         // First run notification code (enables it for people who have already downloaded the app)
         if (sharedPreferences.getBoolean("firstnotification", true)) {
-            Intent notifyIntent = new Intent(getBaseContext(), HomeworkNotificationReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), HOMEWORK_ALARM, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            AlarmManager alarmManager = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
-            // Set the alarm to go off at 15:20 every day
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, NOTIFICATION_TIME.getMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            HomeworkNotificationManager.setEnabled(this, true);
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("firstnotification", false);

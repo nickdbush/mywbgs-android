@@ -5,11 +5,11 @@
         android:title="Notifications">
 
         <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
             android:key="pref_homework_notif"
-            android:summary="Tonight's homework"
+            android:summary="Notifications with homework that must be completed for tomorrow"
             android:title="Homework notifications"/>
 
     </android.support.v7.preference.PreferenceCategory>
-
 
 </android.support.v7.preference.PreferenceScreen>

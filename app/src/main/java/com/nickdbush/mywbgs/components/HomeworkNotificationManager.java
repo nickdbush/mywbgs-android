@@ -1,5 +1,7 @@
 package com.nickdbush.mywbgs.components;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 
 import com.nickdbush.mywbgs.models.Homework;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
@@ -17,7 +20,10 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class HomeworkNotificationReceiver extends BroadcastReceiver {
+public class HomeworkNotificationManager extends BroadcastReceiver {
+
+    public final static int HOMEWORK_ALARM = 1;
+    public final static DateTime NOTIFICATION_TIME = new LocalDate().toDateTime(new LocalTime(15, 20));
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -60,5 +66,17 @@ public class HomeworkNotificationReceiver extends BroadcastReceiver {
         bundle.putString("text", text);
         notificationIntent.putExtra("data", bundle);
         context.startService(notificationIntent);
+    }
+
+    public static void setEnabled(Context context, boolean enabled) {
+        Intent notifyIntent = new Intent(context, HomeworkNotificationManager.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, HOMEWORK_ALARM, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        if (enabled) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, NOTIFICATION_TIME.getMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        } else {
+            alarmManager.cancel(pendingIntent);
+        }
     }
 }
