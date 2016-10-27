@@ -20,8 +20,10 @@ import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.ui.DayPage;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 
+import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
     // How many days you can go back
     public final static int DAYS_BACK = 1 * 7;
     public final static int DAYS_FORWARDS = 5 * 7;
-    private static final int REQUEST_CODE = 2;
+    public final static int HOMEWORK_ALARM = 1;
+    public final static DateTime NOTIFICATION_TIME = new LocalDate().toDateTime(new LocalTime(15, 20));
 
     @State
     int currentPage = DAYS_BACK;
@@ -74,6 +77,20 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
             startActivity(intent);
             finish();
         }
+
+        // First run notification code (enables it for people who have already downloaded the app)
+        if (sharedPreferences.getBoolean("firstnotification", true)) {
+            Intent notifyIntent = new Intent(getBaseContext(), HomeworkNotificationReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), HOMEWORK_ALARM, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager alarmManager = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
+            // Set the alarm to go off at 15:20 every day
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, NOTIFICATION_TIME.getMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("firstnotification", false);
+            editor.commit();
+        }
+
         super.onResume();
     }
 
@@ -105,11 +122,6 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
             Intent intent = new Intent(getBaseContext(), HomeworkActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-        } else if (id == R.id.action_notification) {
-            Intent notifyIntent = new Intent(getBaseContext(), HomeworkNotificationReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), REQUEST_CODE, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            AlarmManager alarmManager = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, 0, pendingIntent);
         }
 
         return false;

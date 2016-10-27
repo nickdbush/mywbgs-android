@@ -29,8 +29,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CODE = 1;
-
     @State
     String username;
     @State
@@ -94,11 +92,6 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences("com.nickdbush.mywbgs", MODE_PRIVATE).edit();
                 editor.putBoolean("nodata", false);
                 editor.commit();
-
-                // Intent notifyIntent = new Intent(getBaseContext(), HomeworkNotificationReceiver.class);
-                // PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), REQUEST_CODE, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                // AlarmManager alarmManager = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
-                // alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, new LocalTime(15, 20).getMillisOfDay(), 1000 * 60 * 60 * 24, pendingIntent);
 
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(intent);

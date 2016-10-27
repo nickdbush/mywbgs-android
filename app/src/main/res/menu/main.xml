@@ -5,10 +5,6 @@
         android:id="@+id/action_homework"
         android:title="Homework"
         app:showAsAction="never"/>
-    <item
-        android:id="@+id/action_notification"
-        android:title="Trigger notification"
-        app:showAsAction="never"/>
     <!--<item-->
     <!--android:id="@+id/action_settings"-->
     <!--android:orderInCategory="100"-->

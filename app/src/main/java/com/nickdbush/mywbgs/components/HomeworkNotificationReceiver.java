@@ -19,15 +19,12 @@ public class HomeworkNotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        int dayOfWeek = new LocalDate().getDayOfWeek();
-        // Don't want notifications of Friday or Saturday
-        if (dayOfWeek == 5 || dayOfWeek == 6) return;
-
         Realm realm = Realm.getDefaultInstance();
         RealmResults<Homework> homeworks = realm.where(Homework.class)
-                .equalTo("dueDate", new LocalDate().plusDays(1).toDate())
+                .lessThanOrEqualTo("dueDate", new LocalDate().plusDays(1).toDate())
                 .equalTo("completed", false)
-                .findAll();
+                .findAll()
+                .sort("dueDate");
 
         String title;
         String text = "";
@@ -39,7 +36,7 @@ public class HomeworkNotificationReceiver extends BroadcastReceiver {
                 Homework homework = homeworks.get(i);
                 count++;
                 if (subjects.contains(homework.getLesson().getSubject())) continue;
-                subjects.add(homework.getLesson().getSubject());
+                subjects.add(homework.getLesson().getSubject() + (!homeworks.get(i).getDueDate().isAfter(new LocalDate()) ? " (overdue)" : ""));
             }
         } else {
             return;
@@ -52,7 +49,7 @@ public class HomeworkNotificationReceiver extends BroadcastReceiver {
                 text += "and " + subjects.get(i);
         }
 
-        title = count + " piece" + (count > 1 ? "s" : "") + " of homework need to be done for tomorrow";
+        title = count + " piece" + (count > 1 ? "s" : "") + " of homework " + (count > 1 ? "need" : "needs") + " to be done for tomorrow";
 
         Intent notificationIntent = new Intent(context, HomeworkNotificationService.class);
         Bundle bundle = new Bundle();
