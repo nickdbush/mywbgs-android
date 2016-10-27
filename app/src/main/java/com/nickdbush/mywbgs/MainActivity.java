@@ -1,5 +1,7 @@
 package com.nickdbush.mywbgs;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.nickdbush.mywbgs.components.HomeworkNotificationReceiver;
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.ui.DayPage;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
     // How many days you can go back
     public final static int DAYS_BACK = 1 * 7;
     public final static int DAYS_FORWARDS = 5 * 7;
+    private static final int REQUEST_CODE = 2;
 
     @State
     int currentPage = DAYS_BACK;
@@ -101,6 +105,11 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
             Intent intent = new Intent(getBaseContext(), HomeworkActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+        } else if (id == R.id.action_notification) {
+            Intent notifyIntent = new Intent(getBaseContext(), HomeworkNotificationReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), REQUEST_CODE, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager alarmManager = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, 0, pendingIntent);
         }
 
         return false;
