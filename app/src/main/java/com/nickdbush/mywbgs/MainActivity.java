@@ -82,6 +82,9 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
             editor.commit();
         }
 
+        Intent intent = new Intent("com.nickdbush.mywbgs.homeworknotification");
+        sendBroadcast(intent);
+
         super.onResume();
     }
 
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
             startActivity(intent);
             return true;
         } else if (id == R.id.action_about) {
-            Intent intent = new Intent(this, ActivityAbout.class);
+            Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
             return true;
         }

@@ -210,10 +210,9 @@ public class HomeworkEdit extends Fragment {
     }
 
     private void updateSpinnerAdapter() {
-        RealmResults<Lesson> lessons = Realm.getDefaultInstance().where(Lesson.class)
+        lessonAdapter.lessons = Realm.getDefaultInstance().where(Lesson.class)
                 .equalTo("day", selectedDate.getDayOfWeek() - 1)
                 .findAll();
-        lessonAdapter.lessons = lessons;
         lessonAdapter.notifyDataSetChanged();
     }
 

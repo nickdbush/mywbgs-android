@@ -38,7 +38,7 @@
             android:label="Settings"
             android:theme="@style/AppTheme"/>
         <activity
-            android:name=".ActivityAbout"
+            android:name=".AboutActivity"
             android:label="About"
             android:theme="@style/AppTheme"/>
 
@@ -47,12 +47,9 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.nickdbush.homeworknotification"/>
+                <action android:name="com.nickdbush.mywbgs.homeworknotification"/>
             </intent-filter>
         </receiver>
-        <service
-            android:name=".components.HomeworkNotificationService"
-            android:exported="false"/>
     </application>
 
 </manifest>

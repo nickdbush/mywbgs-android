@@ -28,7 +28,7 @@ public class Event extends RealmObject {
     }
 
     public String getDurationString() {
-        String time = "Unknown";
+        String time;
         LocalDateTime start = getStart();
         LocalDateTime end = getEnd();
 

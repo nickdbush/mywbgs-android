@@ -11,4 +11,5 @@
     <string name="credits">MyWBGS is actively developed by Nicholas Bush and the project is managed by Ryan Tanna and Ismaeel Yaqoob. Additional consultancy was provided by Mark Weisbaum from Slalom.</string>
 
     <string name="shared_preferences">com.nickdbush.mywbgs.shared_preferences</string>
+    <string name="web_address">http://watfordboys.org/</string>
 </resources>

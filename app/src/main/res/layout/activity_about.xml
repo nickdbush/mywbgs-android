@@ -13,16 +13,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:text="MyWBGS"
-            android:textAppearance="@style/TextAppearance.AppTheme.Display1"/>
+            android:text="@string/app_name"
+            android:textAppearance="@style/TextAppearance.AppTheme.Headline"
+            android:textColor="#000000"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:lineSpacingExtra="4dp"
             android:text="@string/credits"
-            android:textAppearance="@style/TextAppearance.AppTheme.Body1"
-            android:lineSpacingExtra="4dp"/>
+            android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:lineSpacingExtra="4dp"
+            android:text="@string/web_address"
+            android:textAppearance="@style/TextAppearance.AppTheme.Body1"/>
 
     </LinearLayout>
 

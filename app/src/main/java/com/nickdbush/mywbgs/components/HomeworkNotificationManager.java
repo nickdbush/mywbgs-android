@@ -1,12 +1,15 @@
 package com.nickdbush.mywbgs.components;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.v4.app.NotificationManagerCompat;
 
+import com.nickdbush.mywbgs.HomeworkActivity;
+import com.nickdbush.mywbgs.R;
 import com.nickdbush.mywbgs.models.Homework;
 
 import org.joda.time.DateTime;
@@ -21,7 +24,8 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class HomeworkNotificationManager extends BroadcastReceiver {
-
+    public static final int NOTIFICATION_ID = 0;
+    public static final int ACTIVITY_HOMEWORK_ID = 0;
     public final static int HOMEWORK_ALARM = 1;
     public final static DateTime NOTIFICATION_TIME = new LocalDate().toDateTime(new LocalTime(15, 20));
 
@@ -60,12 +64,22 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
 
         title = count + " piece" + (count > 1 ? "s" : "") + " of homework " + (count > 1 ? "need" : "needs") + " to be done for tomorrow";
 
-        Intent notificationIntent = new Intent(context, HomeworkNotificationService.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("title", title);
-        bundle.putString("text", text);
-        notificationIntent.putExtra("data", bundle);
-        context.startService(notificationIntent);
+        // Create the notification and display
+        Intent notifyIntent = new Intent(context, HomeworkActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, ACTIVITY_HOMEWORK_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification = new Notification.Builder(context)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setContentIntent(pendingIntent)
+                .setSmallIcon(R.drawable.ic_silhouette)
+                .build();
+
+        // Auto-close on click
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
+        managerCompat.notify(NOTIFICATION_ID, notification);
     }
 
     public static void setEnabled(Context context, boolean enabled) {
