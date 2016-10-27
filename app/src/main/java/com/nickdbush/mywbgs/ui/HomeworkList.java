@@ -20,6 +20,8 @@ import com.nickdbush.mywbgs.ui.cards.Card;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 
 import java.util.HashMap;
 import java.util.List;
@@ -96,7 +98,8 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
         for (Homework homework : results) {
             if (!cards.containsKey(homework.getDueDate())) {
                 String date = Utils.getHelpfulDate(homework.getDueDate());
-                if (homework.getDueDate().isBefore(new LocalDate())) date += " (overdue)";
+                boolean isOverdue = homework.getDueDate().toLocalDateTime(new LocalTime(8, 30)).isBefore(new LocalDateTime());
+                if (isOverdue) date += " (overdue)";
                 HomeworkCard homeworkCard = HomeworkCard.newInstance(homework.getDueDate(), date, true);
                 cards.put(homework.getDueDate(), homeworkCard);
                 ft = getChildFragmentManager().beginTransaction();

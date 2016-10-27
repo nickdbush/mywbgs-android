@@ -8,6 +8,8 @@ import android.os.Bundle;
 import com.nickdbush.mywbgs.models.Homework;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,8 @@ public class HomeworkNotificationReceiver extends BroadcastReceiver {
                 Homework homework = homeworks.get(i);
                 count++;
                 if (subjects.contains(homework.getLesson().getSubject())) continue;
-                subjects.add(homework.getLesson().getSubject() + (!homeworks.get(i).getDueDate().isAfter(new LocalDate()) ? " (overdue)" : ""));
+                boolean isOverdue = homeworks.get(i).getDueDate().toLocalDateTime(new LocalTime(8, 30)).isBefore(new LocalDateTime());
+                subjects.add(homework.getLesson().getSubject() + (isOverdue ? " (overdue)" : ""));
             }
         } else {
             return;
