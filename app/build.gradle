@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 apply plugin: 'realm-android'
 
 android {
@@ -45,8 +45,8 @@ dependencies {
     compile 'net.danlew:android.joda:2.9.4.1'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     provided 'frankiesardo:icepick-processor:3.2.0'
-    compile 'com.google.firebase:firebase-core:9.8.0'
-    compile 'com.google.firebase:firebase-crash:9.8.0'
+//    compile 'com.google.firebase:firebase-core:9.8.0'
+//    compile 'com.google.firebase:firebase-crash:9.8.0'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.okio:okio:1.11.0'
     compile 'org.jsoup:jsoup:1.10.1'
