@@ -35,6 +35,11 @@
             android:name=".SettingsActivity"
             android:label="Settings"
             android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".ActivityAbout"
+            android:label="About"
+            android:theme="@style/AppTheme"/>
+
         <receiver
             android:name=".components.HomeworkNotificationManager"
             android:enabled="true"

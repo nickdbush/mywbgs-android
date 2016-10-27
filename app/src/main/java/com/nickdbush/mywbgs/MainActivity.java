@@ -113,6 +113,10 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             return true;
+        } else if (id == R.id.action_about) {
+            Intent intent = new Intent(this, ActivityAbout.class);
+            startActivity(intent);
+            return true;
         }
 
         return false;
