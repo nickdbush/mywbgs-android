@@ -34,11 +34,14 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-
         <receiver
             android:name=".components.HomeworkNotificationReceiver"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.nickdbush.homeworknotification"/>
+            </intent-filter>
+        </receiver>
         <service
             android:name=".components.HomeworkNotificationService"
             android:exported="false"/>
