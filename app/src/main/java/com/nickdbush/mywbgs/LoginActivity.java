@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -89,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                 realm.commitTransaction();
 
 
-                SharedPreferences.Editor editor = getSharedPreferences("com.nickdbush.mywbgs", MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
                 editor.putBoolean("nodata", false);
                 editor.commit();
 
