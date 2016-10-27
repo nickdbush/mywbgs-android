@@ -10,7 +10,7 @@ android {
         applicationId "com.nickdbush.mywbgs"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 5
+        versionCode 6
         versionName "1.2.0"
         vectorDrawables {
             useSupportLibrary true
