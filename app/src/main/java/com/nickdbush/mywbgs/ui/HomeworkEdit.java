@@ -62,6 +62,8 @@ public class HomeworkEdit extends Fragment {
     private LessonAdapter lessonAdapter;
     private OnSaveListener onSaveListener;
 
+    private Realm realm;
+
     public HomeworkEdit() {
     }
 
@@ -70,8 +72,13 @@ public class HomeworkEdit extends Fragment {
         Bundle args = new Bundle();
         if (homework != null) args.putLong("homeworkId", homework.getId());
         fragment.setArguments(args);
-
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        realm = Realm.getDefaultInstance();
     }
 
     @Override
@@ -82,6 +89,12 @@ public class HomeworkEdit extends Fragment {
             throw new ClassCastException(context.toString() + "must implement OnSaveListener");
         }
         super.onAttach(context);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 
     @Override
@@ -111,7 +124,6 @@ public class HomeworkEdit extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Realm realm = Realm.getDefaultInstance();
         if (item.getItemId() == R.id.action_save) {
             realm.beginTransaction();
             if (homework == null) {
@@ -139,7 +151,6 @@ public class HomeworkEdit extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             if (homework != null) {
-                                Realm realm = Realm.getDefaultInstance();
                                 realm.beginTransaction();
                                 homework.deleteFromRealm();
                                 realm.commitTransaction();
@@ -159,7 +170,7 @@ public class HomeworkEdit extends Fragment {
         ButterKnife.bind(this, view);
 
         if (getArguments().containsKey("homeworkId")) {
-            homework = Realm.getDefaultInstance().where(Homework.class)
+            homework = realm.where(Homework.class)
                     .equalTo("id", getArguments().getLong("homeworkId")).findFirst();
             txtTitle.setText(homework.getTitle());
             txtDescription.setText(homework.getDescription());
@@ -170,7 +181,7 @@ public class HomeworkEdit extends Fragment {
         }
         updateSelectedDate();
 
-        RealmResults<Lesson> lessons = Realm.getDefaultInstance().where(Lesson.class)
+        RealmResults<Lesson> lessons = realm.where(Lesson.class)
                 .equalTo("day", selectedDate.getDayOfWeek() - 1)
                 .findAll();
         lessonAdapter = new LessonAdapter(getContext(), lessons);
@@ -210,7 +221,7 @@ public class HomeworkEdit extends Fragment {
     }
 
     private void updateSpinnerAdapter() {
-        lessonAdapter.lessons = Realm.getDefaultInstance().where(Lesson.class)
+        lessonAdapter.lessons = realm.where(Lesson.class)
                 .equalTo("day", selectedDate.getDayOfWeek() - 1)
                 .findAll();
         lessonAdapter.notifyDataSetChanged();

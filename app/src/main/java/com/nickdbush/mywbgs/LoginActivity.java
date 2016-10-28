@@ -42,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.btn_login)
     Button btnLogin;
 
+    private Realm realm;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -53,8 +55,16 @@ public class LoginActivity extends AppCompatActivity {
         Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        realm = Realm.getDefaultInstance();
+
         if (username != null) txtlUsername.getEditText().setText(username);
         if (password != null) txtlPassword.getEditText().setText(password);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 
     public void login(View view) {
@@ -77,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                     btnLogin.setEnabled(true);
                     return;
                 }
-                Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
                 for (Lesson lesson : lessons) {
                     realm.copyToRealm(lesson);

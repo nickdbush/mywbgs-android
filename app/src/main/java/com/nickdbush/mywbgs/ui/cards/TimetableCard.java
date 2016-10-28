@@ -33,6 +33,8 @@ public class TimetableCard extends Card {
     private LocalDate date;
     private String title;
 
+    private Realm realm;
+
     public TimetableCard() {
 
     }
@@ -50,6 +52,13 @@ public class TimetableCard extends Card {
         super.onCreate(savedInstanceState);
         title = "Timetable";
         date = (LocalDate) getArguments().getSerializable("date");
+        realm = Realm.getDefaultInstance();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 
     @Override
@@ -64,7 +73,7 @@ public class TimetableCard extends Card {
             view.setClipToOutline(true);
         }
 
-        RealmResults<Lesson> results = Realm.getDefaultInstance().where(Lesson.class)
+        RealmResults<Lesson> results = realm.where(Lesson.class)
                 .equalTo("day", date.getDayOfWeek() - 1)
                 .findAll();
 

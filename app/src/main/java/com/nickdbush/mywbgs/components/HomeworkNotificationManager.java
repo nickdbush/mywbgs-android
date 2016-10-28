@@ -80,6 +80,7 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
         managerCompat.notify(NOTIFICATION_ID, notification);
+        realm.close();
     }
 
     public static void setEnabled(Context context, boolean enabled) {

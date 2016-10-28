@@ -35,6 +35,8 @@ public class CalendarCard extends Card {
     private String title;
     private LocalDate date;
 
+    private Realm realm;
+
     public CalendarCard() {
 
     }
@@ -52,6 +54,13 @@ public class CalendarCard extends Card {
         super.onCreate(savedInstanceState);
         title = "Calendar";
         date = (LocalDate) getArguments().getSerializable("date");
+        realm = Realm.getDefaultInstance();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 
     @Override
@@ -63,7 +72,7 @@ public class CalendarCard extends Card {
 
         LocalDateTime current = date.toLocalDateTime(new LocalTime(0, 0, 0));
 
-        RealmResults<Event> events = Realm.getDefaultInstance().where(Event.class)
+        RealmResults<Event> events = realm.where(Event.class)
                 .lessThan("start", current.plusDays(1).toDate())
                 .greaterThan("end", current.toDate())
                 .findAll();

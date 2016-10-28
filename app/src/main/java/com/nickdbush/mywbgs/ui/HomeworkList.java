@@ -2,6 +2,7 @@ package com.nickdbush.mywbgs.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -36,6 +37,8 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
     @BindView(R.id.layout_empty)
     RelativeLayout emptyLayout;
 
+    private Realm realm;
+
     public HomeworkList() {
     }
 
@@ -47,8 +50,20 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        realm = Realm.getDefaultInstance();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 
     @Override
@@ -69,7 +84,7 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
 
         HashMap<LocalDate, HomeworkCard> cards = new HashMap<LocalDate, HomeworkCard>();
 
-        RealmResults<Homework> results = Realm.getDefaultInstance().where(Homework.class)
+        RealmResults<Homework> results = realm.where(Homework.class)
                 // TODO: 25/10/2016 Filtering
                 .greaterThanOrEqualTo("dueDate", new LocalDate().toDate())
                 .or()

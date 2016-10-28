@@ -34,6 +34,7 @@ public class HomeworkCard extends Card {
     private LocalDate date;
 
     private OnHomeworkClickedListener onHomeworkClickedListener;
+    private Realm realm;
 
     public HomeworkCard() {
 
@@ -59,6 +60,14 @@ public class HomeworkCard extends Card {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        title = getArguments().getString("title", "Homework");
+        date = (LocalDate) getArguments().getSerializable("date");
+        realm = Realm.getDefaultInstance();
+    }
+
+    @Override
     public void onAttach(Context context) {
         if (getArguments().getBoolean("homeworkClickable", false)) {
             try {
@@ -71,10 +80,9 @@ public class HomeworkCard extends Card {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        title = getArguments().getString("title", "Homework");
-        date = (LocalDate) getArguments().getSerializable("date");
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 
     @Override
@@ -84,7 +92,7 @@ public class HomeworkCard extends Card {
         ButterKnife.bind(this, view);
         lblTitle.setText(title);
 
-        RealmResults<Homework> results = Realm.getDefaultInstance().where(Homework.class)
+        RealmResults<Homework> results = realm.where(Homework.class)
                 .equalTo("dueDate", date.toDate())
                 .findAll();
 
@@ -135,7 +143,6 @@ public class HomeworkCard extends Card {
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            Realm realm = Realm.getDefaultInstance();
             realm.beginTransaction();
             homework.setCompleted(isChecked);
             realm.commitTransaction();
