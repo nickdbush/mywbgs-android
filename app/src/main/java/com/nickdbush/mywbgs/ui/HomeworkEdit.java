@@ -32,7 +32,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import icepick.Icepick;
 import icepick.State;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -98,23 +97,12 @@ public class HomeworkEdit extends Fragment {
     }
 
     @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        Icepick.restoreInstanceState(this, savedInstanceState);
-        txtTitle.setText(stateTitle);
-        txtDescription.setText(stateDescription);
-        selectedDate = new LocalDate(stateDate);
-        spinnerSubject.setSelection(statePeriod);
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        stateTitle = txtTitle.getText().toString();
-        stateDescription = txtDescription.getText().toString();
-        stateDate = selectedDate.toDate();
-        statePeriod = lessonAdapter.getItem(spinnerSubject.getSelectedItemPosition()).getRawPeriod();
-        Icepick.saveInstanceState(this, outState);
+        outState.putString("title", txtTitle.getText().toString());
+        outState.putString("description", txtDescription.getText().toString());
+        outState.putSerializable("date", selectedDate.toDate());
+        outState.putInt("period", lessonAdapter.getItem(spinnerSubject.getSelectedItemPosition()).getRawPeriod());
     }
 
     @Override
@@ -169,7 +157,16 @@ public class HomeworkEdit extends Fragment {
         View view = inflater.inflate(R.layout.fragment_homework_edit, container, false);
         ButterKnife.bind(this, view);
 
-        if (getArguments().containsKey("homeworkId")) {
+        if (savedInstanceState != null) {
+            txtTitle.setText(savedInstanceState.getString("title", ""));
+            txtDescription.setText(savedInstanceState.getString("description", ""));
+            if (savedInstanceState.containsKey("date"))
+                selectedDate = (LocalDate) savedInstanceState.getSerializable("date");
+            else selectedDate = Utils.getNextSchoolDay();
+            updateSelectedDate();
+            if (savedInstanceState.containsKey("period"))
+                spinnerSubject.setSelection(savedInstanceState.getInt("period"));
+        } else if (getArguments().containsKey("homeworkId")) {
             homework = realm.where(Homework.class)
                     .equalTo("id", getArguments().getLong("homeworkId")).findFirst();
             txtTitle.setText(homework.getTitle());
