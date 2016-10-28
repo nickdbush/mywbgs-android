@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
         // First run notification code (enables it for people who have already downloaded the app)
         if (sharedPreferences.getBoolean("firstnotification", true)) {
             HomeworkNotificationManager.setEnabled(this, true);
-
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("firstnotification", false);
             editor.commit();
