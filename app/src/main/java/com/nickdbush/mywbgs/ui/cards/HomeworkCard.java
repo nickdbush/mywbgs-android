@@ -1,6 +1,7 @@
 package com.nickdbush.mywbgs.ui.cards;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,6 +92,11 @@ public class HomeworkCard extends Card {
         View view = inflater.inflate(R.layout.card_list, container, false);
         ButterKnife.bind(this, view);
         lblTitle.setText(title);
+
+        // Rounded corners!
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            view.setClipToOutline(true);
+        }
 
         RealmResults<Homework> results = realm.where(Homework.class)
                 .equalTo("dueDate", date.toDate())
