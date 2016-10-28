@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.nickdbush.mywbgs.components.HomeworkNotificationManager;
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.ui.DayPage;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
@@ -67,30 +66,14 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
 
     @Override
     protected void onResume() {
-        if (shouldShowIntro()) {
+        if (!sharedPreferences.contains("username")) {
             Intent intent = new Intent(getBaseContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         }
-
-        // First run notification code (enables it for people who have already downloaded the app)
-        if (sharedPreferences.getBoolean("firstnotification", true)) {
-            HomeworkNotificationManager.setEnabled(this, true);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("firstnotification", false);
-            editor.commit();
-        }
-
-        // Intent intent = new Intent("com.nickdbush.mywbgs.homeworknotification");
-        // sendBroadcast(intent);
-
+        // if(sharedPreferences.getBoolean("main:tutorial", false)) showTutorial();
         super.onResume();
     }
-
-    private boolean shouldShowIntro() {
-        return sharedPreferences.getBoolean("nodata", true);
-    }
-
     @Override
     protected void onResumeFragments() {
         dayAdapter.notifyDataSetChanged();

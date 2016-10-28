@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.nickdbush.mywbgs.components.HomeworkNotificationManager;
 import com.nickdbush.mywbgs.models.Event;
 import com.nickdbush.mywbgs.models.Lesson;
 import com.nickdbush.mywbgs.tasks.GetHomeworkTask;
@@ -31,9 +32,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class LoginActivity extends AppCompatActivity {
 
     @State
-    String username;
+    String username = "";
     @State
-    String password;
+    String password = "";
 
     @BindView(R.id.txtl_username)
     TextInputLayout txtlUsername;
@@ -41,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
     TextInputLayout txtlPassword;
     @BindView(R.id.btn_login)
     Button btnLogin;
+
+    private SharedPreferences sharedPreferences;
 
     private Realm realm;
 
@@ -56,9 +59,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         realm = Realm.getDefaultInstance();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (username != null) txtlUsername.getEditText().setText(username);
-        if (password != null) txtlPassword.getEditText().setText(password);
+        txtlUsername.getEditText().setText(username);
+        txtlPassword.getEditText().setText(password);
     }
 
     @Override
@@ -68,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        String username = txtlUsername.getEditText().getText().toString().trim();
+        username = txtlUsername.getEditText().getText().toString().trim().toLowerCase();
         String password = txtlPassword.getEditText().getText().toString();
 
         // TODO: 26/10/2016 Validation!
@@ -87,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                     btnLogin.setEnabled(true);
                     return;
                 }
+
                 realm.beginTransaction();
                 for (Lesson lesson : lessons) {
                     realm.copyToRealm(lesson);
@@ -98,9 +103,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 realm.commitTransaction();
 
+                HomeworkNotificationManager.setEnabled(getBaseContext(), true);
 
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
-                editor.putBoolean("nodata", false);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("version", 1);
+                editor.putString("username", username);
                 editor.commit();
 
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
