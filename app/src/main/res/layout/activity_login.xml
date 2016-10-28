@@ -63,6 +63,14 @@
             </android.support.design.widget.TextInputLayout>
         </FrameLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password_usage"
+            android:textAppearance="@style/TextAppearance.AppTheme.Caption"
+            android:textColor="@android:color/white"
+            android:textAlignment="textEnd"
+            android:layout_marginBottom="16dp"/>
         <Button
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"
@@ -71,6 +79,7 @@
             android:onClick="login"
             android:padding="8dp"
             android:text="Login"/>
+
     </LinearLayout>
 
 </ScrollView>

@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
             editor.commit();
         }
 
-        Intent intent = new Intent("com.nickdbush.mywbgs.homeworknotification");
-        sendBroadcast(intent);
+        // Intent intent = new Intent("com.nickdbush.mywbgs.homeworknotification");
+        // sendBroadcast(intent);
 
         super.onResume();
     }
