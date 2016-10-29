@@ -123,6 +123,8 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt("version", 1);
                 editor.putString("username", username);
+                editor.putBoolean("init.timetable", true);
+                editor.putBoolean("init.notification", true);
                 editor.commit();
 
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);

@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
 
     @Override
     protected void onResume() {
-        if (!sharedPreferences.contains("username")) {
+        if (!sharedPreferences.getBoolean("init.timetable", false)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
