@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -53,6 +54,8 @@ public class HomeworkEdit extends Fragment {
     EditText txtDescription;
     @BindView(R.id.lbl_date)
     TextView lblDate;
+    @BindView(R.id.lbl_date_container)
+    RelativeLayout lblDateContainer;
     @BindView(R.id.spinner_subject)
     Spinner spinnerSubject;
 
@@ -186,7 +189,7 @@ public class HomeworkEdit extends Fragment {
 
         if (homework != null) spinnerSubject.setSelection(homework.getRawPeriod());
 
-        lblDate.setOnClickListener(new View.OnClickListener() {
+        lblDateContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
