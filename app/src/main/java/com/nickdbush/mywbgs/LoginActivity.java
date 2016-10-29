@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (!isConnected) {
                         Toast.makeText(getBaseContext(), "Please connect to the internet and try again", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getBaseContext(), "The Watford Boys appears to be down. Please try again later", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "The Watford Boys website appears to be down. Please try again later", Toast.LENGTH_LONG).show();
                     }
                     btnLogin.setEnabled(true);
                     return;

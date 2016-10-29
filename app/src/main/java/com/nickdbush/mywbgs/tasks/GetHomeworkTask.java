@@ -79,6 +79,7 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, GetHomeworkTask.Res
             loginResponse = client.newCall(loginRequest).execute();
             if (!loginResponse.request().url().toString().equals("https://learning.watfordboys.org/blocks/mis_portal/index.php"))
                 return new Result(null, null);
+            loginResponse.close();
         } catch (IOException e) {
             e.printStackTrace();
             return new Result(null, e);
@@ -98,6 +99,7 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, GetHomeworkTask.Res
             e.printStackTrace();
             return new Result(null, e);
         }
+        timetableResponse.close();
 
         List<Lesson> lessons = new ArrayList<Lesson>();
         Element table = timetableDocument.getElementById("portlet_timetable_full_1_table");
