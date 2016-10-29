@@ -24,9 +24,8 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class HomeworkNotificationManager extends BroadcastReceiver {
-    public static final int NOTIFICATION_ID = 0;
-    public static final int ACTIVITY_HOMEWORK_ID = 0;
-    public final static int HOMEWORK_ALARM = 1;
+    public static final int NOTIFICATION_ID = 1;
+    public final static int HOMEWORK_ALARM_ID = 0;
     public final static DateTime NOTIFICATION_TIME = new LocalDate().toDateTime(new LocalTime(15, 20));
 
     @Override
@@ -66,7 +65,7 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
 
         // Create the notification and display
         Intent notifyIntent = new Intent(context, HomeworkActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, ACTIVITY_HOMEWORK_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new Notification.Builder(context)
                 .setContentTitle(title)
@@ -85,7 +84,7 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
 
     public static void setEnabled(Context context, boolean enabled) {
         Intent notifyIntent = new Intent(context, HomeworkNotificationManager.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, HOMEWORK_ALARM, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, HOMEWORK_ALARM_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         if (enabled) {

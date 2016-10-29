@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-//apply plugin: 'com.google.gms.google-services'
 apply plugin: 'realm-android'
 
 android {
@@ -34,6 +33,9 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile('com.github.worker8:tourguide:1.0.17-SNAPSHOT@aar') {
+        transitive = true
+    }
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:preference-v7:25.0.0'
@@ -43,14 +45,12 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
     compile 'com.android.support:support-v4:25.0.0'
     compile 'net.danlew:android.joda:2.9.4.1'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    provided 'frankiesardo:icepick-processor:3.2.0'
-//    compile 'com.google.firebase:firebase-core:9.8.0'
-//    compile 'com.google.firebase:firebase-crash:9.8.0'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.okio:okio:1.11.0'
     compile 'org.jsoup:jsoup:1.10.1'
-    compile('com.github.worker8:tourguide:1.0.17-SNAPSHOT@aar') {
-        transitive = true
-    }
+    compile 'com.google.firebase:firebase-messaging:9.8.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    provided 'frankiesardo:icepick-processor:3.2.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
