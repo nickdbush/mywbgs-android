@@ -75,15 +75,14 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, List<Lesson>> {
                 .build();
 
         Response loginResponse;
-        Document loginDocument;
         try {
             loginResponse = client.newCall(loginRequest).execute();
-            loginDocument = Jsoup.parse(loginResponse.body().string());
+            if (!loginResponse.request().url().toString().equals("https://learning.watfordboys.org/blocks/mis_portal/index.php"))
+                return null;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
-        if (!loginDocument.title().toLowerCase().trim().equals("portal home")) return null;
 
         Request timetableRequest = new Request.Builder()
                 .url("https://learning.watfordboys.org/blocks/mis_portal/index.php?tab=timetable")
