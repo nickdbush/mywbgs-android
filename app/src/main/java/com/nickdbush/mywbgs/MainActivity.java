@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
     @Override
     protected void onResume() {
         if (!sharedPreferences.contains("username")) {
-            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
             startActivity(intent);
             return true;
         } else if (id == R.id.action_homework) {
-            Intent intent = new Intent(getBaseContext(), HomeworkActivity.class);
+            Intent intent = new Intent(this, HomeworkActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             return true;
