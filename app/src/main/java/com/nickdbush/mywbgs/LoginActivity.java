@@ -20,7 +20,8 @@ import com.nickdbush.mywbgs.models.Lesson;
 import com.nickdbush.mywbgs.tasks.GetHomeworkTask;
 
 import java.io.IOException;
-import java.util.List;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,21 +80,35 @@ public class LoginActivity extends AppCompatActivity {
 
         GetHomeworkTask getHomeworkTask = new GetHomeworkTask(new GetHomeworkTask.OnHomeworkReturned() {
             @Override
-            public void onHomeworkReturned(List<Lesson> lessons) {
-                if (lessons == null || lessons.size() == 0) {
+            public void onHomeworkReturned(GetHomeworkTask.Result result) {
+                if (result.exception instanceof UnknownHostException) {
                     ConnectivityManager cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                     boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-                    if (!isConnected)
-                        Toast.makeText(getBaseContext(), "No connection", Toast.LENGTH_LONG).show();
-                    else
-                        Toast.makeText(getBaseContext(), "Incorrect username or password", Toast.LENGTH_LONG).show();
+                    if (!isConnected) {
+                        Toast.makeText(getBaseContext(), "Please connect to the internet and try again", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getBaseContext(), "The Watford Boys appears to be down. Please try again later", Toast.LENGTH_LONG).show();
+                    }
+                    btnLogin.setEnabled(true);
+                    return;
+                }
+                if (result.exception instanceof SocketTimeoutException) {
+                    Toast.makeText(getBaseContext(), "The connection timed out. Please try again later", Toast.LENGTH_LONG).show();
+                    btnLogin.setEnabled(true);
+                    return;
+                } else if (result.exception != null) {
+                    Toast.makeText(getBaseContext(), result.exception.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    btnLogin.setEnabled(true);
+                    return;
+                } else if (result.lessons == null) {
+                    Toast.makeText(getBaseContext(), "Incorrect username or password", Toast.LENGTH_LONG).show();
                     btnLogin.setEnabled(true);
                     return;
                 }
 
                 realm.beginTransaction();
-                for (Lesson lesson : lessons) {
+                for (Lesson lesson : result.lessons) {
                     realm.copyToRealm(lesson);
                 }
                 try {

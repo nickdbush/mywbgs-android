@@ -25,7 +25,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class GetHomeworkTask extends AsyncTask<Bundle, Void, List<Lesson>> {
+public class GetHomeworkTask extends AsyncTask<Bundle, Void, GetHomeworkTask.Result> {
 
     private OkHttpClient client;
     private OnHomeworkReturned onHomeworkReturned;
@@ -35,7 +35,7 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, List<Lesson>> {
     }
 
     @Override
-    protected List<Lesson> doInBackground(Bundle... bundles) {
+    protected Result doInBackground(Bundle... bundles) {
         CookieJar cookieJar = new CookieJar() {
             HashMap<String, Cookie> cookies = new HashMap<String, Cookie>();
 
@@ -78,10 +78,10 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, List<Lesson>> {
         try {
             loginResponse = client.newCall(loginRequest).execute();
             if (!loginResponse.request().url().toString().equals("https://learning.watfordboys.org/blocks/mis_portal/index.php"))
-                return null;
+                return new Result(null, null);
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return new Result(null, e);
         }
 
         Request timetableRequest = new Request.Builder()
@@ -96,7 +96,7 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, List<Lesson>> {
             timetableDocument = Jsoup.parse(timetableResponse.body().string());
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return new Result(null, e);
         }
 
         List<Lesson> lessons = new ArrayList<Lesson>();
@@ -120,15 +120,25 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, List<Lesson>> {
             }
         }
 
-        return lessons;
+        return new Result(lessons, null);
     }
 
     @Override
-    protected void onPostExecute(List<Lesson> lessons) {
-        onHomeworkReturned.onHomeworkReturned(lessons);
+    protected void onPostExecute(Result result) {
+        onHomeworkReturned.onHomeworkReturned(result);
     }
 
     public interface OnHomeworkReturned {
-        void onHomeworkReturned(List<Lesson> lessons);
+        void onHomeworkReturned(Result result);
+    }
+
+    public static class Result {
+        public List<Lesson> lessons;
+        public Exception exception;
+
+        public Result(List<Lesson> lessons, Exception exception) {
+            this.lessons = lessons;
+            this.exception = exception;
+        }
     }
 }
