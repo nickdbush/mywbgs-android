@@ -104,7 +104,7 @@ public class DayPage extends Fragment implements Card.OnCardClickedListener, Hom
                         dayPageListeners.dateChanged(new LocalDate(i, i1 + 1, i2));
                     }
                 }, date.getYear(), date.getMonthOfYear() - 1, date.getDayOfMonth());
-                dialog.setTitle("Go to stateDate");
+                // dialog.setTitle("Go to date");
                 dialog.getDatePicker().setMinDate(new LocalDate().minusDays(MainActivity.DAYS_BACK).toDate().getTime());
                 dialog.getDatePicker().setMaxDate(new LocalDate().plusDays(MainActivity.DAYS_FORWARDS).toDate().getTime());
                 dialog.show();
