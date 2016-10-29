@@ -40,6 +40,7 @@ public class HomeworkActivity extends AppCompatActivity implements HomeworkEdit.
         if (item.getItemId() == R.id.action_add) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.screen, HomeworkEdit.newInstance(null), "homework_edit");
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             ft.addToBackStack("homework_edit");
             ft.commit();
             return true;
@@ -51,6 +52,7 @@ public class HomeworkActivity extends AppCompatActivity implements HomeworkEdit.
     public void onSave() {
         getSupportFragmentManager().popBackStackImmediate("homework_edit", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         ft.replace(R.id.screen, HomeworkList.newInstance(), "homework_list");
         ft.commitNow();
     }
@@ -59,6 +61,7 @@ public class HomeworkActivity extends AppCompatActivity implements HomeworkEdit.
     public void onHomeworkClicked(Homework homework) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.screen, HomeworkEdit.newInstance(homework), "homework_edit");
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.addToBackStack("homework_edit");
         ft.commit();
     }
