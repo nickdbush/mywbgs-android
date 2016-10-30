@@ -26,7 +26,6 @@ import io.realm.RealmResults;
 public class HomeworkNotificationManager extends BroadcastReceiver {
     public static final int NOTIFICATION_ID = 1;
     public final static int HOMEWORK_ALARM_ID = 0;
-    public final static DateTime NOTIFICATION_TIME = new LocalDate().toDateTime(new LocalTime(15, 20));
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -82,13 +81,18 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
         realm.close();
     }
 
-    public static void setEnabled(Context context, boolean enabled) {
+    public static void setEnabled(Context context, boolean enabled, boolean showToday) {
         Intent notifyIntent = new Intent(context, HomeworkNotificationManager.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, HOMEWORK_ALARM_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        DateTime notificationTime = new LocalDate().toDateTime(new LocalTime(15, 20));
+
+        if (!showToday && notificationTime.isAfter(new DateTime())) {
+            notificationTime = notificationTime.plusDays(1);
+        }
 
         if (enabled) {
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, NOTIFICATION_TIME.getMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, notificationTime.getMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         } else {
             alarmManager.cancel(pendingIntent);
         }

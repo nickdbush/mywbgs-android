@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 realm.commitTransaction();
 
-                HomeworkNotificationManager.setEnabled(getBaseContext(), true);
+                HomeworkNotificationManager.setEnabled(getBaseContext(), true, false);
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt("version", 1);

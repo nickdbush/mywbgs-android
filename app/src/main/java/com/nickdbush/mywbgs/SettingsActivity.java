@@ -55,7 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             if (key.equals(HOMEWORK_NOTIFICATION)) {
                 SwitchPreferenceCompat preference = (SwitchPreferenceCompat) findPreference(HOMEWORK_NOTIFICATION);
-                HomeworkNotificationManager.setEnabled(getContext(), preference.isEnabled());
+                HomeworkNotificationManager.setEnabled(getContext(), preference.isEnabled(), true);
             }
         }
     }
