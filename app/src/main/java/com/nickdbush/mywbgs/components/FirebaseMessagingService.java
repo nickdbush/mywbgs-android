@@ -3,7 +3,9 @@ package com.nickdbush.mywbgs.components;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
 import com.nickdbush.mywbgs.MainActivity;
@@ -25,6 +27,10 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.ic_silhouette)
                 .build();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notification.color = ContextCompat.getColor(this, R.color.colorPrimaryDark);
+        }
 
         // Auto-close on click
         notification.flags |= Notification.FLAG_AUTO_CANCEL;

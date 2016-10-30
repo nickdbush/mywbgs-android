@@ -6,7 +6,9 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.nickdbush.mywbgs.HomeworkActivity;
 import com.nickdbush.mywbgs.R;
@@ -93,6 +95,10 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.ic_silhouette)
                 .build();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notification.color = ContextCompat.getColor(context, R.color.colorPrimaryDark);
+        }
 
         // Auto-close on click
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
