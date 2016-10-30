@@ -9,11 +9,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.nickdbush.mywbgs.components.HomeworkNotificationManager;
+import com.nickdbush.mywbgs.models.Event;
 import com.nickdbush.mywbgs.models.Homework;
+import com.nickdbush.mywbgs.models.Lesson;
 import com.nickdbush.mywbgs.ui.DayPage;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 
@@ -24,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import icepick.Icepick;
 import icepick.State;
+import io.realm.Realm;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHomeworkClickedListener, DayPage.DayPageListeners {
@@ -68,6 +74,21 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
 
     @Override
     protected void onResume() {
+        // Migrate shared preferences
+        if (sharedPreferences.getInt("version", 0) < MyWBGS.SHARED_PREFERENCES_VERSION) {
+            Log.d(getClass().getSimpleName(), "Migrating shared preferences");
+            SharedPreferences oldSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            Realm realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+            realm.delete(Lesson.class);
+            realm.delete(Event.class);
+            realm.commitTransaction();
+            realm.close();
+            HomeworkNotificationManager.setEnabled(this, false, false);
+            SharedPreferences.Editor editor = oldSharedPreferences.edit();
+            editor.clear();
+            editor.commit();
+        }
         if (!sharedPreferences.getBoolean("init.timetable", false)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);

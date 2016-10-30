@@ -10,6 +10,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class MyWBGS extends Application {
 
+    // Consts
+    public static final int SHARED_PREFERENCES_VERSION = 1;
+
     @Override
     public void onCreate() {
         super.onCreate();
