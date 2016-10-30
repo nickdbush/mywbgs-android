@@ -72,10 +72,13 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
         }
 
         for (int i = 0; i < subjects.size(); i++) {
-            if (i + 1 < subjects.size())
+            if (i + 1 < subjects.size()) {
                 text += subjects.get(i) + (i + 2 < subjects.size() ? ", " : " ");
-            else
+            } else if (subjects.size() > 1) {
                 text += "and " + subjects.get(i);
+            } else {
+                text = subjects.get(i);
+            }
         }
 
         title = count + " piece" + (count > 1 ? "s" : "") + " of homework " + (count > 1 ? "need" : "needs") + " to be done for tomorrow";
