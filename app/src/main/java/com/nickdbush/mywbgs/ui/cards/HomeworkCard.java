@@ -100,7 +100,8 @@ public class HomeworkCard extends Card {
 
         RealmResults<Homework> results = realm.where(Homework.class)
                 .equalTo("dueDate", date.toDate())
-                .findAll();
+                .findAll()
+                .sort("period");
 
         for (final Homework result : results) {
             View item = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_homework, null);

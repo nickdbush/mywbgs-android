@@ -22,6 +22,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class HomeworkNotificationManager extends BroadcastReceiver {
     public static final int NOTIFICATION_ID = 1;
@@ -34,7 +35,8 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
                 .lessThanOrEqualTo("dueDate", new LocalDate().plusDays(1).toDate())
                 .equalTo("completed", false)
                 .findAll()
-                .sort("dueDate");
+                // TODO: 30/10/2016 Test this 
+                .sort("dueDate", Sort.ASCENDING, "period", Sort.ASCENDING);
 
         String title;
         String text = "";
