@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                 HomeworkNotificationManager.setEnabled(getBaseContext(), true, false);
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt("version", MyWBGS.SHARED_PREFERENCES_VERSION);
+                editor.putInt("schema_version", MyWBGS.SCHEMA_VERSION);
                 editor.putString("username", username);
                 editor.putBoolean("init.timetable", true);
                 editor.putBoolean("init.notification", true);
