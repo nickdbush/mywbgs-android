@@ -75,7 +75,8 @@ public class TimetableCard extends Card {
 
         RealmResults<Lesson> results = realm.where(Lesson.class)
                 .equalTo("day", date.getDayOfWeek() - 1)
-                .findAll();
+                .findAll()
+                .sort("period");
 
         int nextPeriod = 0;
         for (int i = 0; i < results.size(); i++) {
