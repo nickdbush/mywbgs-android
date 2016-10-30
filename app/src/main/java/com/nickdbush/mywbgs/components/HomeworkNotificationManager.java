@@ -35,7 +35,7 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
 
         if (enabled) {
             DateTime notificationTime = new LocalDate().toDateTime(new LocalTime(15, 20));
-            if (!showToday && notificationTime.isAfter(new DateTime())) {
+            if (!showToday && notificationTime.isBefore(new DateTime())) {
                 notificationTime = notificationTime.plusDays(1);
             }
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, notificationTime.getMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
