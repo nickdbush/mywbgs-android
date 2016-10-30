@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:descendantFocusability="blocksDescendants"
-                android:minHeight="?android:listPreferredItemHeight"
-                android:padding="16dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:descendantFocusability="blocksDescendants"
+              android:minHeight="?android:listPreferredItemHeight"
+              android:orientation="horizontal"
+              android:padding="16dp">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/lbl_title"
@@ -31,12 +32,16 @@
             android:textAppearance="@style/TextAppearance.AppTheme.Caption"
             tools:text="Chemistry"/>
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
         <CheckBox
             android:id="@+id/chk_completed"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"/>
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

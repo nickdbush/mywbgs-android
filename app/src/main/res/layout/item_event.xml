@@ -6,11 +6,6 @@
                 android:minHeight="?android:listPreferredItemHeight"
                 android:padding="16dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-
         <TextView
             android:id="@+id/lbl_title"
             android:layout_width="wrap_content"
@@ -30,7 +25,4 @@
             android:layout_below="@+id/lbl_title"
             android:textAppearance="@style/TextAppearance.AppTheme.Caption"
             tools:text="18:00"/>
-
-    </RelativeLayout>
-
 </RelativeLayout>

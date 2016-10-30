@@ -13,12 +13,13 @@
         android:background="@android:color/transparent"/>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
         android:paddingLeft="12dp"
         android:paddingRight="16dp"
-        android:paddingTop="16dp">
+        android:paddingTop="16dp"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/lbl_title"
@@ -39,14 +40,21 @@
             android:textAppearance="@style/TextAppearance.AppTheme.Caption"
             tools:text="8:55 - 9:55"/>
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingRight="12dp">
+
         <TextView
             android:id="@+id/lbl_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
             android:textAppearance="@style/TextAppearance.AppTheme.Body1"
             tools:text="GS3"/>
+
     </RelativeLayout>
 
 </LinearLayout>
