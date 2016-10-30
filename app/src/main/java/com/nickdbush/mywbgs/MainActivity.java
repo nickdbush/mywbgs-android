@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
         // if(sharedPreferences.getBoolean("main:tutorial", false)) showTutorial();
         super.onResume();
     }
+
     @Override
     protected void onResumeFragments() {
         dayAdapter.notifyDataSetChanged();

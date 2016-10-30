@@ -28,6 +28,22 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
     public static final int NOTIFICATION_ID = 1;
     public final static int HOMEWORK_ALARM_ID = 0;
 
+    public static void setEnabled(Context context, boolean enabled, boolean showToday) {
+        Intent notifyIntent = new Intent(context, HomeworkNotificationManager.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, HOMEWORK_ALARM_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        if (enabled) {
+            DateTime notificationTime = new LocalDate().toDateTime(new LocalTime(15, 20));
+            if (!showToday && notificationTime.isAfter(new DateTime())) {
+                notificationTime = notificationTime.plusDays(1);
+            }
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, notificationTime.getMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        } else {
+            alarmManager.cancel(pendingIntent);
+        }
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Realm realm = Realm.getDefaultInstance();
@@ -35,7 +51,7 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
                 .lessThanOrEqualTo("dueDate", new LocalDate().plusDays(1).toDate())
                 .equalTo("completed", false)
                 .findAll()
-                // TODO: 30/10/2016 Test this 
+                // TODO: 30/10/2016 Test this
                 .sort("dueDate", Sort.ASCENDING, "period", Sort.ASCENDING);
 
         String title;
@@ -81,22 +97,5 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
         managerCompat.notify(NOTIFICATION_ID, notification);
         realm.close();
-    }
-
-    public static void setEnabled(Context context, boolean enabled, boolean showToday) {
-        Intent notifyIntent = new Intent(context, HomeworkNotificationManager.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, HOMEWORK_ALARM_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        DateTime notificationTime = new LocalDate().toDateTime(new LocalTime(15, 20));
-
-        if (!showToday && notificationTime.isAfter(new DateTime())) {
-            notificationTime = notificationTime.plusDays(1);
-        }
-
-        if (enabled) {
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, notificationTime.getMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        } else {
-            alarmManager.cancel(pendingIntent);
-        }
     }
 }
