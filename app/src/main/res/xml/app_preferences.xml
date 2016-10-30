@@ -6,7 +6,7 @@
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
-            android:key="pref_homework_notif"
+            android:key="pref.homework_notif"
             android:summary="Get notified about incomplete homework"
             android:title="Homework notifications"/>
 

@@ -30,11 +30,13 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
-        private static final String HOMEWORK_NOTIFICATION = "pref_homework_notif";
+        private static final String HOMEWORK_NOTIFICATION = "pref.homework_notif";
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             addPreferencesFromResource(R.xml.app_preferences);
+            getPreferenceManager().setSharedPreferencesName("com.nickdbush.mywbgs");
+            getPreferenceManager().setSharedPreferencesMode(MODE_PRIVATE);
         }
 
         @Override
