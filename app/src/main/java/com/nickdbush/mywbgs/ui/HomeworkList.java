@@ -87,8 +87,6 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
         RealmResults<Homework> results = realm.where(Homework.class)
                 // TODO: 25/10/2016 Filtering
                 .greaterThanOrEqualTo("dueDate", new LocalDate().toDate())
-                .or()
-                .equalTo("completed", false)
                 .findAll()
                 .sort("dueDate");
 

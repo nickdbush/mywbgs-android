@@ -40,7 +40,7 @@ public class Event extends RealmObject {
             time = "All day";
         else
             // Minus one day from end to turn exclusive to inclusive range
-            time = start.toString("dd MMMM") + " - " + end.minusDays(1).toString("dd MMMM");
+            time = start.toString("d MMMM") + " - " + end.minusDays(1).toString("d MMMM");
 
         return time;
     }
