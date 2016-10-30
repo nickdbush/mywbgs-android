@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         realm = Realm.getDefaultInstance();
-        sharedPreferences = getSharedPreferences("com.nickdbush.mywbgs", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(MyWBGS.SHARED_PREFERENCES_FILENAME, MODE_PRIVATE);
 
         txtlUsername.getEditText().setText(username);
         txtlPassword.getEditText().setText(password);

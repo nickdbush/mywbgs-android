@@ -35,7 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             addPreferencesFromResource(R.xml.app_preferences);
-            getPreferenceManager().setSharedPreferencesName("com.nickdbush.mywbgs");
+            getPreferenceManager().setSharedPreferencesName(MyWBGS.SHARED_PREFERENCES_FILENAME);
             getPreferenceManager().setSharedPreferencesMode(MODE_PRIVATE);
         }
 

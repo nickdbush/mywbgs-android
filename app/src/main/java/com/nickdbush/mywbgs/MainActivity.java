@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
         pager.setAdapter(dayAdapter);
         pager.setCurrentItem(currentPage);
 
-        sharedPreferences = getSharedPreferences("com.nickdbush.mywbgs", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(MyWBGS.SHARED_PREFERENCES_FILENAME, MODE_PRIVATE);
 
         // Intent intent = new Intent("com.nickdbush.mywbgs.homeworknotification");
         // sendBroadcast(intent);
@@ -68,9 +68,6 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
 
     @Override
     protected void onResume() {
-        if (sharedPreferences.getInt("schema_version", 0) < MyWBGS.SCHEMA_VERSION) {
-            // Migrate shared preferences
-        }
         if (!sharedPreferences.getBoolean("init.timetable", false)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
