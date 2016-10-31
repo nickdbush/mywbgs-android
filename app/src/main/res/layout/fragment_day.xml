@@ -10,47 +10,46 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="16dp">
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="16dp"
+                android:paddingLeft="8dp"
+                android:contentDescription="Back"
+                android:tint="#555555"
+                app:srcCompat="@drawable/ic_chevron"/>
 
             <TextView
                 android:id="@+id/lbl_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppTheme.Caption"
+                android:layout_weight="1"
                 tools:text="Monday 16th February"/>
-
-            <ImageView
-                android:id="@+id/img_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:contentDescription="Back"
-                android:tint="#555555"
-                app:srcCompat="@drawable/ic_chevron"/>
 
             <ImageView
                 android:id="@+id/img_next"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
+                android:layout_height="match_parent"
+                android:paddingRight="16dp"
+                android:paddingLeft="8dp"
                 android:contentDescription="Next"
                 android:rotation="180"
                 android:tint="#555555"
                 app:srcCompat="@drawable/ic_chevron"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_cards"
