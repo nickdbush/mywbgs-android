@@ -121,7 +121,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt("schema_version", MyWBGS.SCHEMA_VERSION);
-                editor.putString("username", username);
+
+                // Profile
+                editor.putString("profile.name", result.meta.getString("name", ""));
+                editor.putInt("profile.year", result.meta.getInt("year", 0));
+                editor.putInt("profile.house", result.meta.getChar("house", 'x'));
+                editor.putString("profile.email", result.meta.getString("email", ""));
+
                 editor.putBoolean("init.timetable", true);
                 editor.putBoolean("init.notification", true);
                 editor.commit();

@@ -58,9 +58,9 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, GetHomeworkTask.Res
                 .cookieJar(cookieJar)
                 .build();
 
-        Bundle bundle = bundles[0];
-        String username = bundle.getString("username", "");
-        String password = bundle.getString("password", "");
+        Bundle credentials = bundles[0];
+        String username = credentials.getString("username", "");
+        String password = credentials.getString("password", "");
 
         RequestBody loginBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -70,7 +70,6 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, GetHomeworkTask.Res
 
         Request loginRequest = new Request.Builder()
                 .url("https://learning.watfordboys.org/login/index.php")
-                .method("POST", RequestBody.create(null, new byte[0]))
                 .post(loginBody)
                 .build();
 
@@ -78,11 +77,11 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, GetHomeworkTask.Res
         try {
             loginResponse = client.newCall(loginRequest).execute();
             if (!loginResponse.request().url().toString().equals("https://learning.watfordboys.org/blocks/mis_portal/index.php"))
-                return new Result(null, null);
+                return new Result(null, null, null);
             loginResponse.close();
         } catch (IOException e) {
             e.printStackTrace();
-            return new Result(null, e);
+            return new Result(null, null, e);
         }
 
         Request timetableRequest = new Request.Builder()
@@ -97,7 +96,7 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, GetHomeworkTask.Res
             timetableDocument = Jsoup.parse(timetableResponse.body().string());
         } catch (IOException e) {
             e.printStackTrace();
-            return new Result(null, e);
+            return new Result(null, null, e);
         }
         timetableResponse.close();
 
@@ -122,7 +121,40 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, GetHomeworkTask.Res
             }
         }
 
-        return new Result(lessons, null);
+        RequestBody metaBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("portletid", "portlet_personal_details_1")
+                .addFormDataPart("tab", "learner_welcome")
+                .build();
+
+        Request metaRequest = new Request.Builder()
+                .url("https://learning.watfordboys.org/blocks/mis_portal/ajax/portlet_html.php")
+                .post(metaBody)
+                .build();
+
+        Response metaResponse;
+        Document metaDocument;
+        try {
+            metaResponse = client.newCall(metaRequest).execute();
+            metaDocument = Jsoup.parse(metaResponse.body().string());
+            metaResponse.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new Result(null, null, e);
+        }
+        Elements metaValues = metaDocument.select("td.value");
+
+        Bundle metaBundle = new Bundle();
+        metaBundle.putString("username", username);
+        metaBundle.putString("name", metaValues.get(0).html());
+        metaBundle.putInt("year", Integer.parseInt(metaValues.get(3).html()));
+        String metaForm = metaValues.get(4).html();
+        metaForm = metaForm.replaceAll("\\(.*?\\)", "").trim();
+        metaForm = metaForm.replaceAll("\\d", "").trim().toLowerCase();
+        metaBundle.putChar("house", metaForm.charAt(0));
+        metaBundle.putString("email", metaValues.get(7).select("a").get(0).html());
+
+        return new Result(lessons, metaBundle, null);
     }
 
     @Override
@@ -137,9 +169,11 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, GetHomeworkTask.Res
     public static class Result {
         public List<Lesson> lessons;
         public Exception exception;
+        public Bundle meta;
 
-        public Result(List<Lesson> lessons, Exception exception) {
+        public Result(List<Lesson> lessons, Bundle meta, Exception exception) {
             this.lessons = lessons;
+            this.meta = meta;
             this.exception = exception;
         }
     }
