@@ -120,7 +120,6 @@ public class HomeworkNotificationManager extends BroadcastReceiver {
                 managerCompat.notify(NOTIFICATION_ID, notification);
             } finally {
                 realm.close();
-                stopSelf();
             }
         }
     }
