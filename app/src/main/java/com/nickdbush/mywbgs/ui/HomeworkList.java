@@ -21,6 +21,8 @@ import com.nickdbush.mywbgs.ui.cards.Card;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 
 import java.util.HashMap;
 import java.util.List;
@@ -84,9 +86,10 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
 
         HashMap<LocalDate, HomeworkCard> cards = new HashMap<LocalDate, HomeworkCard>();
 
+        LocalDate currentDate = new LocalDate();
         RealmResults<Homework> results = realm.where(Homework.class)
                 // TODO: 25/10/2016 Filtering
-                .greaterThanOrEqualTo("dueDate", new LocalDate().toDate())
+                .greaterThanOrEqualTo("dueDate", currentDate.toDate())
                 .findAll()
                 .sort("dueDate");
 
@@ -99,11 +102,19 @@ public class HomeworkList extends Fragment implements Card.OnCardClickedListener
         }
         ft.commitNow();
 
-        LocalDate currentDate = new LocalDate();
+        LocalDateTime currentDateTime = new LocalDateTime();
         for (Homework homework : results) {
             if (!cards.containsKey(homework.getDueDate())) {
+                RealmResults<Homework> homeworkForDay = results.where()
+                        .equalTo("dueDate", currentDate.toDate())
+                        .findAll();
+
+                if (homeworkForDay.where().equalTo("completed", true).count() == homeworkForDay.size() && homework.getDueDate().equals(currentDate))
+                    continue;
+
                 String date = Utils.getHelpfulDate(homework.getDueDate());
-                if (homework.getDueDate().isBefore(currentDate)) date += " (overdue)";
+                if (homework.getDueDate().toLocalDateTime(new LocalTime(15, 15)).isBefore(currentDateTime))
+                    date += " (overdue)";
                 HomeworkCard homeworkCard = HomeworkCard.newInstance(homework.getDueDate(), date, true);
                 cards.put(homework.getDueDate(), homeworkCard);
                 ft = getChildFragmentManager().beginTransaction();
