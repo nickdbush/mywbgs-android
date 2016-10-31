@@ -16,6 +16,7 @@ public class MyWBGS extends Application {
     // Consts
     public static final int SCHEMA_VERSION = 1;
     public static final String SHARED_PREFERENCES_FILENAME = "com.nickdbush.mywbgs";
+    public static final String REALM_FILENAME = "com.nickdbush.mywbgs.realm";
 
     @Override
     public void onCreate() {
@@ -27,6 +28,7 @@ public class MyWBGS extends Application {
         // Realm
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
                 .schemaVersion(SCHEMA_VERSION)
+                .name(REALM_FILENAME)
                 .migration(new RealmMigration() {
                     @Override
                     public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
