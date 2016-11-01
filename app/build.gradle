@@ -33,9 +33,6 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile('com.github.worker8:tourguide:1.0.17-SNAPSHOT@aar') {
-        transitive = true
-    }
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:preference-v7:25.0.0'
