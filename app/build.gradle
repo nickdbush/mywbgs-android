@@ -46,6 +46,8 @@ dependencies {
     compile 'com.squareup.okio:okio:1.11.0'
     compile 'org.jsoup:jsoup:1.10.1'
     compile 'com.google.firebase:firebase-messaging:9.8.0'
+    compile 'com.google.firebase:firebase-auth:9.8.0'
+    compile 'com.google.firebase:firebase-database:9.8.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     provided 'frankiesardo:icepick-processor:3.2.0'
 }

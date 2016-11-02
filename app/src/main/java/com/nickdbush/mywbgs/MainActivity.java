@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.nickdbush.mywbgs.models.Homework;
 import com.nickdbush.mywbgs.ui.DayPage;
 import com.nickdbush.mywbgs.ui.cards.HomeworkCard;
@@ -68,8 +69,8 @@ public class MainActivity extends AppCompatActivity implements HomeworkCard.OnHo
 
     @Override
     protected void onResume() {
-        if (!sharedPreferences.getBoolean("init.timetable", false)) {
-            Intent intent = new Intent(this, LoginActivity.class);
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            Intent intent = new Intent(this, AuthActivity.class);
             startActivity(intent);
             finish();
         }

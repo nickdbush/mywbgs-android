@@ -31,7 +31,7 @@
             android:name=".HomeworkActivity"
             android:label="@string/title_activity_homework"/>
         <activity
-            android:name=".LoginActivity"
+            android:name=".AuthActivity"
             android:label="@string/title_activity_login"/>
         <activity
             android:name=".SettingsActivity"

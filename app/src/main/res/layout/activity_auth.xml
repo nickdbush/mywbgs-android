@@ -33,7 +33,7 @@
                 android:id="@+id/txtl_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username">
+                android:hint="School username">
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
@@ -63,20 +63,10 @@
             </android.support.design.widget.TextInputLayout>
         </FrameLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/password_usage"
-            android:textAlignment="textEnd"
-            android:textAppearance="@style/TextAppearance.AppTheme.Caption"
-            android:textColor="@android:color/white"/>
-
         <Button
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:onClick="login"
             android:padding="8dp"
             android:text="Login"/>
