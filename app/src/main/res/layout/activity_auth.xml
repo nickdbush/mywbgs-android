@@ -69,6 +69,7 @@
             android:layout_height="wrap_content"
             android:onClick="login"
             android:padding="8dp"
+            android:layout_gravity="end"
             android:text="Login"/>
 
     </LinearLayout>

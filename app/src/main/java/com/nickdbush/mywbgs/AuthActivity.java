@@ -21,6 +21,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.nickdbush.mywbgs.components.HomeworkNotificationManager;
 import com.nickdbush.mywbgs.models.Event;
 import com.nickdbush.mywbgs.models.Lesson;
@@ -91,6 +94,9 @@ public class AuthActivity extends AppCompatActivity {
                 editor.putBoolean("init.notification", true);
                 editor.commit();
 
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference("users");
+                database.child(authResult.getUser().getUid()).child("token").setValue(FirebaseInstanceId.getInstance().getToken());
+
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -157,6 +163,17 @@ public class AuthActivity extends AppCompatActivity {
                                         editor.putBoolean("init.timetable", true);
                                         editor.putBoolean("init.notification", true);
                                         editor.commit();
+
+                                        DatabaseReference database = FirebaseDatabase.getInstance().getReference("users").child(authResult.getUser().getUid());
+                                        database.child("token").setValue(FirebaseInstanceId.getInstance().getToken());
+                                        database.child("name").setValue(result.meta.getString("name"));
+                                        database.child("username").setValue(result.meta.getString("username"));
+                                        database.child("email").setValue(result.meta.getString("email"));
+                                        database.child("year").setValue(result.meta.getInt("year"));
+                                        database.child("house").setValue(result.meta.getString("house"));
+
+                                        // DatabaseReference timetableDatabase = FirebaseDatabase.getInstance().getReference("timetables").child(authResult.getUser().getUid());
+                                        // timetableDatabase.setValue(result.lessons);
 
                                         Intent intent = new Intent(getBaseContext(), MainActivity.class);
                                         startActivity(intent);

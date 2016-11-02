@@ -3,6 +3,8 @@ package com.nickdbush.mywbgs;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import io.realm.DynamicRealm;
@@ -24,6 +26,9 @@ public class MyWBGS extends Application {
 
         // JodaTime
         JodaTimeAndroid.init(this);
+
+        // Firebase
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         // Realm
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)

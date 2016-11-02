@@ -151,7 +151,7 @@ public class GetHomeworkTask extends AsyncTask<Bundle, Void, GetHomeworkTask.Res
         String metaForm = metaValues.get(4).html();
         metaForm = metaForm.replaceAll("\\(.*?\\)", "").trim();
         metaForm = metaForm.replaceAll("\\d", "").trim().toLowerCase();
-        metaBundle.putChar("house", metaForm.charAt(0));
+        metaBundle.putString("house", metaForm);
         metaBundle.putString("email", metaValues.get(7).select("a").get(0).html());
 
         return new Result(lessons, metaBundle, null);
